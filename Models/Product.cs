@@ -15,9 +15,6 @@ namespace EverythingSucks.Models
         public Guid? BrandId { get; set; }
         public virtual Brand? Brand { get; set; }
 
-        public Guid? CategoryId { get; set; }
-        public virtual Category? Category { get; set; }
-
         public Guid? ProductTypeId { get; set; }
         public virtual ProductType? ProductType { get; set; }
 
