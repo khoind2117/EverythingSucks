@@ -1,0 +1,28 @@
+﻿@using EverythingSucks.ViewModels;
+@using Microsoft.AspNetCore.Identity;
+@model LoginViewModel
+@inject SignInManager<User> signInManager
+
+<h1>Login</h1>
+<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@Model.ReturnUrl" method="post" role="form">
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group mb-3">
+        <label asp-for="UserName">Username</label>
+        <input asp-for="UserName" class="form-control">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" class="form-control">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary form-control">Login</button>
+        </div>
+    </div>
+    <p>
+        Don't have an account yet? <a asp-action="Register">Create one here</a>
+    </p>
+</form>
