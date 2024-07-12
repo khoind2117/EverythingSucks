@@ -1,0 +1,96 @@
+﻿@using EverythingSucks.ViewModels
+@model CreateProductViewModel
+
+<h2>Create Product</h2>
+
+<form asp-action="Create" asp-controller="Product" method="post" class="form-horizontal">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label col-md-2"></label>
+        <div class="col">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label col-md-2"></label>
+        <div class="col">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label col-md-2"></label>
+        <div class="col">
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Brands -->
+    <div class="form-group">
+        <div class="col">
+            <h4>Brands</h4>
+            @foreach (var brand in Model.AvailableBrands)
+            {
+                <div class="form-check form-check-inline col-md-2">
+                    <input class="form-check-input" type="radio" name="BrandId" value="@brand.Id" id="brand-@brand.Id" />
+                    <label class="form-check-label" for="brand-@brand.Id">
+                        @brand.Name
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="form-group">
+        <div class="col">
+            <h4>Categories</h4>
+            @foreach (var category in Model.AvailableCategories)
+            {
+                <div class="mb-3">
+                    <h5>@category.Name</h5>
+                    @foreach (var productType in category.ProductTypes)
+                    {
+                        <div class="form-check form-check-inline col-md-2">
+                            <input class="form-check-input" type="radio" name="ProductTypeId" value="@productType.Id" id="@productType.Id" />
+                            <label class="form-check-label" for="@productType.Id" style="white-space: nowrap;">
+                                @productType.Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Colors -->
+    <div class="form-group">
+        <div class="col">
+            <h4>Colors</h4>
+            @foreach (var color in Model.AvailableColors)
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="SelectedColorIds" value="@color.Id" id="@color.Id" />
+                    <label class="form-check-label" for="@color.Id">
+                        @color.Name (@color.ColorCode)
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
