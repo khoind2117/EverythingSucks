@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Color>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <p>@item.Name</p>
+            <div style="background-color:@item.ColorCode; width:100px; height:100px;"></div>
+            <p>@item.ColorCode</p>
+        </div>
+    }
+</div>

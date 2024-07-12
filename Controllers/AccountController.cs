@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using EverythingSucks.ViewModel;
 using EverythingSucks.Data;
 
 namespace EverythingSucks.Controllers
