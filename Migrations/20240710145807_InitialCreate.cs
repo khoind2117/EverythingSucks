@@ -165,6 +165,7 @@ namespace EverythingSucks.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -493,8 +494,8 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4f253ea4-81b2-4515-969c-a7459c22866f", "28b571be-9fdd-4a64-9813-a7da6aed5a75", "Admin", "ADMIN" },
-                    { "646714a5-3ace-4df9-bd38-07ec42badb20", "a1945bd5-2e0c-429b-9822-75c5d64c53fb", "User", "USER" }
+                    { "5479dd0a-aaa6-4baf-92c8-95653e6d61c2", "bf7668c8-ed14-42d7-b05e-71912ff3132e", "User", "USER" },
+                    { "5eadbc98-09bc-49df-b349-b61ef2e5ca58", "0afa3a92-b91f-4863-aacf-f37067893a27", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -502,8 +503,8 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("5986d6de-f8dd-4329-8483-91e9a4798adc"), "Empty" },
-                    { new Guid("f86ffe2e-693f-485e-9434-c6f94d75deac"), "HasProducts" }
+                    { new Guid("aa677e4a-8f35-43cc-b882-8578728e9d4e"), "Empty" },
+                    { new Guid("f0e1edaf-d03e-423e-a424-11d4751d8f7e"), "HasProducts" }
                 });
 
             migrationBuilder.InsertData(
@@ -511,10 +512,10 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Bottoms" },
-                    { new Guid("9d254f1f-b41c-4085-944c-3461b825594c"), "Outerwear" },
-                    { new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "Tops" },
-                    { new Guid("a48761ec-5579-413e-b991-d2ede0d0a7ed"), "Accessories" }
+                    { new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Bottoms" },
+                    { new Guid("6952b989-1453-42b0-b4a8-60df3190dd0b"), "Outerwear" },
+                    { new Guid("d8ffdd21-0a5e-4dda-8695-87f56a0eadf1"), "Accessories" },
+                    { new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "Tops" }
                 });
 
             migrationBuilder.InsertData(
@@ -522,11 +523,11 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("ca9e54f9-439c-4522-b6d8-2971d5b87712"), "Canceled" },
-                    { new Guid("e7ccad21-8728-43c4-a526-b38ef0bf53f6"), "Shipped" },
-                    { new Guid("ea5564e2-2837-4f18-a695-b198292de553"), "Confirmed" },
-                    { new Guid("ee07e280-6176-4500-a580-4205717ee935"), "Delivered" },
-                    { new Guid("f935ea0c-f8b7-418d-b4e8-28732c0a7fee"), "Pending" }
+                    { new Guid("1f589a3b-8cbe-4860-ac84-93045b47db93"), "Canceled" },
+                    { new Guid("5eb197e4-bc06-495e-b788-f45ed8091581"), "Confirmed" },
+                    { new Guid("6bcb6ce2-ef14-4445-8b46-6bee37bac5c2"), "Shipped" },
+                    { new Guid("b1557970-064c-4cd6-8da2-f5f98660e7ab"), "Delivered" },
+                    { new Guid("fd8baeb5-6fad-4abf-88b0-9155d2d8a74a"), "Pending" }
                 });
 
             migrationBuilder.InsertData(
@@ -534,11 +535,11 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("40f5c3e5-d348-47f0-8603-b1011145d875"), "XL" },
-                    { new Guid("590c50a6-1e70-41e0-93c8-edcb5c2d24ff"), "M" },
-                    { new Guid("6dd49078-96d3-4304-b002-c25c4d73cad0"), "3XL" },
-                    { new Guid("c0b26557-2c71-4362-84a1-3c08f6b81a5a"), "L" },
-                    { new Guid("e97ff3a5-5d11-4c34-8af7-87305ee09756"), "2XL" }
+                    { new Guid("0c802622-dc87-4234-9ff4-79a94ba35272"), "2XL" },
+                    { new Guid("639384a7-4474-45be-aa2b-09792a267a93"), "XL" },
+                    { new Guid("72ee7bd7-c33a-4f6f-914b-2018ad62eff1"), "L" },
+                    { new Guid("7335ea0e-cc08-4c2f-ae1d-ca9107cfd590"), "M" },
+                    { new Guid("a475d2a7-3501-43b3-b1cf-fd995700f3a2"), "3XL" }
                 });
 
             migrationBuilder.InsertData(
@@ -546,26 +547,26 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("014f7c26-3017-4c19-b241-55764388c6ac"), new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "Sweaters & Cardigans" },
-                    { new Guid("07d4b4d1-d663-48eb-b933-29ec54ebe766"), new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "Polo Shirts" },
-                    { new Guid("1658383e-7062-495d-bc2a-aa819ab8dc64"), new Guid("9d254f1f-b41c-4085-944c-3461b825594c"), "Jackets" },
-                    { new Guid("1c021a58-ae36-4251-a9d0-8140074356d5"), new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Jeans & Colored Jeans" },
-                    { new Guid("24eb76e1-f276-45ad-a79b-b668261433bc"), new Guid("a48761ec-5579-413e-b991-d2ede0d0a7ed"), "Bags" },
-                    { new Guid("4159140e-6448-45e6-8143-cd0b2c548008"), new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "Casual Shirts" },
-                    { new Guid("7654e85f-3b29-4358-abc5-2d6e04e5877a"), new Guid("9d254f1f-b41c-4085-944c-3461b825594c"), "Blousons" },
-                    { new Guid("79c7ec86-3aad-4311-9dc1-5faae93589c4"), new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Wide Leg Pants" },
-                    { new Guid("874ccce5-f1d7-4fe7-8fda-b2b8255b3bc0"), new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "Formal Shirts" },
-                    { new Guid("89087f55-62b5-4702-8ca0-9601e9d6c7f5"), new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Trousers" },
-                    { new Guid("920c35f6-cd9c-4338-81f8-6d9fa2b28b17"), new Guid("a48761ec-5579-413e-b991-d2ede0d0a7ed"), "Belts" },
-                    { new Guid("9b3397a9-37b1-4656-a3f1-83c99f022aff"), new Guid("a48761ec-5579-413e-b991-d2ede0d0a7ed"), "Sunglasses" },
-                    { new Guid("a7ddfea9-1daf-4f10-8d5f-6e0940239401"), new Guid("9d254f1f-b41c-4085-944c-3461b825594c"), "Coat" },
-                    { new Guid("b0194c27-1084-4416-8005-fa4d74f649f1"), new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "Sweatshirts & Hoodies" },
-                    { new Guid("b3e5ae85-fc7c-4760-acaa-250df939e9dd"), new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Sweatpants" },
-                    { new Guid("c0ea7211-adab-4ebb-8bf2-b4756cb1655a"), new Guid("a41db187-0dd2-465f-a1ae-99b494bae8da"), "T-Shirts" },
-                    { new Guid("d210a766-7807-44ae-a1f6-66179718c22e"), new Guid("a48761ec-5579-413e-b991-d2ede0d0a7ed"), "Hats & Caps" },
-                    { new Guid("da4113c0-c954-4910-88f1-43f84ca94cbc"), new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Easy Pants" },
-                    { new Guid("f29b06f6-79f1-41f8-9ac7-01bfd018b2aa"), new Guid("2411057e-1515-4c93-a407-c5ea02abb3a1"), "Shorts" },
-                    { new Guid("f86b7672-cf46-48dd-875b-0390204e0326"), new Guid("9d254f1f-b41c-4085-944c-3461b825594c"), "Blazers" }
+                    { new Guid("02ea6f73-3e8a-48a3-8dd8-8162efe83fe4"), new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "Casual Shirts" },
+                    { new Guid("10332e77-ff38-4983-a7c4-f7146fdc46f9"), new Guid("d8ffdd21-0a5e-4dda-8695-87f56a0eadf1"), "Hats & Caps" },
+                    { new Guid("1502b62d-36ca-413d-828a-d4f13a7c6066"), new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Easy Pants" },
+                    { new Guid("1b1f5a0f-6e75-4cfe-be33-14019e5fec3e"), new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Wide Leg Pants" },
+                    { new Guid("23d18a8b-ff90-45c1-a02a-546be31afd1c"), new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "T-Shirts" },
+                    { new Guid("25cea0a0-ff1d-4ac5-b8c4-628c99434b39"), new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "Formal Shirts" },
+                    { new Guid("452fb307-3b71-4c9a-b82a-a04c33be8eba"), new Guid("6952b989-1453-42b0-b4a8-60df3190dd0b"), "Jackets" },
+                    { new Guid("52204fcc-c450-497b-9571-8403ccb29299"), new Guid("d8ffdd21-0a5e-4dda-8695-87f56a0eadf1"), "Sunglasses" },
+                    { new Guid("5ebd489b-fda0-442d-936c-0047d0326a04"), new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Sweatpants" },
+                    { new Guid("6690be40-754d-4bc4-bed9-bfa5ab92e23b"), new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Jeans & Colored Jeans" },
+                    { new Guid("75d09bda-05d7-497e-9d29-f5a7f023f1d6"), new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "Sweatshirts & Hoodies" },
+                    { new Guid("7717329a-4d98-43ed-a726-fbda75e35a1c"), new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Trousers" },
+                    { new Guid("88d99ed0-bedc-42c6-8bcb-b11d804fac94"), new Guid("6952b989-1453-42b0-b4a8-60df3190dd0b"), "Blazers" },
+                    { new Guid("9a508817-b75c-442e-9523-fa07e3aa1c49"), new Guid("3d4cdf32-c9bc-473f-9663-6b7399b9d23c"), "Shorts" },
+                    { new Guid("a14c6fa1-c8a2-4dc6-99f3-0eac62423cdf"), new Guid("d8ffdd21-0a5e-4dda-8695-87f56a0eadf1"), "Belts" },
+                    { new Guid("aab95dea-d169-441b-b5f6-3f4bf5f3e538"), new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "Polo Shirts" },
+                    { new Guid("b46b5a40-09ab-44dd-8b57-53bdf86ca632"), new Guid("d8ffdd21-0a5e-4dda-8695-87f56a0eadf1"), "Bags" },
+                    { new Guid("e325b03f-b40e-48e5-82f4-d656f2cd40b1"), new Guid("f890c2b0-7645-4c47-95f4-5056d55e4eac"), "Sweaters & Cardigans" },
+                    { new Guid("eff4133b-de2e-455e-949c-133028d6739a"), new Guid("6952b989-1453-42b0-b4a8-60df3190dd0b"), "Blousons" },
+                    { new Guid("f5e12d2e-f3d3-4c5e-8be8-f60836ac616b"), new Guid("6952b989-1453-42b0-b4a8-60df3190dd0b"), "Coat" }
                 });
 
             migrationBuilder.CreateIndex(
