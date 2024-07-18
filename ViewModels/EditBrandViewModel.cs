@@ -2,9 +2,10 @@
 
 namespace EverythingSucks.ViewModels
 {
-    public class CreateBrandViewModel
+    public class EditBrandViewModel
     {
-        public string Name { get; set; }
+        public Guid Id { get; set; }
+        public required string Name { get; set; }
         public List<Product>? AvailableProducts { get; set; }
     }
 }
