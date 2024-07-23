@@ -1,0 +1,10 @@
+﻿@model EverythingSucks.ViewModels.EditBrandViewModel
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+    </div>
+    <button type="submit">Save</button>
+</form>
