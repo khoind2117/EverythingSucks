@@ -1,0 +1,28 @@
+﻿@using EverythingSucks.ViewModels
+@model IEnumerable<MenuBrandViewModel>
+
+<div class="card">
+    <div class="card-heading">
+        <a data-toggle="collapse" data-target="#collapseTwo">Hãng</a>
+    </div>
+    <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="shop__sidebar__brand">
+                <ul>
+                    @foreach (var brand in Model)
+                    {
+                        <li>
+                            <a href="#">
+                                @brand.BrandName
+                            </a>
+                        </li>
+                    }
+                    @* <li><a href="#">Louis Vuitton</a></li>
+                    <li><a href="#">Chanel</a></li>
+                    <li><a href="#">Hermes</a></li>
+                    <li><a href="#">Gucci</a></li> *@
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
