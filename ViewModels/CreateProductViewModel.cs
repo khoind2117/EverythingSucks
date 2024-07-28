@@ -13,10 +13,8 @@ namespace EverythingSucks.ViewModels
         [StringLength(500, ErrorMessage = "Description length can't be more than 500.")]
         public string? Description { get; set; }
         [Required(ErrorMessage = "Price is required")]
-        [Range(0.01, 10000.00, ErrorMessage = "Price must be between 0.01 and 10000.00")]
+        [Range(0, 1000000, ErrorMessage = "Price must be between 0 and 1000000")]
         public decimal Price { get; set; }
-        [Required(ErrorMessage = "Brand is required")]
-        public Guid? BrandId { get; set;}
         [Required(ErrorMessage = "Product Type is required")]
         public Guid? ProductTypeId { get; set; }
 
@@ -25,7 +23,6 @@ namespace EverythingSucks.ViewModels
         public List<ColorSelection> ColorSelections { get; set; }
 
         // Các danh sách để hiển thị trong form
-        public List<Brand>? AvailableBrands { get; set; }
         public List<Category>? AvailableCategories { get; set; }
         public List<Color>? AvailableColors { get; set; }
     }

@@ -22,21 +22,6 @@ namespace EverythingSucks.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EverythingSucks.Models.Brand", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Brand", (string)null);
-                });
-
             modelBuilder.Entity("EverythingSucks.Models.Cart", b =>
                 {
                     b.Property<Guid>("Id")
@@ -110,13 +95,13 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("04b88432-5b62-4340-a7dc-83e6050477e9"),
-                            Name = "HasProducts"
+                            Id = new Guid("51dd72dc-c176-43f7-ae1e-d5bafa64d5cf"),
+                            Name = "Có hàng"
                         },
                         new
                         {
-                            Id = new Guid("3eee1fda-9fbb-4740-98b6-802cff397fe4"),
-                            Name = "Empty"
+                            Id = new Guid("aae063d6-e16b-47df-a6e4-37dad96497d9"),
+                            Name = "Trống"
                         });
                 });
 
@@ -137,23 +122,18 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "Tops"
+                            Id = new Guid("920517fd-5feb-4f88-9794-b0a445be3c75"),
+                            Name = "Áo"
                         },
                         new
                         {
-                            Id = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Bottoms"
+                            Id = new Guid("1b0afcc8-a676-4218-8769-e618d7bedae4"),
+                            Name = "Quần"
                         },
                         new
                         {
-                            Id = new Guid("2bc11a7d-a95d-42d0-b066-766b48c14705"),
-                            Name = "Outerwear"
-                        },
-                        new
-                        {
-                            Id = new Guid("0f02d6ed-5066-4dd9-abf3-10621d55536c"),
-                            Name = "Accessories"
+                            Id = new Guid("722860e8-3b51-43a9-b8e6-23cb23e8b130"),
+                            Name = "Phụ kiện"
                         });
                 });
 
@@ -279,28 +259,28 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("efcc828a-acd6-48e2-b405-6fd304d0bfdb"),
-                            Name = "Pending"
+                            Id = new Guid("26708295-53f5-4a53-ad70-cf52bb3d98f3"),
+                            Name = "Đang chờ xác nhận"
                         },
                         new
                         {
-                            Id = new Guid("1138b937-9b5f-46c7-9a91-a23bd5d544f7"),
-                            Name = "Confirmed"
+                            Id = new Guid("6ffe7b52-3930-4322-9a24-dcc79b6040bd"),
+                            Name = "Xác nhận"
                         },
                         new
                         {
-                            Id = new Guid("7969b480-3e4f-4a34-b5ba-1c4b369b487c"),
-                            Name = "Shipped"
+                            Id = new Guid("57099238-e50f-4a8b-9d02-14bec441ab75"),
+                            Name = "Chờ giao hàng"
                         },
                         new
                         {
-                            Id = new Guid("6a76e153-09ac-4e6a-86a7-38070a21b072"),
-                            Name = "Delivered"
+                            Id = new Guid("7694cc13-b152-46ca-8adb-6e5d307b3fed"),
+                            Name = "Đã giao"
                         },
                         new
                         {
-                            Id = new Guid("585b52c7-52be-439f-9110-3402ffb6a3fe"),
-                            Name = "Canceled"
+                            Id = new Guid("40e2508d-10e0-4847-95cc-4b138796fe19"),
+                            Name = "Đã hủy"
                         });
                 });
 
@@ -308,9 +288,6 @@ namespace EverythingSucks.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -336,8 +313,6 @@ namespace EverythingSucks.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
 
                     b.HasIndex("ProductTypeId");
 
@@ -409,123 +384,57 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7708d97a-7fe6-47df-8352-ac655513e030"),
-                            CategoryId = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "T-Shirts"
+                            Id = new Guid("5cd29be4-f527-40c2-99cb-7ef02f685fc3"),
+                            CategoryId = new Guid("920517fd-5feb-4f88-9794-b0a445be3c75"),
+                            Name = "Áo thun"
                         },
                         new
                         {
-                            Id = new Guid("03cd07f0-1fbc-428c-8620-36f6d28dc914"),
-                            CategoryId = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "Polo Shirts"
+                            Id = new Guid("b9dfcd05-dddf-44ea-a615-61c0de52fa9b"),
+                            CategoryId = new Guid("920517fd-5feb-4f88-9794-b0a445be3c75"),
+                            Name = "Áo polo"
                         },
                         new
                         {
-                            Id = new Guid("e1adb500-5457-4d7e-b2e6-0d89cc3ecadb"),
-                            CategoryId = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "Sweatshirts & Hoodies"
+                            Id = new Guid("b3d67d39-d4c0-4cb1-bbcc-c442354c95ff"),
+                            CategoryId = new Guid("920517fd-5feb-4f88-9794-b0a445be3c75"),
+                            Name = "Áo sơ mi"
                         },
                         new
                         {
-                            Id = new Guid("e64792f9-6171-42a1-ab74-ff74be495161"),
-                            CategoryId = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "Sweaters & Cardigans"
+                            Id = new Guid("b8af638a-b78e-4536-b183-a292d77eebac"),
+                            CategoryId = new Guid("1b0afcc8-a676-4218-8769-e618d7bedae4"),
+                            Name = "Quần Short"
                         },
                         new
                         {
-                            Id = new Guid("04a16581-2f97-4429-bf2e-8c946bed1e99"),
-                            CategoryId = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "Formal Shirts"
+                            Id = new Guid("09b95943-b823-42e8-ab2e-d9fd8e10ecd0"),
+                            CategoryId = new Guid("1b0afcc8-a676-4218-8769-e618d7bedae4"),
+                            Name = "Quần Jeans"
                         },
                         new
                         {
-                            Id = new Guid("bc40712f-aa68-4a67-8ffb-259fd0fd40c4"),
-                            CategoryId = new Guid("2c4a75fe-6844-4745-b2bd-8512d715e919"),
-                            Name = "Casual Shirts"
+                            Id = new Guid("d5d9cc47-3e23-4e11-8565-0922e68e8d38"),
+                            CategoryId = new Guid("1b0afcc8-a676-4218-8769-e618d7bedae4"),
+                            Name = "Quần Tây"
                         },
                         new
                         {
-                            Id = new Guid("ed30a734-d39e-4a33-90f9-9c7f84af4b0d"),
-                            CategoryId = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Shorts"
+                            Id = new Guid("602f0676-ec2f-4057-9c91-71e08a6a99b8"),
+                            CategoryId = new Guid("722860e8-3b51-43a9-b8e6-23cb23e8b130"),
+                            Name = "Mũ & Mũ lưỡi trai"
                         },
                         new
                         {
-                            Id = new Guid("7586c08d-c06b-4cdb-b5ca-2e112d3bb0e9"),
-                            CategoryId = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Jeans & Colored Jeans"
+                            Id = new Guid("35045601-1c46-400e-a9ed-a1671767cb75"),
+                            CategoryId = new Guid("722860e8-3b51-43a9-b8e6-23cb23e8b130"),
+                            Name = "Kính mát"
                         },
                         new
                         {
-                            Id = new Guid("f71a9e54-723a-4021-8344-212f80019410"),
-                            CategoryId = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Wide Leg Pants"
-                        },
-                        new
-                        {
-                            Id = new Guid("dae91f93-18a9-4cd6-a7a3-e14e9deed973"),
-                            CategoryId = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Trousers"
-                        },
-                        new
-                        {
-                            Id = new Guid("a8ce7171-b4b9-4baa-bed6-4f8e531bb8ea"),
-                            CategoryId = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Easy Pants"
-                        },
-                        new
-                        {
-                            Id = new Guid("74e1e355-b86e-4a48-a4c4-e172dcde263d"),
-                            CategoryId = new Guid("8af5bee2-a25f-490c-9420-e2fbe524602a"),
-                            Name = "Sweatpants"
-                        },
-                        new
-                        {
-                            Id = new Guid("3291571e-f7de-4e26-9dc8-800f56130b0b"),
-                            CategoryId = new Guid("2bc11a7d-a95d-42d0-b066-766b48c14705"),
-                            Name = "Jackets"
-                        },
-                        new
-                        {
-                            Id = new Guid("421ae511-3086-46ff-8a0a-acbb81120782"),
-                            CategoryId = new Guid("2bc11a7d-a95d-42d0-b066-766b48c14705"),
-                            Name = "Blazers"
-                        },
-                        new
-                        {
-                            Id = new Guid("9b19a7bc-a5e0-4506-9a85-07bc9d812ecd"),
-                            CategoryId = new Guid("2bc11a7d-a95d-42d0-b066-766b48c14705"),
-                            Name = "Blousons"
-                        },
-                        new
-                        {
-                            Id = new Guid("609a57a7-1354-49a7-ac5c-0b2d679b89ab"),
-                            CategoryId = new Guid("2bc11a7d-a95d-42d0-b066-766b48c14705"),
-                            Name = "Coat"
-                        },
-                        new
-                        {
-                            Id = new Guid("5583a17f-7961-44ad-bec5-218eeb467ff7"),
-                            CategoryId = new Guid("0f02d6ed-5066-4dd9-abf3-10621d55536c"),
-                            Name = "Hats & Caps"
-                        },
-                        new
-                        {
-                            Id = new Guid("ddb19cec-46ba-4bba-8165-56346fedc3f9"),
-                            CategoryId = new Guid("0f02d6ed-5066-4dd9-abf3-10621d55536c"),
-                            Name = "Sunglasses"
-                        },
-                        new
-                        {
-                            Id = new Guid("ab2bf9f5-d658-485f-ab90-4b4436006802"),
-                            CategoryId = new Guid("0f02d6ed-5066-4dd9-abf3-10621d55536c"),
-                            Name = "Bags"
-                        },
-                        new
-                        {
-                            Id = new Guid("ef0eb10d-7357-478c-a988-3ef06d222946"),
-                            CategoryId = new Guid("0f02d6ed-5066-4dd9-abf3-10621d55536c"),
-                            Name = "Belts"
+                            Id = new Guid("d47c9084-3415-4203-b4f9-961a7f4c9b7c"),
+                            CategoryId = new Guid("722860e8-3b51-43a9-b8e6-23cb23e8b130"),
+                            Name = "Túi"
                         });
                 });
 
@@ -546,27 +455,27 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0f02d940-9f5f-46e1-a964-ef9fe4764303"),
+                            Id = new Guid("48ad7e95-c746-41ed-89b8-a03a7d178f0c"),
                             Name = "M"
                         },
                         new
                         {
-                            Id = new Guid("24720b00-84d7-4e41-b3b9-a87042164a08"),
+                            Id = new Guid("aac26d2b-0cb3-4a8e-9234-6ea1792d9bf1"),
                             Name = "L"
                         },
                         new
                         {
-                            Id = new Guid("2d4fc3d0-49ed-42b9-8d6e-a9f7d7052871"),
+                            Id = new Guid("0c4de5d6-52e6-44cb-8fd6-e3399eb277d3"),
                             Name = "XL"
                         },
                         new
                         {
-                            Id = new Guid("a3abb5d3-5f2e-4782-b688-90c34497a0c4"),
+                            Id = new Guid("ffaf2125-3e0b-4546-b4f0-57dcd4baf4d0"),
                             Name = "2XL"
                         },
                         new
                         {
-                            Id = new Guid("89a97021-4030-4241-91d1-d290fefa2d4b"),
+                            Id = new Guid("a3d97789-c0a7-4bb5-a6e4-b10e8b1106f1"),
                             Name = "3XL"
                         });
                 });
@@ -676,15 +585,15 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4407938a-b3a9-448f-8194-96552514f38f",
-                            ConcurrencyStamp = "dd52635b-81b7-49f2-afec-6aa430f6ff86",
+                            Id = "ec4998c4-6a50-431c-8fe8-84b7c64433b4",
+                            ConcurrencyStamp = "e50acffb-ebd0-4714-b80c-a8f983b814f4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5d071cf0-f65c-4f76-9886-6b9cbd68a5d1",
-                            ConcurrencyStamp = "ffe64798-4f4f-4939-8d88-98ca5f94adf2",
+                            Id = "a0ffec45-9301-4ea6-b4d1-b00f8b2f1292",
+                            ConcurrencyStamp = "767fd8da-5952-465e-b8b8-609a9967e622",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -901,17 +810,10 @@ namespace EverythingSucks.Migrations
 
             modelBuilder.Entity("EverythingSucks.Models.Product", b =>
                 {
-                    b.HasOne("EverythingSucks.Models.Brand", "Brand")
-                        .WithMany("Products")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("EverythingSucks.Models.ProductType", "ProductType")
                         .WithMany("Products")
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Brand");
 
                     b.Navigation("ProductType");
                 });
@@ -1012,11 +914,6 @@ namespace EverythingSucks.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EverythingSucks.Models.Brand", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("EverythingSucks.Models.Cart", b =>

@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EverythingSucks.Data;
+using EverythingSucks.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EverythingSucks.Controllers
 {
     public class ShopController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public ShopController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
         }
+        
     }
 }

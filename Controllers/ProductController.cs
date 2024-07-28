@@ -18,9 +18,69 @@ namespace EverythingSucks.Controllers
             _context = context;
             _photoService = photoService;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index(Guid? productTypeId)
         {
-            return View();
+            var products = _context.Products.Include(p => p.ProductColors)
+                                                .ThenInclude(pc => pc.Color)
+                                            .Include(p => p.ProductColors)
+                                                .ThenInclude(pc => pc.ProductImages)
+                                            .AsQueryable();
+
+            if (productTypeId.HasValue)
+            {
+                products = products.Where(p => p.ProductTypeId == productTypeId.Value);
+            }
+
+            var result = await products.Select(p => new ProductViewModel
+            {
+                ProductId = p.Id,
+                ProductName = p.Name,
+                ProductPrice = p.Price,
+                ProductColors = p.ProductColors.Select(pc => new ProductColorViewModel
+                {
+                    ColorId = pc.ColorId,
+                    ColorName = pc.Color != null ? pc.Color.Name : null,
+                    ColorCode = pc.Color.ColorCode,
+                    ProductImages = pc.ProductImages.Select(pi => new ProductImageViewModel
+                    {
+                        ImageUrl = pi.Url,
+                        IsPrimary = pi.IsPrimary
+                    }).ToList()
+                }).ToList()
+            }).ToListAsync();
+
+            return View(result);
+        }
+
+        public async Task<IActionResult> Search(string query)
+        {
+            var products = _context.Products.AsQueryable();
+
+            if (query != null)
+            {
+                products = products.Where(p => p.Name.Contains(query));
+            }
+
+            var result = await products.Select(p => new ProductViewModel
+            {
+                ProductId = p.Id,
+                ProductName = p.Name,
+                ProductPrice = p.Price,
+                ProductColors = p.ProductColors.Select(pc => new ProductColorViewModel
+                {
+                    ColorId = pc.ColorId,
+                    ColorName = pc.Color != null ? pc.Color.Name : null,
+                    ColorCode = pc.Color.ColorCode,
+                    ProductImages = pc.ProductImages.Select(pi => new ProductImageViewModel
+                    {
+                        ImageUrl = pi.Url,
+                        IsPrimary = pi.IsPrimary
+                    }).ToList()
+                }).ToList()
+            }).ToListAsync();
+
+            return View(result);
         }
 
         // GET: Product/Create
@@ -29,7 +89,6 @@ namespace EverythingSucks.Controllers
         {
             var viewModel = new CreateProductViewModel
             {
-                AvailableBrands = await _context.Brands.ToListAsync(),
                 AvailableCategories = await _context.Categories
                                         .Include(c => c.ProductTypes)
                                         .ToListAsync(),
@@ -54,7 +113,6 @@ namespace EverythingSucks.Controllers
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
-                    BrandId = productVM.BrandId,
                     ProductTypeId = productVM.ProductTypeId,
                     ProductColors = await Task.WhenAll(productVM.ColorSelections.Select(async cs => new ProductColor
                     {
@@ -80,7 +138,6 @@ namespace EverythingSucks.Controllers
             }
             else
             {
-                productVM.AvailableBrands = await _context.Brands.ToListAsync();
                 productVM.AvailableCategories = await _context.Categories
                                         .Include(c => c.ProductTypes)
                                         .ToListAsync();
