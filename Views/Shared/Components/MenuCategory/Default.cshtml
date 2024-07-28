@@ -18,7 +18,7 @@
                         @foreach (var productType in category.ProductTypes)
                         {
                             <li>
-                                <a href="#">
+                                <a asp-controller="Product" asp-action="Index" asp-route-productTypeId="@productType.ProductTypeId">
                                     @productType.ProductTypeName (@productType.ProductTypeCount)
                                 </a>                                                              
                             </li>

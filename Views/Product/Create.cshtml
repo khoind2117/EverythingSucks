@@ -30,24 +30,6 @@
         </div>
     </div>
 
-    @* Select Brand *@
-    <div class="form-group">
-        <label asp-for="BrandId" class="control-label col-md-2">Brand</label>
-        <div class="col-md-10">
-            <select asp-for="BrandId" class="form-control">
-                <option value="">--Select brand--</option>
-                @if (Model.AvailableBrands != null)
-                {
-                    @foreach (var brand in Model.AvailableBrands)
-                    {
-                        <option value="@brand.Id">@brand.Name</option>
-                    }
-                }
-            </select>
-            <span asp-validation-for="BrandId" class="text-danger"></span>
-        </div>
-    </div>
-
     @* Select Product Type *@
     <div class="form-group">
         <label asp-for="ProductTypeId" class="control-label col-md-2">Type</label>
