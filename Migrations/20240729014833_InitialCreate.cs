@@ -472,8 +472,8 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4c57ddf4-f8b6-42a0-987d-815c9597e8bf", "8be33df2-a086-48c4-8263-c68309812d36", "Admin", "ADMIN" },
-                    { "de42cc9d-9425-4c80-8ca0-510447a73a38", "00b3fa02-072a-4eaa-b660-5f0ab97f8c82", "User", "USER" }
+                    { "0d5b504a-4948-4d5d-9662-6ab8c7d527c4", "2455f874-d0b5-48b7-b4a1-c02a73bd131f", "Admin", "ADMIN" },
+                    { "de11e2b6-eab9-473b-ae6a-b3a217f7fcc5", "f6dd356c-79b4-42e1-943f-750f6bd61989", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -481,8 +481,8 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("9f008d43-9449-4dfb-8af6-79acf2bfb05c"), "Có hàng" },
-                    { new Guid("dac79bdc-3944-4fac-a9cf-897e68798047"), "Trống" }
+                    { new Guid("39bca5a4-6201-42d5-96b2-62b5ddfa45e4"), "Trống" },
+                    { new Guid("e61a54e3-9794-452c-bbff-177ff492babb"), "Có hàng" }
                 });
 
             migrationBuilder.InsertData(
@@ -490,9 +490,28 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("66b391ad-1734-4874-8ea4-6d6a87eb50a0"), "Quần" },
-                    { new Guid("baa39b51-882d-432b-b2a4-337678e0e2d0"), "Phụ kiện" },
-                    { new Guid("bb5e0159-c6bf-4a95-b009-70eb0d36bcc0"), "Áo" }
+                    { new Guid("3e68b085-10bc-4776-91df-f55c7ee1507e"), "Phụ kiện" },
+                    { new Guid("e6d160c3-35ae-4f55-ac44-10178d9b6c05"), "Quần" },
+                    { new Guid("ebb71166-d63f-4623-b80a-903ef0410733"), "Áo" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Color",
+                columns: new[] { "Id", "ColorCode", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("0648a5e1-ea6a-415c-a90d-85aaff12b54c"), "#FFFF3F", "Yellow" },
+                    { new Guid("0b5a14fe-8f1c-44ce-8c62-6324922c019a"), "#DEDEDE", "Grey" },
+                    { new Guid("35dd3d73-3fbf-44b5-9c2e-6bbc794a4d4d"), "#3D3D3D", "Black" },
+                    { new Guid("4a9b6cfe-b679-4289-9ae0-7a2a1b85e9ba"), "#F3A72C", "Orange" },
+                    { new Guid("7a8d360e-a06a-4f57-a1f1-d306893cff2e"), "#741A7C", "Purple" },
+                    { new Guid("7cbaa4f8-0dd5-4d41-bac4-e28a6d2d8273"), "#FFFFFF", "White" },
+                    { new Guid("9b8cbb4f-45c8-49de-8fb7-4e93ce501d5a"), "#387D1F", "Green" },
+                    { new Guid("a7a3d5b1-1bb6-43a5-a654-df507f9fc27e"), "#EFEBD4", "Beige" },
+                    { new Guid("c063d9c6-eb5b-48a4-b657-a8325c518f97"), "#714E36", "Brown" },
+                    { new Guid("ea9ed283-6b2b-4619-99ba-1b982e9172a5"), "#EB3417", "Red" },
+                    { new Guid("f515e146-6826-494a-8bdf-d11a852cccd2"), "#0003F9", "Blue" },
+                    { new Guid("f9356d26-7957-4180-8ff7-328174fa16b8"), "#F5C0C9", "Pink" }
                 });
 
             migrationBuilder.InsertData(
@@ -500,11 +519,11 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("02d81468-9aa2-484f-a583-143f51d7d3c8"), "Đang chờ xác nhận" },
-                    { new Guid("3ebdf1e2-9f70-45d6-b372-881e3d9a2b59"), "Chờ giao hàng" },
-                    { new Guid("4dc1d262-c1b6-4332-87a8-dda996105721"), "Đã giao" },
-                    { new Guid("618b390d-ab8d-4921-8b4d-02f4ba3dad66"), "Xác nhận" },
-                    { new Guid("f1ec66b4-eaa4-40c1-aca6-ae93c4bbf86b"), "Đã hủy" }
+                    { new Guid("0d61bdb8-1471-4d90-8deb-d7c9aee06a10"), "Đã giao" },
+                    { new Guid("12f8bd24-ac2f-4c70-a077-2ae65450e914"), "Đã hủy" },
+                    { new Guid("d4b0bc27-5e3c-4bbc-bdc0-a4cebd0d119b"), "Chờ giao hàng" },
+                    { new Guid("efae9209-3c83-402b-aa18-41eea978c35e"), "Xác nhận" },
+                    { new Guid("fc1cfda3-2e6a-48fd-bb02-9b87fb899666"), "Đang chờ xác nhận" }
                 });
 
             migrationBuilder.InsertData(
@@ -512,11 +531,11 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("03f54725-dee2-4992-9226-4f0558fcaabe"), "M" },
-                    { new Guid("4d790bb7-a5d5-42e3-b8d6-cdf732eeb0c7"), "3XL" },
-                    { new Guid("64bd29ce-e957-4e40-824a-dc3baf5a7bb9"), "2XL" },
-                    { new Guid("807e27e6-da34-4a20-8b69-90baba702ae0"), "XL" },
-                    { new Guid("b6afa950-f01c-482d-ab0f-9a74bbc4be2b"), "L" }
+                    { new Guid("793f26fc-0682-4a47-abe4-a11291e5b896"), "2XL" },
+                    { new Guid("7c084091-a1d2-4aad-a459-415194f545e9"), "XL" },
+                    { new Guid("b01d9269-61c6-4166-b5ea-4055f140fbe4"), "3XL" },
+                    { new Guid("ccab8553-b9ed-44fe-8026-bbeea0fc945f"), "L" },
+                    { new Guid("dea7b2d5-3769-4409-8243-5ed61a74161f"), "M" }
                 });
 
             migrationBuilder.InsertData(
@@ -524,15 +543,15 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("19f8befd-82d6-48d2-a7f9-371bbecb96c5"), new Guid("baa39b51-882d-432b-b2a4-337678e0e2d0"), "Kính mát" },
-                    { new Guid("2e582591-9b54-4885-88e7-14558dc09840"), new Guid("baa39b51-882d-432b-b2a4-337678e0e2d0"), "Túi" },
-                    { new Guid("3c68a5c0-b7ae-4f64-9e34-ba3db553bbd2"), new Guid("66b391ad-1734-4874-8ea4-6d6a87eb50a0"), "Quần Tây" },
-                    { new Guid("468c959a-7f36-4c9d-8e81-7ef2c1ea9ca3"), new Guid("baa39b51-882d-432b-b2a4-337678e0e2d0"), "Mũ & Mũ lưỡi trai" },
-                    { new Guid("6f2cf8df-7b4e-48ff-a0d8-0500923e4039"), new Guid("66b391ad-1734-4874-8ea4-6d6a87eb50a0"), "Quần Short" },
-                    { new Guid("795c2a3c-0a4f-4661-acbf-53d47e984f09"), new Guid("bb5e0159-c6bf-4a95-b009-70eb0d36bcc0"), "Áo sơ mi" },
-                    { new Guid("b73ba734-a931-46ca-b74f-ec26866b52f5"), new Guid("bb5e0159-c6bf-4a95-b009-70eb0d36bcc0"), "Áo thun" },
-                    { new Guid("ea03bb5c-0f08-44e0-a321-dc06b5dda4d0"), new Guid("bb5e0159-c6bf-4a95-b009-70eb0d36bcc0"), "Áo polo" },
-                    { new Guid("f21ae0d0-cdda-45b7-ac21-7aadeabb2ae7"), new Guid("66b391ad-1734-4874-8ea4-6d6a87eb50a0"), "Quần Jeans" }
+                    { new Guid("2a5c5af9-a6ce-43aa-a80c-cc07acb6c32f"), new Guid("ebb71166-d63f-4623-b80a-903ef0410733"), "Áo sơ mi" },
+                    { new Guid("35859459-32ca-446a-8673-800301fe9408"), new Guid("ebb71166-d63f-4623-b80a-903ef0410733"), "Áo polo" },
+                    { new Guid("3fc5a197-657e-42f8-93d0-207489bb5410"), new Guid("e6d160c3-35ae-4f55-ac44-10178d9b6c05"), "Quần Tây" },
+                    { new Guid("7270df28-f7e7-4f32-bbf2-34f1b40f929e"), new Guid("3e68b085-10bc-4776-91df-f55c7ee1507e"), "Mũ & Mũ lưỡi trai" },
+                    { new Guid("852b9c12-9942-49f9-b289-03efe07c4f7b"), new Guid("e6d160c3-35ae-4f55-ac44-10178d9b6c05"), "Quần Short" },
+                    { new Guid("9717bc01-24cf-4004-8cd6-5f331d991781"), new Guid("ebb71166-d63f-4623-b80a-903ef0410733"), "Áo thun" },
+                    { new Guid("9dc9fbce-2c22-4a8a-88eb-fe9259697201"), new Guid("3e68b085-10bc-4776-91df-f55c7ee1507e"), "Túi" },
+                    { new Guid("a2d746fd-a0e5-4355-b03b-de37e98c60e3"), new Guid("3e68b085-10bc-4776-91df-f55c7ee1507e"), "Kính mát" },
+                    { new Guid("e405ffec-ac11-4982-9f25-b73cb34c2f70"), new Guid("e6d160c3-35ae-4f55-ac44-10178d9b6c05"), "Quần Jeans" }
                 });
 
             migrationBuilder.CreateIndex(
