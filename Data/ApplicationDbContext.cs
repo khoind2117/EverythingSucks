@@ -268,6 +268,22 @@ namespace EverythingSucks.Data
                 new Size { Id = Guid.NewGuid(), Name = "3XL" }
             );
 
+            // Khởi tạo dữ liệu cho Color
+            modelBuilder.Entity<Color>().HasData(
+                new Color { Id = Guid.NewGuid(), Name = "White", ColorCode = "#FFFFFF" },
+                new Color { Id = Guid.NewGuid(), Name = "Grey", ColorCode = "#DEDEDE" },
+                new Color { Id = Guid.NewGuid(), Name = "Black", ColorCode = "#3D3D3D" },
+                new Color { Id = Guid.NewGuid(), Name = "Pink", ColorCode = "#F5C0C9" },
+                new Color { Id = Guid.NewGuid(), Name = "Red", ColorCode = "#EB3417" },
+                new Color { Id = Guid.NewGuid(), Name = "Orange", ColorCode = "#F3A72C" },
+                new Color { Id = Guid.NewGuid(), Name = "Beige", ColorCode = "#EFEBD4" },
+                new Color { Id = Guid.NewGuid(), Name = "Brown", ColorCode = "#714E36" },
+                new Color { Id = Guid.NewGuid(), Name = "Yellow", ColorCode = "#FFFF3F" },
+                new Color { Id = Guid.NewGuid(), Name = "Green", ColorCode = "#387D1F" },
+                new Color { Id = Guid.NewGuid(), Name = "Blue", ColorCode = "#0003F9" },
+                new Color { Id = Guid.NewGuid(), Name = "Purple", ColorCode = "#741A7C" }
+            );
+
             // Khởi tạo dữ liệu cho CartStatus
             modelBuilder.Entity<CartStatus>().HasData(
                 new CartStatus { Id = Guid.NewGuid(), Name = "Có hàng" },
