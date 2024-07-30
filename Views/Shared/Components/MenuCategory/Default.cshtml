@@ -1,0 +1,40 @@
+﻿@using EverythingSucks.ViewModels
+@model IEnumerable<MenuCategoryViewModel>
+<div class="card">
+    <div class="card-heading">
+        <a data-toggle="collapse" data-target="#collapseOne">Danh mục</a>
+    </div>
+    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="shop__sidebar__categories">
+                <ul class="nice-scroll">
+                    @foreach (var category in Model)
+                    {
+                        <li>
+                            <a href="#">
+                                Tất cả @category.CategoryName (@category.CategoryCount)
+                            </a>
+                        </li>
+                        @foreach (var productType in category.ProductTypes)
+                        {
+                            <li>
+                                <a asp-controller="Product" asp-action="Index" asp-route-productTypeId="@productType.ProductTypeId">
+                                    @productType.ProductTypeName (@productType.ProductTypeCount)
+                                </a>                                                              
+                            </li>
+                        }
+                    }
+                    @* <li><a href="#">Men (20)</a></li>
+                    <li><a href="#">Women (20)</a></li>
+                    <li><a href="#">Bags (20)</a></li>
+                    <li><a href="#">Clothing (20)</a></li>
+                    <li><a href="#">Shoes (20)</a></li>
+                    <li><a href="#">Accessories (20)</a></li>
+                    <li><a href="#">Kids (20)</a></li>
+                    <li><a href="#">Kids (20)</a></li>
+                    <li><a href="#">Kids (20)</a></li> *@
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

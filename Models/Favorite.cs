@@ -5,9 +5,9 @@
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime FavoriteAt { get; set; }
 
-        public string UserId { get; set; }
+        public required string UserId { get; set; }
         public virtual User? User { get; set; }
-        public Guid ProductId { get; set; }
+        public required Guid ProductId { get; set; }
         public virtual Product? Product { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace EverythingSucks.Data
         }
 
         #region DbSet
-        public DbSet<Brand> Brands { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -77,18 +76,6 @@ namespace EverythingSucks.Data
 
                 entity.Property(p => p.Price)
                   .HasColumnType("decimal(18,2)");
-            });
-
-            // Brand
-            modelBuilder.Entity<Brand>(entity =>
-            {
-                entity.ToTable("Brand").HasKey(b => b.Id);
-
-                // Liên kết đến Product    
-                entity.HasMany(b => b.Products)
-                    .WithOne(p => p.Brand)
-                    .HasForeignKey(p => p.BrandId)
-                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             // Category
@@ -247,39 +234,29 @@ namespace EverythingSucks.Data
             // Define static GUIDs for Categories
             var topsCategoryId = Guid.NewGuid();
             var bottomsCategoryId = Guid.NewGuid();
-            var outerwearCategoryId = Guid.NewGuid();
             var accessoriesCategoryId = Guid.NewGuid();
 
             // Khởi tạo dữ liệu cho Category
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = topsCategoryId, Name = "Tops" },
-                new Category { Id = bottomsCategoryId, Name = "Bottoms" },
-                new Category { Id = outerwearCategoryId, Name = "Outerwear" },
-                new Category { Id = accessoriesCategoryId, Name = "Accessories" }
+                new Category { Id = topsCategoryId, Name = "Áo" },
+                new Category { Id = bottomsCategoryId, Name = "Quần" },
+                new Category { Id = accessoriesCategoryId, Name = "Phụ kiện" }
             );
 
             // Khởi tạo dữ liệu cho Type
             modelBuilder.Entity<ProductType>().HasData(
-                new ProductType { Id = Guid.NewGuid(), Name = "T-Shirts", CategoryId = topsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Polo Shirts", CategoryId = topsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Sweatshirts & Hoodies", CategoryId = topsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Sweaters & Cardigans", CategoryId = topsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Formal Shirts", CategoryId = topsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Casual Shirts", CategoryId = topsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Shorts", CategoryId = bottomsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Jeans & Colored Jeans", CategoryId = bottomsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Wide Leg Pants", CategoryId = bottomsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Trousers", CategoryId = bottomsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Easy Pants", CategoryId = bottomsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Sweatpants", CategoryId = bottomsCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Jackets", CategoryId = outerwearCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Blazers", CategoryId = outerwearCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Blousons", CategoryId = outerwearCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Coat", CategoryId = outerwearCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Hats & Caps", CategoryId = accessoriesCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Sunglasses", CategoryId = accessoriesCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Bags", CategoryId = accessoriesCategoryId },
-                new ProductType { Id = Guid.NewGuid(), Name = "Belts", CategoryId = accessoriesCategoryId }
+                // Áo
+                new ProductType { Id = Guid.NewGuid(), Name = "Áo thun", CategoryId = topsCategoryId },
+                new ProductType { Id = Guid.NewGuid(), Name = "Áo polo", CategoryId = topsCategoryId },
+                new ProductType { Id = Guid.NewGuid(), Name = "Áo sơ mi", CategoryId = topsCategoryId },
+                // Quần
+                new ProductType { Id = Guid.NewGuid(), Name = "Quần Short", CategoryId = bottomsCategoryId },
+                new ProductType { Id = Guid.NewGuid(), Name = "Quần Jeans", CategoryId = bottomsCategoryId },
+                new ProductType { Id = Guid.NewGuid(), Name = "Quần Tây", CategoryId = bottomsCategoryId },
+                // Phụ kiện
+                new ProductType { Id = Guid.NewGuid(), Name = "Mũ & Mũ lưỡi trai", CategoryId = accessoriesCategoryId },
+                new ProductType { Id = Guid.NewGuid(), Name = "Kính mát", CategoryId = accessoriesCategoryId },
+                new ProductType { Id = Guid.NewGuid(), Name = "Túi", CategoryId = accessoriesCategoryId }
             );
 
             //Khởi tạo dữ liệu cho Size
@@ -291,19 +268,35 @@ namespace EverythingSucks.Data
                 new Size { Id = Guid.NewGuid(), Name = "3XL" }
             );
 
+            // Khởi tạo dữ liệu cho Color
+            modelBuilder.Entity<Color>().HasData(
+                new Color { Id = Guid.NewGuid(), Name = "White", ColorCode = "#FFFFFF" },
+                new Color { Id = Guid.NewGuid(), Name = "Grey", ColorCode = "#DEDEDE" },
+                new Color { Id = Guid.NewGuid(), Name = "Black", ColorCode = "#3D3D3D" },
+                new Color { Id = Guid.NewGuid(), Name = "Pink", ColorCode = "#F5C0C9" },
+                new Color { Id = Guid.NewGuid(), Name = "Red", ColorCode = "#EB3417" },
+                new Color { Id = Guid.NewGuid(), Name = "Orange", ColorCode = "#F3A72C" },
+                new Color { Id = Guid.NewGuid(), Name = "Beige", ColorCode = "#EFEBD4" },
+                new Color { Id = Guid.NewGuid(), Name = "Brown", ColorCode = "#714E36" },
+                new Color { Id = Guid.NewGuid(), Name = "Yellow", ColorCode = "#FFFF3F" },
+                new Color { Id = Guid.NewGuid(), Name = "Green", ColorCode = "#387D1F" },
+                new Color { Id = Guid.NewGuid(), Name = "Blue", ColorCode = "#0003F9" },
+                new Color { Id = Guid.NewGuid(), Name = "Purple", ColorCode = "#741A7C" }
+            );
+
             // Khởi tạo dữ liệu cho CartStatus
             modelBuilder.Entity<CartStatus>().HasData(
-                new CartStatus { Id = Guid.NewGuid(), Name = "HasProducts" },
-                new CartStatus { Id = Guid.NewGuid(), Name = "Empty" }
+                new CartStatus { Id = Guid.NewGuid(), Name = "Có hàng" },
+                new CartStatus { Id = Guid.NewGuid(), Name = "Trống" }
             );
 
             // Khởi tạo dữ liệu cho OrderStatus
             modelBuilder.Entity<OrderStatus>().HasData(
-                new OrderStatus { Id = Guid.NewGuid(), Name = "Pending" },
-                new OrderStatus { Id = Guid.NewGuid(), Name = "Confirmed" },
-                new OrderStatus { Id = Guid.NewGuid(), Name = "Shipped" },
-                new OrderStatus { Id = Guid.NewGuid(), Name = "Delivered" },
-                new OrderStatus { Id = Guid.NewGuid(), Name = "Canceled" }
+                new OrderStatus { Id = Guid.NewGuid(), Name = "Đang chờ xác nhận" },
+                new OrderStatus { Id = Guid.NewGuid(), Name = "Xác nhận" },
+                new OrderStatus { Id = Guid.NewGuid(), Name = "Chờ giao hàng" },
+                new OrderStatus { Id = Guid.NewGuid(), Name = "Đã giao" },
+                new OrderStatus { Id = Guid.NewGuid(), Name = "Đã hủy" }
             );
         }
         #endregion

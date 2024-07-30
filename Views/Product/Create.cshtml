@@ -3,12 +3,12 @@
 
 <h2>Create Product</h2>
 
-<form asp-action="Create" asp-controller="Product" method="post" class="form-horizontal">
+<form asp-action="Create" asp-controller="Product" method="post" class="form-horizontal" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
         <label asp-for="Name" class="control-label col-md-2"></label>
-        <div class="col">
+        <div class="col-md-10">
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
@@ -16,7 +16,7 @@
 
     <div class="form-group">
         <label asp-for="Description" class="control-label col-md-2"></label>
-        <div class="col">
+        <div class="col-md-10">
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
@@ -24,68 +24,71 @@
 
     <div class="form-group">
         <label asp-for="Price" class="control-label col-md-2"></label>
-        <div class="col">
+        <div class="col-md-10">
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
     </div>
 
-    <!-- Brands -->
+    @* Select Product Type *@
     <div class="form-group">
-        <div class="col">
-            <h4>Brands</h4>
-            @foreach (var brand in Model.AvailableBrands)
-            {
-                <div class="form-check form-check-inline col-md-2">
-                    <input class="form-check-input" type="radio" name="BrandId" value="@brand.Id" id="brand-@brand.Id" />
-                    <label class="form-check-label" for="brand-@brand.Id">
-                        @brand.Name
-                    </label>
-                </div>
-            }
-        </div>
-    </div>
-
-    <!-- Categories -->
-    <div class="form-group">
-        <div class="col">
-            <h4>Categories</h4>
-            @foreach (var category in Model.AvailableCategories)
-            {
-                <div class="mb-3">
-                    <h5>@category.Name</h5>
-                    @foreach (var productType in category.ProductTypes)
+        <label asp-for="ProductTypeId" class="control-label col-md-2">Type</label>
+        <div class="col-md-10">
+            <select asp-for="ProductTypeId" class="form-control">
+                <option value="">--Select product type--</option>
+                @if (Model.AvailableCategories != null)
+                {
+                    @foreach (var category in Model.AvailableCategories)
                     {
-                        <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" type="radio" name="ProductTypeId" value="@productType.Id" id="@productType.Id" />
-                            <label class="form-check-label" for="@productType.Id" style="white-space: nowrap;">
-                                @productType.Name
-                            </label>
-                        </div>
+                        @foreach (var productType in category.ProductTypes)
+                        {
+                            <option value="@productType.Id">@productType.Name</option>
+                        }
                     }
-                </div>
-            }
+                }
+            </select>
+            <span asp-validation-for="ProductTypeId" class="text-danger"></span>
         </div>
     </div>
 
-    <!-- Colors -->
-    <div class="form-group">
-        <div class="col">
-            <h4>Colors</h4>
-            @foreach (var color in Model.AvailableColors)
-            {
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="SelectedColorIds" value="@color.Id" id="@color.Id" />
-                    <label class="form-check-label" for="@color.Id">
-                        @color.Name (@color.ColorCode)
-                    </label>
+    @* Select Color *@
+    <div class="form-group" id="colorSection">
+        <label class="control-label col-md-2">Colors</label>
+        <div class="col-md-10" id="colorInputs">
+            <div class="row mb-2 align-items-center">
+                <div class="col-md-3">
+                    <label for="ColorSelections[0].ColorId">Color</label>
+                    <select class="form-control" name="ColorSelections[0].ColorId">
+                        <option value="">--Select color--</option>
+                        @if (Model.AvailableColors != null)
+                        {
+                            @foreach (var color in Model.AvailableColors)
+                            {
+                                <option value="@color.Id">@color.Name</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="ColorSelections[0].ColorId" class="text-danger"></span>
                 </div>
-            }
+                <div class="col-md-3">
+                    <label for="ColorSelections[0].PrimaryImage">Primary Image</label>
+                    <input type="file" name="ColorSelections[0].PrimaryImage" class="form-control-file" />
+                    <span asp-validation-for="ColorSelections[0].PrimaryImage" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label for="ColorSelections[0].AdditionalImages">Additional Images</label>
+                    <input type="file" name="ColorSelections[0].AdditionalImages" class="form-control-file" multiple />
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger remove-color-btn">Delete</button>
+                </div>
+            </div>
         </div>
+        <button type="button" class="btn btn-secondary mt-2" id="addColorButton">Add Color</button>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col">
+    <div class="form-group mt-3">
+        <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-primary">Create</button>
         </div>
     </div>
@@ -94,3 +97,53 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    document.getElementById('addColorButton').addEventListener('click', function () {
+        const colorInputs = document.getElementById('colorInputs');
+        const colorSelectionIndex = colorInputs.children.length;
+        const newRow = document.createElement('div');
+        newRow.className = 'row mb-2 align-items-center';
+        newRow.innerHTML = `
+                <div class="col-md-3">
+                    <label for="ColorSelections[${colorSelectionIndex}].ColorId">Color</label>
+                    <select class="form-control" name="ColorSelections[${colorSelectionIndex}].ColorId">
+                        <option value="">--Select color--</option>
+                        @if (Model.AvailableColors != null)
+                        {
+                            @foreach (var color in Model.AvailableColors)
+                            {
+                                <option value="@color.Id">@color.Name</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="ColorSelections[${colorSelectionIndex}].ColorId" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label for="ColorSelections[${colorSelectionIndex}].PrimaryImage">Primary Image</label>
+                    <input type="file" name="ColorSelections[${colorSelectionIndex}].PrimaryImage" class="form-control-file" />
+                    <span asp-validation-for="ColorSelections[${colorSelectionIndex}].PrimaryImage" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label for="ColorSelections[${colorSelectionIndex}].AdditionalImages">Additional Images</label>
+                    <input type="file" name="ColorSelections[${colorSelectionIndex}].AdditionalImages" class="form-control-file" multiple />
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger remove-color-btn">Delete</button>
+                </div>
+            `;
+        colorInputs.appendChild(newRow);
+
+        // Add event listener to the new remove button
+        newRow.querySelector('.remove-color-btn').addEventListener('click', function () {
+            newRow.remove();
+        });
+    });
+
+    // Add event listener to the initial remove button
+    document.querySelectorAll('.remove-color-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            button.closest('.row').remove();
+        });
+    });
+</script>
