@@ -1,0 +1,75 @@
+﻿@using EverythingSucks.ViewModels
+@model IEnumerable<ProductViewModel>
+
+<div class="shop__product__option">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="shop__product__option__left">
+                <p>Hiện có <strong>@Model.Count()</strong> sản phẩm</p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="shop__product__option__right">
+                <p>Sort by Price:</p>
+                <select>
+                    <option value="">Low To High</option>
+                    <option value="">$0 - $55</option>
+                    <option value="">$55 - $100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="product__item">
+                <div class="product__item__pic set-bg" data-setbg="@item.ProductColors.FirstOrDefault()?.ProductImages.FirstOrDefault(pi => pi.IsPrimary)?.ImageUrl">
+                    <ul class="product__hover">
+                        <li><a href="#"><img src="~/img/icon/heart.png" alt=""></a></li>
+                        @*                         <li>
+                    <a href="#"><img src="~/img/icon/compare.png" alt=""> <span>Compare</span></a>
+                    </li> *@
+                        <li>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductId">
+                                <img src="~/img/icon/search.png" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="product__item__text">
+                    <h6>@item.ProductName</h6>
+                    <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductId" class="add-cart">Xem chi tiết</a>
+                    <div class="rating">
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <h5>@item.ProductPrice.ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))</h5>
+                    <div class="product__color__select">
+                        @{
+                            bool isActiveSet = false;
+                        }
+                        @for (int i = 0; i < item.ProductColors.Count; i++)
+                        {
+                            var color = item.ProductColors[i];
+                            bool isPrimaryColor = color.ProductImages.Any(pi => pi.IsPrimary);
+                            string activeClass = isPrimaryColor && !isActiveSet ? "active" : "";
+                            if (isPrimaryColor && !isActiveSet)
+                            {
+                                isActiveSet = true;
+                            }
+                            <label for="pc-@item.ProductId-@i" class="@activeClass" style="background:@color.ColorCode;">
+                                <input type="radio" id="pc-@item.ProductId-@i" name="color-@item.ProductId">
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

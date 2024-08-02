@@ -53,13 +53,14 @@ namespace EverythingSucks.Controllers
             return View(result);
         }
 
-        public async Task<IActionResult> Search(string query)
+        [HttpGet]
+        public async Task<IActionResult> Search(string? keyword)
         {
             var products = _context.Products.AsQueryable();
 
-            if (query != null)
+            if (keyword != null)
             {
-                products = products.Where(p => p.Name.Contains(query));
+                products = products.Where(p => p.Name.Contains(keyword));
             }
 
             var result = await products.Select(p => new ProductViewModel
@@ -79,6 +80,52 @@ namespace EverythingSucks.Controllers
                     }).ToList()
                 }).ToList()
             }).ToListAsync();
+
+            return View(result);
+        }
+
+        private readonly List<string> sizeOrder = new List<string> { "M", "L", "XL", "2XL", "3XL" };
+        private List<Size> GetSortedSizes(List<Size> sizes)
+        {
+            return sizes.OrderBy(size => sizeOrder.IndexOf(size.Name)).ToList();
+        }
+
+        public async Task<IActionResult> Detail(Guid productId)
+        {
+            var product = await _context.Products.Include(p => p.ProductColors)
+                                                .ThenInclude(pc => pc.Color)
+                                            .Include(p => p.ProductColors)
+                                                .ThenInclude(pc => pc.ProductImages)
+                                            .SingleOrDefaultAsync(p => p.Id == productId);
+            
+            var sizes = await _context.Sizes.ToListAsync();
+            var sortedSizes = GetSortedSizes(sizes);
+
+            if (product == null)
+            {
+                return Redirect("/404");    
+            }
+
+            var result = new DetailProductViewModel
+            {
+                ProductId = product.Id,
+                ProductName = product.Name,
+                ProductDescription = product.Description,
+                ProductPrice = product.Price,
+                ProductColors = product.ProductColors.Select(pc => new ProductColorViewModel
+                {
+                    ColorId = pc.ColorId,
+                    ColorName = pc.Color != null ? pc.Color.Name : null,
+                    ColorCode = pc.Color.ColorCode,
+                    ProductImages = pc.ProductImages.Select(pi => new ProductImageViewModel
+                    {
+                        ImageUrl = pi.Url,
+                        IsPrimary = pi.IsPrimary
+                    }).ToList()
+                }).ToList(),
+
+                Sizes = sortedSizes
+            };
 
             return View(result);
         }
@@ -126,7 +173,7 @@ namespace EverythingSucks.Controllers
                             }
                         }.Concat(await Task.WhenAll(cs.AdditionalImages.Select(async image => new ProductImage
                         {
-                            Url = (await _photoService.AddPhotoAsync(image, 400, 400)).SecureUrl.ToString(),
+                            Url = (await _photoService.AddPhotoAsync(image, 800, 800)).SecureUrl.ToString(),
                             IsPrimary = false
                         }))).ToList()
                     }))

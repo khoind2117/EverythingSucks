@@ -1,8 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿using EverythingSucks.Models;
 
-namespace EverythingSucks.Models
+namespace EverythingSucks.ViewModels
 {
-    public class CartItem
+    public class CartItemViewModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public int Quantity { get; set; }
@@ -13,7 +13,7 @@ namespace EverythingSucks.Models
         public Guid? ProductColorId { get; set; }
         public virtual ProductColor? ProductColor { get; set; }
 
-        public Guid CartId { get; set; }
-        public virtual Cart? Cart { get; set; }
+        // Giỏ hàng không có CartId khi người dùng chưa đăng nhập
     }
+
 }

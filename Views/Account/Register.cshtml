@@ -1,37 +1,124 @@
 ﻿@using EverythingSucks.ViewModels;
 @model RegisterViewModel
 
-<h1>Register</h1>
+@{
+    Layout = "_LayoutCustomer";
+}
+
 <form asp-controller="Account" asp-action="Register" method="post" role="form">
-    <div class="form-group mb-2">
-        <label asp-for="FullName">Fullname</label>
-        <input asp-for="FullName" class="form-control">
-        <span asp-validation-for="FullName" class="text-danger"></span>
+    <h1>Đăng ký</h1>
+    <div class="row">
+        <div class="form-group mb-2 col-6">
+            <label asp-for="FirstName">Họ của bạn</label>
+            <input asp-for="FirstName" class="form-control">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2 col-6">
+            <label asp-for="LastName">Tên của bạn</label>
+            <input asp-for="LastName" class="form-control">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mb-2 col-6">
+            <label asp-for="PhoneNumber">Số điện thoại</label>
+            <input asp-for="PhoneNumber" class="form-control">
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2 col-6">
+            <label asp-for="Email">Tài khoản Email</label>
+            <input asp-for="Email" class="form-control">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mb-2 col-6">
+            <label asp-for="Password">Mật khẩu</label>
+            <input asp-for="Password" class="form-control">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2 col-6">
+            <label asp-for="ConfirmPassword">Mật khẩu xác nhận</label>
+            <input asp-for="ConfirmPassword" class="form-control">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
     </div>
     <div class="form-group mb-2">
-        <label asp-for="PhoneNumber">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control">
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        <label asp-for="Address">Địa chỉ của bạn</label>
+        <input asp-for="Address" class="form-control">
+        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" class="form-control">
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-2">
-        <label asp-for="UserName">Username</label>
-        <input asp-for="UserName" class="form-control">
-        <span asp-validation-for="UserName" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-2">
-        <label asp-for="Password">Password</label>
-        <input asp-for="Password" class="form-control">
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-2">
-        <label asp-for="ConfirmPassword">Confirm Password</label>
-        <input asp-for="ConfirmPassword" class="form-control">
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
 </form>
+
+<style>
+    /* Đặt các style chung cho form */
+    form {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+        /* Đặt style cho tiêu đề */
+        form h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Style cho các nhãn */
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        /* Style cho các input */
+        form .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Style cho các thông báo lỗi */
+        form .text-danger {
+            color: #e74c3c;
+            font-size: 0.9em;
+        }
+
+        /* Style cho nút submit */
+        form .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+            form .btn:hover {
+                background-color: #0056b3;
+            }
+
+        /* Style cho đoạn văn dưới cùng */
+        form p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            form p a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                form p a:hover {
+                    text-decoration: underline;
+                }
+</style>

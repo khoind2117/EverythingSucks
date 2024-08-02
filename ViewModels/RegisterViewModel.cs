@@ -4,26 +4,28 @@ namespace EverythingSucks.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Please enter your fullname")]
-        public string FullName { get; set; }
-        [Required(ErrorMessage = "Please enter your phone number")]
+        [Required(ErrorMessage = "Làm ơn điền họ của bạn")]
+        public string FirstName { get; set; }
+        [Required(ErrorMessage = "Làm ơn điền tên của bạn")]
+        public string LastName { get; set; }
+        [Required(ErrorMessage = "Làm ơn điền địa chỉ")]
+        public string Address { get; set; }
+        [Required(ErrorMessage = "Làm ơn điền số điện thoại")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-        [Required(ErrorMessage = "Please enter your email address")]
+        [Required(ErrorMessage = "Làm ơn điền tài khoản email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Please enter your username")]
-        public string UserName { get; set; }
-        [Required(ErrorMessage = "Please enter your password")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "The password must be at least 6 characters long")]
+        [Required(ErrorMessage = "Làm ơn điền mật khẩu")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Mật khẩu phải chứa ít nhất 6 ký tự")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please enter your confirm password")]
+        [Required(ErrorMessage = "Làm ơn điền mật khẩu xác nhận")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Password and Confirm Password does not match")]
+        [Compare("Password", ErrorMessage = "Mật khẩu và mật khẩu xác nhận không trùng nhau")]
         public string ConfirmPassword { get; set; }
         public string? ReturnUrl { get; set; }
     }
