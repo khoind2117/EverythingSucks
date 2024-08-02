@@ -14,6 +14,7 @@ namespace EverythingSucks.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly CartController _cartController;
 
         public AccountController(ApplicationDbContext context,
             UserManager<User> userManager,
@@ -43,9 +44,10 @@ namespace EverythingSucks.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, isPersistent: true, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, isPersistent: true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    //await _cartController.MergeCart(); // Di chuyển giỏ hàng từ session sang cơ sở dữ liệu
                     return RedirectToAction("Index", "Home");
                 }
                 if (result.IsLockedOut)
@@ -56,11 +58,11 @@ namespace EverythingSucks.Controllers
                 else
                 {
                     // Hiển thị lỗi khi người dùng nhập sai mật khẩu
-                    ModelState.AddModelError("", "Incorrect username or password. Please try again.");
+                    ModelState.AddModelError("", "Email hoặc mật khẩu không đúng. Vui lòng thử lại");
                     return View(loginViewModel);
                 }
             }
-            ModelState.AddModelError("", "Please check the entered data and try again.");
+            ModelState.AddModelError("", "Vui lòng kiểm tra lại thông tin đăng nhập");
             return View(loginViewModel);
         }
 
@@ -80,25 +82,25 @@ namespace EverythingSucks.Controllers
 
             if (ModelState.IsValid)
             {
-                var userByUsername = await _userManager.FindByNameAsync(registerViewModel.UserName);
+                var userByEmail = await _userManager.FindByEmailAsync(registerViewModel.Email);
 
                 // Kiểm tra Username
-                if (userByUsername != null)
+                if (userByEmail != null)
                 {
-                    ModelState.AddModelError("Username", "The username already exists, please choose a different username!");
+                    ModelState.AddModelError("Email", "Email đã được sử dụng, vui lòng sử dụng email khác");
                     return View(registerViewModel);
 
                 }
 
                 // Tạo tài khoản
-                if (userByUsername == null)
+                if (userByEmail == null)
                 {
                     var user = new User(_context)
                     {
-                        UserName = registerViewModel.UserName,
-                        FullName = registerViewModel.FullName,
+                        UserName = registerViewModel.Email,
                         PhoneNumber = registerViewModel.PhoneNumber,
                         Email = registerViewModel.Email,
+                        Address = registerViewModel.Address,
                     };
                     var result = await _userManager.CreateAsync(user, registerViewModel.Password);
                     if (result.Succeeded)
@@ -113,7 +115,7 @@ namespace EverythingSucks.Controllers
 
                 // Nếu tạo không thành công sẽ trả về
                 // Có thể là do mật khẩu chưa đúng quy định, cần làm rõ hơn cho người dùng
-                ModelState.AddModelError("Password", "Account Creation Failed");
+                ModelState.AddModelError("Password", "Tạo tài khoản không thành công");
             }
             return View(registerViewModel);
         }

@@ -1,0 +1,20 @@
+﻿@using EverythingSucks.ViewModels
+@model IEnumerable<MenuColorViewModel>
+
+<div class="card">
+    <div class="card-heading">
+        <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
+    </div>
+    <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="shop__sidebar__color" style="padding: 15px 5px 0px 5px">
+                @foreach (var color in Model)
+                {
+                    <label for="@color.ColorId" style="background-color:@color.ColorCode;">
+                        <input id="@color.ColorId">
+                    </label>
+                }
+            </div>
+        </div>
+    </div>
+</div>

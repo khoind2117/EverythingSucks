@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Net.WebRequestMethods;
 
 namespace EverythingSucks.Data
 {
@@ -30,9 +31,10 @@ namespace EverythingSucks.Data
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         #endregion
 
-        #region FluentAPI
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region FluentAPI
+
             // User
             modelBuilder.Entity<User>(entity =>
             {
@@ -213,8 +215,11 @@ namespace EverythingSucks.Data
                 entity.ToTable("OrderStatus").HasKey(os => os.Id);
             });
 
+            #endregion
+
             base.OnModelCreating(modelBuilder);
 
+            #region Sample Data
             // Khởi tạo dữ liệu cho IdentityRole
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
@@ -243,10 +248,13 @@ namespace EverythingSucks.Data
                 new Category { Id = accessoriesCategoryId, Name = "Phụ kiện" }
             );
 
+            // Define static GUIDs for ProductType(aoThun)
+            var aoThunId = Guid.NewGuid();
+
             // Khởi tạo dữ liệu cho Type
             modelBuilder.Entity<ProductType>().HasData(
                 // Áo
-                new ProductType { Id = Guid.NewGuid(), Name = "Áo thun", CategoryId = topsCategoryId },
+                new ProductType { Id = aoThunId, Name = "Áo thun", CategoryId = topsCategoryId },
                 new ProductType { Id = Guid.NewGuid(), Name = "Áo polo", CategoryId = topsCategoryId },
                 new ProductType { Id = Guid.NewGuid(), Name = "Áo sơ mi", CategoryId = topsCategoryId },
                 // Quần
@@ -268,20 +276,34 @@ namespace EverythingSucks.Data
                 new Size { Id = Guid.NewGuid(), Name = "3XL" }
             );
 
+            // Define static GUIDs for Color
+            var whiteId = Guid.NewGuid();
+            var greyId = Guid.NewGuid();
+            var blackId = Guid.NewGuid();
+            var pinkId = Guid.NewGuid();
+            var redId = Guid.NewGuid();
+            var orangeId = Guid.NewGuid();
+            var beigeId = Guid.NewGuid();
+            var brownId = Guid.NewGuid();
+            var yellowId = Guid.NewGuid();
+            var greenId = Guid.NewGuid();
+            var blueId = Guid.NewGuid();
+            var purpleId = Guid.NewGuid();
+
             // Khởi tạo dữ liệu cho Color
             modelBuilder.Entity<Color>().HasData(
-                new Color { Id = Guid.NewGuid(), Name = "White", ColorCode = "#FFFFFF" },
-                new Color { Id = Guid.NewGuid(), Name = "Grey", ColorCode = "#DEDEDE" },
-                new Color { Id = Guid.NewGuid(), Name = "Black", ColorCode = "#3D3D3D" },
-                new Color { Id = Guid.NewGuid(), Name = "Pink", ColorCode = "#F5C0C9" },
-                new Color { Id = Guid.NewGuid(), Name = "Red", ColorCode = "#EB3417" },
-                new Color { Id = Guid.NewGuid(), Name = "Orange", ColorCode = "#F3A72C" },
-                new Color { Id = Guid.NewGuid(), Name = "Beige", ColorCode = "#EFEBD4" },
-                new Color { Id = Guid.NewGuid(), Name = "Brown", ColorCode = "#714E36" },
-                new Color { Id = Guid.NewGuid(), Name = "Yellow", ColorCode = "#FFFF3F" },
-                new Color { Id = Guid.NewGuid(), Name = "Green", ColorCode = "#387D1F" },
-                new Color { Id = Guid.NewGuid(), Name = "Blue", ColorCode = "#0003F9" },
-                new Color { Id = Guid.NewGuid(), Name = "Purple", ColorCode = "#741A7C" }
+                new Color { Id = whiteId, Name = "White", ColorCode = "#FFFFFF" },
+                new Color { Id = greyId, Name = "Grey", ColorCode = "#DEDEDE" },
+                new Color { Id = blackId, Name = "Black", ColorCode = "#3D3D3D" },
+                new Color { Id = pinkId, Name = "Pink", ColorCode = "#F5C0C9" },
+                new Color { Id = redId, Name = "Red", ColorCode = "#EB3417" },
+                new Color { Id = orangeId, Name = "Orange", ColorCode = "#F3A72C" },
+                new Color { Id = beigeId, Name = "Beige", ColorCode = "#EFEBD4" },
+                new Color { Id = brownId, Name = "Brown", ColorCode = "#714E36" },
+                new Color { Id = yellowId, Name = "Yellow", ColorCode = "#FFFF3F" },
+                new Color { Id = greenId, Name = "Green", ColorCode = "#387D1F" },
+                new Color { Id = blueId, Name = "Blue", ColorCode = "#0003F9" },
+                new Color { Id = purpleId, Name = "Purple", ColorCode = "#741A7C" }
             );
 
             // Khởi tạo dữ liệu cho CartStatus
@@ -298,7 +320,575 @@ namespace EverythingSucks.Data
                 new OrderStatus { Id = Guid.NewGuid(), Name = "Đã giao" },
                 new OrderStatus { Id = Guid.NewGuid(), Name = "Đã hủy" }
             );
+
+            // Define static GUIDs for Product
+            var product_1_Id = Guid.NewGuid();
+            var product_2_Id = Guid.NewGuid();
+            var product_3_Id = Guid.NewGuid();
+            var product_4_Id = Guid.NewGuid();
+            var product_5_Id = Guid.NewGuid();
+            var product_6_Id = Guid.NewGuid();
+            var product_7_Id = Guid.NewGuid();
+            var product_8_Id = Guid.NewGuid();
+            var product_9_Id = Guid.NewGuid();
+            var product_10_Id = Guid.NewGuid();
+            var product_11_Id = Guid.NewGuid();
+            var product_12_Id = Guid.NewGuid();
+
+            // Khởi tạo dữ liệu cho Product
+            modelBuilder.Entity<Product>().HasData(
+                new Product { 
+                    Id = product_1_Id,
+                    Name = "AIRism Cotton Áo Thun Dáng Rộng Tay Lỡ",
+                    Description = "Bộ sưu tập U từ thương hiệu Uniqlo là kết tinh sáng tạo của đội ngũ thiết kế quốc tế tận tâm và tài năng đến từ Trung tâm Nghiên cứu và Phát triển Paris, dưới sự dẫn dắt của Giám đốc Nghệ thuật Christophe Lemaire.",
+                    Price = 391000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_2_Id,
+                    Name = "DRY-EX Áo Thun Cổ Tròn",
+                    Description = "Vải 'DRY-EX' nhanh chóng hấp thụ và hút ẩm để giữ cho làn da của bạn cảm giác tươi mát.",
+                    Price = 391000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_3_Id,
+                    Name = "Áo Thun Vải Cotton Cổ Henley Ngắn Tay",
+                    Description = "Chất liệu 100% cotton bền chắc, cổ áo được làm bằng vải mềm, thiết kế giản dị lấy cảm hứng từ áo bóng bầu dục cổ điển.",
+                    Price = 489000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_4_Id,
+                    Name = "Áo Thun Dáng Rộng Kẻ Sọc Cổ Tròn Tay Lỡ",
+                    Description = "Chất liệu 100% cotton cực dày dặn, cảm giác sắc nét, mịn màng, được giặt trước một lần nước để có phong cách hoàn toàn giản dị.",
+                    Price = 391000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_5_Id,
+                    Name = "Áo Thun Supima Cotton Cổ Tròn Ngắn Tay",
+                    Description = "100% cotton SUPIMA® cao cấp, mịn màng, thiết kế cơ bản phù hợp tạo kiểu với nhiều phong cách khác nhau từ đơn giản đến layer, được thiết kế tỉ mỉ đến từng chi tiết, từ chiều rộng cổ áo đến đường may.",
+                    Price = 391000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_6_Id,
+                    Name = "Áo Thun Dry Cổ Tròn Nhiều Màu",
+                    Description = "Cảm giác giản dị của cotton, lớp lót polyester Với công nghệ DRY khô nhanh, thiết kế cơ bản mà bạn có thể tự tạo phong cách riêng hoặc theo Kiểu layer.",
+                    Price = 146000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_7_Id,
+                    Name = "Áo Thun Cổ Tròn Ngắn Tay",
+                    Description = "Chất liệu vải jersey 100% cotton dày dặn, mang lại cảm giác tươi mát, vải jersey khô được dệt nhỏ gọn có độ bền cao và có đặc tính sau mỗi lần giặt, buộc dây ở cổ áo giúp giữ nguyên kiểu dáng đường viền cổ áo.",
+                    Price = 293000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_8_Id,
+                    Name = "Áo Thun Vải Waffle Dài Tay",
+                    Description = "Một phiên bản mới của chiếc áo thun cổ tròn vải waffle nay đã có mặt, được thiết kế với kiểu dáng đơn giản, không có túi ở phần trước ngực, cải tiến với đường may thẳng cùng kiểu dáng xẻ tà, dễ dàng mặc cho mọi dịp.",
+                    Price = 391000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_9_Id,
+                    Name = "AIRism Cotton Áo Thun Dáng Rộng",
+                    Description = "Vải 'AIRism' mịn màng trông như cotton, cổ tròn hẹp mang lại vẻ ngoài bóng bẩy, vai trễ và tay áo dài đến một nửa rộng rãi, chất liệu vải tạo dáng tôn dáng.",
+                    Price = 391000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_10_Id,
+                    Name = "AIRism Cotton Áo Thun Không Tay",
+                    Description = "Chất vải 'AIRism' mịn màng trông như cotton, Với công nghệ DRY khô nhanh, chất liệu vải sắc nét tạo nên kiểu dáng đẹp mắt.",
+                    Price = 293000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_11_Id,
+                    Name = "Áo Thun Dáng Rộng Tay Lỡ (Ringer)",
+                    Description = "Phần thân được làm từ chất liệu 100% cotton cực dày dặn, cảm giác khá sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.",
+                    Price = 293000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                },
+                new Product
+                {
+                    Id = product_12_Id,
+                    Name = "Áo Thun Dáng Rộng Tay Lỡ (Raglan)",
+                    Description = "Chất liệu 100% cotton dày dặn hoàn hảo, cảm giác sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.",
+                    Price = 293000,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = aoThunId
+                }
+            );
+
+            // Define static GUIDs for ProductColor
+            var product_1_color_1_Id = Guid.NewGuid();
+            var product_1_color_2_Id = Guid.NewGuid();
+            var product_2_color_1_Id = Guid.NewGuid();
+            var product_2_color_2_Id = Guid.NewGuid();
+            var product_3_color_1_Id = Guid.NewGuid();
+            var product_3_color_2_Id = Guid.NewGuid();
+            var product_4_color_1_Id = Guid.NewGuid();
+            var product_4_color_2_Id = Guid.NewGuid();
+            var product_5_color_1_Id = Guid.NewGuid();
+            var product_5_color_2_Id = Guid.NewGuid();
+            var product_6_color_1_Id = Guid.NewGuid();
+            var product_6_color_2_Id = Guid.NewGuid();
+            var product_7_color_1_Id = Guid.NewGuid();
+            var product_7_color_2_Id = Guid.NewGuid();
+            var product_8_color_1_Id = Guid.NewGuid();
+            var product_8_color_2_Id = Guid.NewGuid();
+            var product_9_color_1_Id = Guid.NewGuid();
+            var product_9_color_2_Id = Guid.NewGuid();
+            var product_10_color_1_Id = Guid.NewGuid();
+            var product_10_color_2_Id = Guid.NewGuid();
+            var product_11_color_1_Id = Guid.NewGuid();
+            var product_11_color_2_Id = Guid.NewGuid();
+            var product_12_color_1_Id = Guid.NewGuid();
+            var product_12_color_2_Id = Guid.NewGuid();
+
+
+            // Khởi tạo dữ liệu cho ProductColor
+            modelBuilder.Entity<ProductColor>().HasData(
+                // product_1
+                new ProductColor { Id = product_1_color_1_Id, ProductId = product_1_Id, ColorId = blackId },
+                new ProductColor { Id = product_1_color_2_Id, ProductId = product_1_Id, ColorId = whiteId },
+                // product_2
+                new ProductColor { Id = product_2_color_1_Id, ProductId = product_2_Id, ColorId = blueId },
+                new ProductColor { Id = product_2_color_2_Id, ProductId = product_2_Id, ColorId = blackId },
+                // product_3
+                new ProductColor { Id = product_3_color_1_Id, ProductId = product_3_Id, ColorId = blackId },
+                new ProductColor { Id = product_3_color_2_Id, ProductId = product_3_Id, ColorId = greenId },
+                // product_4
+                new ProductColor { Id = product_4_color_1_Id, ProductId = product_4_Id, ColorId = pinkId },
+                new ProductColor { Id = product_4_color_2_Id, ProductId = product_4_Id, ColorId = blueId },
+                // product_5
+                new ProductColor { Id = product_5_color_1_Id, ProductId = product_5_Id, ColorId = greyId },
+                new ProductColor { Id = product_5_color_2_Id, ProductId = product_5_Id, ColorId = redId },
+                // product_6
+                new ProductColor { Id = product_6_color_1_Id, ProductId = product_6_Id, ColorId = brownId },
+                new ProductColor { Id = product_6_color_2_Id, ProductId = product_6_Id, ColorId = greenId },
+                // product_7
+                new ProductColor { Id = product_7_color_1_Id, ProductId = product_7_Id, ColorId = greyId },
+                new ProductColor { Id = product_7_color_2_Id, ProductId = product_7_Id, ColorId = beigeId },
+                // product_8
+                new ProductColor { Id = product_8_color_1_Id, ProductId = product_8_Id, ColorId = blueId },
+                new ProductColor { Id = product_8_color_2_Id, ProductId = product_8_Id, ColorId = blackId },
+                // product_9
+                new ProductColor { Id = product_9_color_1_Id, ProductId = product_9_Id, ColorId = brownId },
+                new ProductColor { Id = product_9_color_2_Id, ProductId = product_9_Id, ColorId = blueId },
+                // product_10
+                new ProductColor { Id = product_10_color_1_Id, ProductId = product_10_Id, ColorId = whiteId },
+                new ProductColor { Id = product_10_color_2_Id, ProductId = product_10_Id, ColorId = greyId },
+                // product_11
+                new ProductColor { Id = product_11_color_1_Id, ProductId = product_11_Id, ColorId = whiteId },
+                new ProductColor { Id = product_11_color_2_Id, ProductId = product_11_Id, ColorId = blueId },
+                // product_12
+                new ProductColor { Id = product_12_color_1_Id, ProductId = product_12_Id, ColorId = greenId },
+                new ProductColor { Id = product_12_color_2_Id, ProductId = product_12_Id, ColorId = beigeId }
+            );
+
+            // Khởi tạo dữ liệu cho ProductImages
+            modelBuilder.Entity<ProductImage>().HasData(
+                // product_1
+                new ProductImage { 
+                    Id = Guid.NewGuid(), 
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_1_gkqv9b.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_1_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_2_sx4vva.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_1_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438076/white_1_t5dag8.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_1_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438077/white_2_oicoau.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_1_color_2_Id,
+                },
+                // product_2
+                new ProductImage
+                 {
+                     Id = Guid.NewGuid(),
+                     Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_1_eaakhx.jpg",
+                     IsPrimary = true,
+                     ProductColorId = product_2_color_1_Id,
+                 },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_2_pvuo6o.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_2_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_1_r9smbn.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_2_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_2_rhdpsy.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_2_color_2_Id,
+                },
+                // product_3
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439223/black_1_lbqxjg.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_3_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/black_2_xkoq54.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_3_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/olive_1_faf0az.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_3_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439222/olive_2_ovtcev.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_3_color_2_Id,
+                },
+                // product_4
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_1_v0tcxo.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_4_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_2_ygzmiw.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_4_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439524/navy_1_kkhyqa.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_4_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/navy_2_kolxaz.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_4_color_2_Id,
+                },
+                // product_5
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439897/gray_1_lzp7go.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_5_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/gray_2_bzzytk.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_5_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_1_zht2re.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_5_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_2_oohqly.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_5_color_2_Id,
+                },
+                 // product_6
+                 new ProductImage
+                 {
+                     Id = Guid.NewGuid(),
+                     Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_1_h2bauh.jpg",
+                     IsPrimary = true,
+                     ProductColorId = product_6_color_1_Id,
+                 },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_2_vj3zqp.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_6_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/green_1_pwrndf.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_6_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439960/green_2_kf2ll7.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_6_color_2_Id,
+                },
+                // product_7
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/light-gray_1_uyfeh7.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_7_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440135/light-gray_2_hpszuf.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_7_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_1_zmlakv.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_7_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_2_dfpfn5.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_7_color_2_Id,
+                },
+                // product_8
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440195/blue_1_hwruph.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_8_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440196/blue_2_ioyjmd.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_8_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440193/black_1_mvzenu.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_8_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440194/black_2_yptvzh.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_8_color_2_Id,
+                },
+                // product_9
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/brown_1_gmlsf5.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_9_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440251/brown_2_zqkgfj.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_9_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440252/navy_1_aewdgs.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_9_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/navy_2_sybyag.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_9_color_2_Id,
+                },
+                // product_10
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440317/white_1_lppqmp.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_10_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440318/white_2_opuzjo.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_10_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440315/gray_1_eurozu.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_10_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440316/gray_2_gif5gy.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_10_color_2_Id,
+                },
+                // product_11
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440403/white_1_nd5suu.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_11_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440406/white_2_mbd76x.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_11_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440401/navy_1_vrk8fm.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_11_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440402/navy_2_vgb74l.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_11_color_2_Id,
+                },
+                // product_12
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440458/olive_1_uixjsd.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_12_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440460/olive_2_q9e65h.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_12_color_1_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_1_xaltqx.jpg",
+                    IsPrimary = true,
+                    ProductColorId = product_12_color_2_Id,
+                },
+                new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_2_xf8iqr.jpg",
+                    IsPrimary = false,
+                    ProductColorId = product_12_color_2_Id,
+                }
+            );
+
+            #endregion
         }
-        #endregion
     }
 }

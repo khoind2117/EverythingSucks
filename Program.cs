@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+});
 
 builder.Services.AddScoped<PhotoService>();
 
@@ -45,7 +48,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout cho session
+    options.IdleTimeout = TimeSpan.FromMinutes(10); // Thời gian timeout cho session
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -68,6 +71,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
 app.UseAuthorization();
 app.UseDeveloperExceptionPage();
 app.MapControllerRoute(
