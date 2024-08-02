@@ -3,6 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>55983ed8-045b-45fd-b62c-43bc67cfa354</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
