@@ -3,7 +3,6 @@
 namespace EverythingSucks.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
     public class HomeController : Controller
     {
 
@@ -13,3 +12,4 @@ namespace EverythingSucks.Areas.Admin.Controllers
         }
     }
 }
+ 
