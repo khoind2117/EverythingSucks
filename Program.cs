@@ -13,7 +13,10 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
 });
-
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true; // Cấu hình tạo ra URL dạng chữ thường
+});
 builder.Services.AddScoped<PhotoService>();
 
 #region Cloudinary
