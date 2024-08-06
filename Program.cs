@@ -9,8 +9,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+});
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true; // Cấu hình tạo ra URL dạng chữ thường
+});
 builder.Services.AddScoped<PhotoService>();
 
 #region Cloudinary
@@ -45,7 +51,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout cho session
+    options.IdleTimeout = TimeSpan.FromMinutes(10); // Thời gian timeout cho session
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -68,10 +74,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
 app.UseAuthorization();
-
+app.UseDeveloperExceptionPage();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");   
 app.Run();

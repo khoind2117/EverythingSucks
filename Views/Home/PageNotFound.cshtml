@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Page Not Found";
+    Layout = "_LayoutCustomer";
+}
+
+<div class="container mt-5">
+    <div class="text-center error-page">
+        <h1>404</h1>
+        <p >Xin lỗi, Trang không tìm thấy!</p>
+        <p>Trang bạn đang tìm kiếm đã được xóa hoặc đổi tên hoặc tạm thời không công khai.</p>
+        <a href="/" class="btn btn-primary">Trở về trang chủ</a>
+    </div>
+</div>
+
+<style>
+    .error-page {
+        min-height: 100%; /* Đảm bảo phần chính của trang 404 có chiều cao tối thiểu */
+        background: #f8f9fa; /* Màu nền sáng cho trang 404 */
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng cho phần chính */
+    }
+
+        .error-page h1 {
+            font-size: 10rem; /* Kích thước lớn cho mã lỗi */
+            margin-bottom: 1.5rem;
+            color: #dc3545; /* Màu đỏ cho mã lỗi */
+            font-weight: 700;
+            text-transform: uppercase; /* Chữ hoa cho mã lỗi */
+        }
+
+        .error-page p.lead {
+            font-size: 1.75rem; /* Kích thước chữ lớn cho đoạn văn chính */
+            color: #6c757d; /* Màu xám cho văn bản phụ */
+            margin-bottom: 1.5rem;
+        }
+
+        .error-page p {
+            font-size: 1.5rem; /* Kích thước chữ lớn cho đoạn văn phụ */
+            color: #495057; /* Màu xám đậm cho văn bản chính */
+            margin-bottom: 2rem;
+        }
+
+        .error-page a.btn-primary {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+            .error-page a.btn-primary:hover {
+                background-color: #0056b3; /* Màu nền khi hover */
+                border-color: #0056b3;
+            }
+</style>

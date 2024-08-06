@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+@*     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css"> *@
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Admin/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="~/Admin/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Admin/assets/libs/css/style.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+</head>
+<body>
+    <div class="dashboard-main-wrapper">
+        @await Html.PartialAsync("_Header")
+        @await Html.PartialAsync("_SideBar")
+        <div class="dashboard-wrapper">
+            @RenderBody()
+            @await Html.PartialAsync("_Footer")
+        </div>
+    </div>
+    <!-- Js Plugins -->
+ @*    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery.nicescroll.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script> *@
+
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="~/Admin/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <!-- bootstap bundle js -->
+    <script src="~/Admin/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js -->
+    <script src="~/Admin/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <!-- main js -->
+    <script src="~/Admin/assets/libs/js/main-js.js"></script>
+    <!-- chart chartist js -->
+    <script src="~/Admin/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+    <!-- sparkline js -->
+    <script src="~/Admin/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+    <!-- morris js -->
+    <script src="~/Admin/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+    <script src="~/Admin/assets/vendor/charts/morris-bundle/morris.js"></script>
+    <!-- chart c3 js -->
+    <script src="~/Admin/assets/vendor/charts/c3charts/c3.min.js"></script>
+    <script src="~/Admin/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+    <script src="~/Admin/assets/vendor/charts/c3charts/C3chartjs.js"></script>
+    <script src="~/Admin/assets/libs/js/dashboard-ecommerce.js"></script>
+</body>
+</html>

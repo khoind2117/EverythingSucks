@@ -1,4 +1,6 @@
-﻿namespace EverythingSucks.Models
+﻿using System.Text.Json.Serialization;
+
+namespace EverythingSucks.Models
 {
     public class CartItem
     {

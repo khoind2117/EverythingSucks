@@ -18,6 +18,12 @@ namespace EverythingSucks.Controllers
             return View();
         }
 
+        [Route("/404")]
+        public async Task<IActionResult> PageNotFound()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
