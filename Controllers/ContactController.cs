@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EverythingSucks.Areas.Admin.Controllers
+namespace EverythingSucks.Controllers
 {
-    [Area("Admin")]
-    public class HomeController : Controller
+    public class ContactController : Controller
     {
-
         public IActionResult Index()
         {
             return View();
         }
     }
 }
- 
