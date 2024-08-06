@@ -7,11 +7,17 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-site-verification" content="LaUSB5hNbSZggw_9XBc74VJVBopL8Q-6TMPHoo9isc4">
+
     <title>Male-Fashion | Template</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
           rel="stylesheet">
+    <!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJ31373KGB"></script>
+
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
@@ -22,7 +28,6 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     @await Html.PartialAsync("_Header")
@@ -30,10 +35,11 @@
     <div style="min-height:400px">
         @RenderBody()
     </div>
-    
+
     @await Html.PartialAsync("_Footer")
-    
+
     <!-- Js Plugins -->
+
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.nice-select.min.js"></script>
@@ -44,31 +50,12 @@
     <script src="~/js/mixitup.min.js"></script>
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/main.js"></script>
-    @await RenderSectionAsync("Scripts", required: false);
-
     <script>
-        $(document).ready(function () {
-            $("#seachButton").click(function () {
-                let url = `/Product/Search?keyword=` + $("#searchText").val();
-                window.location.href = url;
-            });
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-            function updateCartTotal() {
-                $.ajax({
-                    url: '@Url.Action("GetCartTotal", "Cart")',
-                    method: 'GET',
-                    success: function (data) {
-                        $('#cartTotal').text(data.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-                    }
-                });
-            }
-
-            // Gọi hàm để cập nhật tổng giỏ hàng khi trang được tải
-            updateCartTotal();
-        });
+        gtag('config', 'G-GJ31373KGB');
     </script>
-
-    @* Subiz Plugin *@
-    <script>!function (s, u, b, i, z) { var o, t, r, y; s[i] || (s._sbzaccid = z, s[i] = function () { s[i].q.push(arguments) }, s[i].q = [], s[i]("setAccount", z), r = ["widget.subiz.net", "storage.googleapis" + (t = ".com"), "app.sbz.workers.dev", i + "a" + (o = function (k, t) { var n = t <= 6 ? 5 : o(k, t - 1) + o(k, t - 3); return k !== t ? n : n.toString(32) })(20, 20) + t, i + "b" + o(30, 30) + t, i + "c" + o(40, 40) + t], (y = function (k) { var t, n; s._subiz_init_2094850928430 || r[k] && (t = u.createElement(b), n = u.getElementsByTagName(b)[0], t.async = 1, t.src = "https://" + r[k] + "/sbz/app.js?accid=" + z, n.parentNode.insertBefore(t, n), setTimeout(y, 2e3, k + 1)) })(0)) }(window, document, "script", "subiz", "acsbhjqukcusgznfqirm")</script>
 </body>
 </html>
