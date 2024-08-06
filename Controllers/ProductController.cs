@@ -181,7 +181,7 @@ namespace EverythingSucks.Controllers
 
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create");
+                return RedirectToAction(nameof(Create));
             }
             else
             {

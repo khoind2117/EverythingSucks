@@ -39,7 +39,9 @@
         @await Html.PartialAsync("_Header")
         @await Html.PartialAsync("_SideBar")
         <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content ">
             @RenderBody()
+            </div>
             @await Html.PartialAsync("_Footer")
         </div>
     </div>

@@ -3,6 +3,7 @@ using EverythingSucks.Helpers;
 using EverythingSucks.Models;
 using EverythingSucks.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -72,16 +73,22 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+
 
 app.UseSession();
+
+app.UseRouting();
+
 app.UseAuthorization();
 app.UseDeveloperExceptionPage();
+
+app.MapControllerRoute(
+    name: "Area_route",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");   
+
+
 app.Run();
