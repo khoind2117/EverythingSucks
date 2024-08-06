@@ -11,23 +11,11 @@ namespace EverythingSucks.Models
         public string LastName { get; set; }
         public string Address { get; set; }
 
-        public Guid? CartId { get; set; } = Guid.NewGuid();
+        public Guid? CartId { get; set; }
         public virtual Cart? Cart { get; set; }
 
         public virtual ICollection<Order>? Orders { get; set; }
 
         public virtual ICollection<Favorite>? Favorites { get; set; }
-
-        public User(ApplicationDbContext context)
-        {
-            CartId = Guid.NewGuid();
-            Cart = new Cart { Id = CartId.Value, UserId = this.Id, CartStatusId = GetCartStatusIdByName(context, "Empty") };
-        }
-
-        private Guid? GetCartStatusIdByName(ApplicationDbContext context, string statusName)
-        {
-            var cartStatus = context.CartStatuses.FirstOrDefault(cs => cs.Name == statusName);
-            return cartStatus?.Id;
-        }
     }
 }

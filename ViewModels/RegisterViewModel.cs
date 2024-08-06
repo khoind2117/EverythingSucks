@@ -5,9 +5,9 @@ namespace EverythingSucks.ViewModels
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Làm ơn điền họ của bạn")]
-        public string FirstName { get; set; }
-        [Required(ErrorMessage = "Làm ơn điền tên của bạn")]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "Làm ơn điền tên của bạn")]
+        public string FirstName { get; set; }
         [Required(ErrorMessage = "Làm ơn điền địa chỉ")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Làm ơn điền số điện thoại")]

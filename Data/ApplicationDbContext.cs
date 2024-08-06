@@ -187,9 +187,6 @@ namespace EverythingSucks.Data
             {
                 entity.ToTable("Order").HasKey(o => o.Id);
 
-                entity.Property(o => o.TotalAmount)
-                    .HasColumnType("decimal(18,2)");
-
                 // Liên kết đến OrderStatus
                 entity.HasOne(o => o.OrderStatus)
                     .WithMany(os => os.Orders)

@@ -1,4 +1,13 @@
-﻿<!-- Header Section Begin -->
+﻿﻿@using Microsoft.AspNetCore.Identity;
+
+@inject UserManager<User> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var firstName = user?.FirstName;
+}
+
+<!-- Header Section Begin -->
 <header class="header">
     <div class="header__top">
         <div class="container">
@@ -11,7 +20,20 @@
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
                         <div class="header__top__links">
-                            <a asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-right: 28px; display: inline-block;">
+                                    Chào, @firstName
+                                </span>
+                                <button id="logoutButton" type="button" style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-right: 28px; display: inline-block;">
+                                    Đăng xuất
+                                </button>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                                <a asp-controller="Account" asp-action="Register">Đăng ký</a>
+                            }
                             <a href="#">FAQs</a>
                         </div>
                     </div>
@@ -35,18 +57,10 @@
                         <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Product" ? "active" : "")">
                             <a asp-controller="Product" asp-action="Index">Shop</a>
                         </li>
-                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Pages" ? "active" : "")">
-                            <a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./about.html">About Us</a></li>
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
                         <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Blog" ? "active" : "")"><a href="./blog.html">Blog</a></li>
-                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Contact" ? "active" : "")"><a href="./contact.html">Contacts</a></li>
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Contact" ? "active" : "")">
+                            <a asp-controller="Contact" asp-action="Index">Contacts</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

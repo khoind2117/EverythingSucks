@@ -45,13 +45,13 @@
                                     <td class="quantity__item">
                                         <div class="quantity">
                                             <div class="pro-qty-2">
-                                                <input type="text" class="quantity-input" value="@quantity" min="1" data-product-id="@item.ProductColor.ProductId" data-color-id="@item.ProductColor.ColorId" readonly>
+                                                <input type="text" class="quantity-input" value="@quantity" min="1" data-product-id="@item.ProductColor.ProductId" data-color-id="@item.ProductColor.ColorId" data-size-id="@item.SizeId" readonly>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="cart__price">@totalPrice.ToString("C0", cultureInfo)</td>
                                     <td class="cart__close">
-                                        <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.ProductColor.ProductId" asp-route-colorId="@item.ProductColor.ColorId">
+                                        <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.ProductColor.ProductId" asp-route-colorId="@item.ProductColor.ColorId" asp-route-sizeId="@item.SizeId">
                                             <i class="fa fa-close"></i>
                                         </a>
                                     </td>
@@ -86,7 +86,7 @@
                     <ul>
                         <li>Tổng cộng <span>@Model.CartItems.Sum(item => item.ProductColor.Product.Price * item.Quantity).ToString("C0", cultureInfo)</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">Thanh toán</a>
+                    <a asp-controller="Cart" asp-action="CheckOut" class="primary-btn">Thanh toán</a>
                 </div>
             </div>
         </div>
@@ -106,9 +106,10 @@
             quantityInputs.forEach(input => {
                 const productId = input.getAttribute('data-product-id');
                 const colorId = input.getAttribute('data-color-id');
+                const sizeId = input.getAttribute('data-size-id');
                 const quantity = parseInt(input.value);
 
-                cartItems.push({ productId, colorId, quantity });
+                cartItems.push({ productId, colorId, sizeId, quantity });
             });
 
             fetch('@Url.Action("UpdateCart", "Cart")', {
@@ -118,18 +119,18 @@
                 },
                 body: JSON.stringify(cartItems)
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload(); // Tải lại trang để cập nhật giỏ hàng
-                    } else {
-                        alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Tải lại trang để cập nhật giỏ hàng
+                } else {
                     alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
-                });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
+            });
         });
     });
 </script>
