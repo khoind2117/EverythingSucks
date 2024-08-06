@@ -1,0 +1,169 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "CheckOut";
+    var cultureInfoVN = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var cultureInfoUS = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+}
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <form id="checkoutForm" asp-controller="Cart" asp-action="CheckOut" method="post">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <h6 class="coupon__code">
+                            <span class="icon_tag_alt"></span> Have a coupon? <a href="#">
+                                <strong>Click here</strong>
+                            </a> to enter your code
+                        </h6>
+                        <h6 class="checkout__title">Chi tiết thanh toán</h6>
+                        <div class="checkout__input__checkbox">
+                            <label for="IsPersonalInfo">
+                                Giống thông tin cá nhân
+                                <input type="checkbox" class="form-check-input" id="IsPersonalInfo" value="false">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Họ của bạn<span>*</span></p>
+                                    <input type="text" name="LastName">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Tên của bạn<span>*</span></p>
+                                    <input type="text" name="FirstName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Địa chỉ<span>*</span></p>
+                            <input type="text" name="Address" placeholder="Street Address" class="checkout__input__add">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Số điện thoại<span>*</span></p>
+                                    <input type="text" name="PhoneNumber">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="text" name="Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Ghi chú đơn hàng</p>
+                            <input type="text" name="Note"
+                                    placeholder="Ghi chú về đơn hàng của bạn, ví dụ, yêu cầu đặc biệt cho việc giao hàng.">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="checkout__order">
+                            <h4 class="order__title">Đơn hàng</h4>
+                            <div class="checkout__order__products">
+                                <strong>
+                                    Sản phẩm
+                                </strong>
+
+                                <span><strong>Tổng cộng</strong></span>
+                            </div>
+                            <ul class="checkout__total__products">
+                                @foreach (var item in Model.CartItems)
+                                {
+                                    var price = item.ProductColor.Product.Price;
+                                    var quantity = item.Quantity;
+                                    var total = price * quantity;
+
+                                    <li>
+                                        <div class ="d-inline-block">
+                                            @item.ProductColor.Product.Name (@item.Size.Name)
+                                            <br />
+                                            Số lượng: <strong>@quantity</strong> * @price.ToString("C0", cultureInfoVN)
+                                        </div>
+                                        <span>@total.ToString("C0", cultureInfoVN)</span>
+                                    </li>
+                                }
+                            </ul>
+                            <ul class="checkout__total__all">
+                                <li>
+                                    <strong>Tổng cộng </strong>
+                                    <span>
+                                        @Model.CartItems.Sum(item => item.ProductColor.Product.Price * item.Quantity).ToString("C0", cultureInfoVN)
+                                    </span>
+                                    <hr />
+                                    <span>
+                                        Paypal: @ViewBag.TongTienUsd.ToString("C2", cultureInfoUS)
+                                    </span>
+                                </li>
+                            </ul>
+                            <input type="submit" name="payment" class="site-btn" style="margin-bottom: 14px" value="Đặt hàng (COD)">
+                            <input type="submit" name="payment" class="site-btn" style="margin-bottom: 14px" value="Thanh toán VnPay">
+                            <div id="paypal-button-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+
+@section Scripts {
+    <script src="https://www.paypal.com/sdk/js?client-id=@ViewBag.PaypalClientId"></script>
+<script>
+    $(document).ready(function () {
+        // Checkbox IsPersonalInfo
+        $('#IsPersonalInfo').change(function () {
+            if ($(this).prop("checked")) {
+                $(this).val(true);
+            }
+            else {
+                $(this).val(false);
+            }
+        });
+    });
+
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color: 'gold',
+            shape: 'sharp',
+            label: 'paypal',
+            tagline: 'false'
+        },
+        createOrder: (data, actions) => {
+            return fetch("/Cart/create-paypal-order", {
+                method: "post",
+            }).then((response) => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw error; });
+                }
+
+                return response.json();
+            }).then((order) => order.id)
+                .catch(error => alert(error.message));
+        },
+        onApprove: (data, actions) => {
+            return fetch(`/Cart/capture-paypal-order?orderId=${data.orderID}`, {
+                method: "post",
+            }).then((response) => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw error; });
+                }
+
+                //Đổi địa chỉ tới action thông báo thành công
+                window.location.href = "/Cart/PaymentSuccess";
+            }).catch(error => {
+                // Điều hướng đến trang thất bại nếu không thể capture đơn hàng
+                window.location.href = "/Cart/PaymentFailed";
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+}

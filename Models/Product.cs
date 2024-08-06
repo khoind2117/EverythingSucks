@@ -18,9 +18,5 @@ namespace EverythingSucks.Models
         public virtual ICollection<ProductColor>? ProductColors { get; set; }
 
         public virtual ICollection<Favorite>? Favorites { get; set; }
-
-        public virtual ICollection<CartItem>? CartItems { get; set; }
-
-        public virtual ICollection<OrderItem>? OrderItems { get; set; }
     }
 }

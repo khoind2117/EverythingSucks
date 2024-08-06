@@ -25,6 +25,7 @@ namespace EverythingSucks.Controllers
                                                 .ThenInclude(pc => pc.Color)
                                             .Include(p => p.ProductColors)
                                                 .ThenInclude(pc => pc.ProductImages)
+                                            .AsSplitQuery()
                                             .AsQueryable();
 
             if (productTypeId.HasValue)
