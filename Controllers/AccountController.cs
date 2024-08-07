@@ -48,8 +48,23 @@ namespace EverythingSucks.Controllers
                 var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, isPersistent: true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.GetUserAsync(User); // Get the currently signed-in user
+
+                    // Check if the user has an admin role
+                    bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin"); // Replace "Admin" with your actual admin role name
+
+                    if (isAdmin)
+                    {
+                        // Redirect to the admin area's Index controller
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                    else
+                    {
+                        // Redirect to the regular user area
+                        return RedirectToAction("Index", "Home");
+                    }
                     //await _cartController.MergeCart(); // Di chuyển giỏ hàng từ session sang cơ sở dữ liệu
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
                 if (result.IsLockedOut)
                 {
