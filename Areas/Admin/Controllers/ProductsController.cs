@@ -9,10 +9,12 @@ using EverythingSucks.Data;
 using EverythingSucks.Models;
 using EverythingSucks.Services;
 using EverythingSucks.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EverythingSucks.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
