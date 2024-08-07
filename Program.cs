@@ -24,6 +24,22 @@ builder.Services.AddScoped<PhotoService>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 #endregion
 
+#region Paypal
+builder.Services.AddSingleton(x => new PaypalClient(
+    builder.Configuration["PaypalOptions:AppId"],
+    builder.Configuration["PaypalOptions:AppSecret"],
+    builder.Configuration["PaypalOptions:Mode"]
+));
+#endregion
+
+#region VnPay
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
+#endregion
+
+#region Fetching Exchange Rates from FloatRates
+builder.Services.AddScoped<IExchangeRateProvider, FloatRatesExchangeRateProvider>();
+#endregion
+
 #region ApplicationDbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -79,6 +95,7 @@ app.UseSession();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseDeveloperExceptionPage();
 

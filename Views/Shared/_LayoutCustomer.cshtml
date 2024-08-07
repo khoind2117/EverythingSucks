@@ -7,11 +7,17 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-site-verification" content="LaUSB5hNbSZggw_9XBc74VJVBopL8Q-6TMPHoo9isc4">
+
     <title>Male-Fashion | Template</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
           rel="stylesheet">
+    <!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJ31373KGB"></script>
+
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
@@ -22,7 +28,6 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     @await Html.PartialAsync("_Header")
@@ -30,10 +35,11 @@
     <div style="min-height:400px">
         @RenderBody()
     </div>
-    
+
     @await Html.PartialAsync("_Footer")
-    
+
     <!-- Js Plugins -->
+
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.nice-select.min.js"></script>
@@ -44,7 +50,15 @@
     <script src="~/js/mixitup.min.js"></script>
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/main.js"></script>
-    @await RenderSectionAsync("Scripts", required: false);
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GJ31373KGB');
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -52,7 +66,6 @@
                 let url = `/Product/Search?keyword=` + $("#searchText").val();
                 window.location.href = url;
             });
-
             function updateCartTotal() {
                 $.ajax({
                     url: '@Url.Action("GetCartTotal", "Cart")',
@@ -62,9 +75,22 @@
                     }
                 });
             }
-
             // Gọi hàm để cập nhật tổng giỏ hàng khi trang được tải
             updateCartTotal();
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            fetch('/Account/Logout', {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/Home'; // Điều hướng sau khi đăng xuất thành công
+                } else {
+                    console.error('Logout failed');
+                }
+            })
+            .catch(error => console.error('Error:', error));
         });
     </script>
 

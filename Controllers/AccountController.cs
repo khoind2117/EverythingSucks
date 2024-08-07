@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using EverythingSucks.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace EverythingSucks.Controllers
 {
@@ -95,8 +96,10 @@ namespace EverythingSucks.Controllers
                 // Tạo tài khoản
                 if (userByEmail == null)
                 {
-                    var user = new User(_context)
+                    var user = new User
                     {
+                        FirstName = registerViewModel.FirstName,
+                        LastName = registerViewModel.LastName,
                         UserName = registerViewModel.Email,
                         PhoneNumber = registerViewModel.PhoneNumber,
                         Email = registerViewModel.Email,
@@ -108,6 +111,26 @@ namespace EverythingSucks.Controllers
                         #region Role
                         await _userManager.AddToRoleAsync(user, "User"); // Gán role Admin/User
                         #endregion
+
+                        // Khởi tạo Cart cho người dùng mới
+                        var cart = new Cart
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = user.Id,
+                            CartStatusId = GetCartStatusIdByName("Trống")
+                        };
+
+                        // Thêm cart vào context và lưu thay đổi
+                        _context.Carts.Add(cart);
+                        await _context.SaveChangesAsync();
+
+                        // Gán CartId cho User
+                        user.CartId = cart.Id;
+                        _context.Users.Update(user);
+
+                        // Lưu thay đổi cho User
+                        await _context.SaveChangesAsync();
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
@@ -120,8 +143,13 @@ namespace EverythingSucks.Controllers
             return View(registerViewModel);
         }
 
+        private Guid? GetCartStatusIdByName(string statusName)
+        {
+            var cartStatus = _context.CartStatuses.AsNoTracking().FirstOrDefault(cs => cs.Name == statusName);
+            return cartStatus?.Id;
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
