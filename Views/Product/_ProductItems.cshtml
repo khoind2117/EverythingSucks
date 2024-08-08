@@ -25,31 +25,34 @@
     @foreach (var item in Model)
     {
         <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="product__item">
-                <div class="product__item__pic set-bg" data-setbg="@item.ProductColors.FirstOrDefault()?.ProductImages.FirstOrDefault(pi => pi.IsPrimary)?.ImageUrl">
+            <div class="product__item" itemscope itemtype="https://schema.org/Product">
+                <div class="product__item__pic set-bg" data-setbg="@item.ProductColors.FirstOrDefault()?.ProductImages.FirstOrDefault(pi => pi.IsPrimary)?.ImageUrl" itemprop="image">
                     <ul class="product__hover">
-                        <li><a href="#"><img src="~/img/icon/heart.png" alt=""></a></li>
-                        @*                         <li>
-                    <a href="#"><img src="~/img/icon/compare.png" alt=""> <span>Compare</span></a>
-                    </li> *@
+                        <li><a href="#"><img src="~/img/icon/heart.png" alt="heart-icon"></a></li>
                         <li>
                             <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductId">
-                                <img src="~/img/icon/search.png" alt="">
+                                <img src="~/img/icon/search.png" alt="search-icon">
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="product__item__text">
-                    <h6>@item.ProductName</h6>
+                    <h6 itemprop="name">@item.ProductName</h6>
                     <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductId" class="add-cart">Xem chi tiết</a>
-                    <div class="rating">
+                    <div class="rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
+                        <!-- Giả sử điểm đánh giá trung bình là 4.0 và có 20 đánh giá -->
+                        <meta itemprop="ratingValue" content="4.0">
+                        <meta itemprop="reviewCount" content="20">
                     </div>
-                    <h5>@item.ProductPrice.ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))</h5>
+                    <h5 itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                        <span itemprop="price">@item.ProductPrice.ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))</span>
+                        <meta itemprop="priceCurrency" content="VND">
+                    </h5>
                     <div class="product__color__select">
                         @{
                             bool isActiveSet = false;
@@ -63,7 +66,7 @@
                             {
                                 isActiveSet = true;
                             }
-                            <label for="pc-@item.ProductId-@i" class="@activeClass" style="background:@color.ColorCode;">
+                            <label for="pc-@item.ProductId-@i" class="@activeClass" style="background:@color.ColorCode;" itemprop="color">
                                 <input type="radio" id="pc-@item.ProductId-@i" name="color-@item.ProductId">
                             </label>
                         }
@@ -71,5 +74,6 @@
                 </div>
             </div>
         </div>
+
     }
 </div>

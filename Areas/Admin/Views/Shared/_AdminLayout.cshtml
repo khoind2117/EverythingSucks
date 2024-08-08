@@ -78,5 +78,23 @@
     <script src="~/Admin/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
     <script src="~/Admin/assets/vendor/charts/c3charts/C3chartjs.js"></script>
     <script src="~/Admin/assets/libs/js/dashboard-ecommerce.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            document.getElementById('logoutButton').addEventListener('click', function () {
+                fetch('/Account/Logout', {
+                    method: 'POST'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/Home'; // Điều hướng sau khi đăng xuất thành công
+                        } else {
+                            console.error('Logout failed');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
 </body>
 </html>
