@@ -16,6 +16,7 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using EverythingSucks.Services;
+using System.Security.Policy;
 
 namespace EverythingSucks.Controllers
 {
@@ -26,25 +27,30 @@ namespace EverythingSucks.Controllers
         private readonly PaypalClient _paypalClient;
         private readonly IExchangeRateProvider _exchangeRateProvider;
         private readonly IVnPayService _vnPayService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CartController(ApplicationDbContext context,
             UserManager<User> userManager,
             PaypalClient paypalClient,
             IExchangeRateProvider exchangeRateProvider,
-            IVnPayService vnPayService)
+            IVnPayService vnPayService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _userManager = userManager;
             _paypalClient = paypalClient;
             _exchangeRateProvider = exchangeRateProvider;
             _vnPayService = vnPayService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
+        #region Session Management
         public const string CART_SESSION_KEY = "MYCART";
 
-        private Cart GetCartFromSession()
+        public Cart GetCartFromSession()
         {
-            var cartJson = HttpContext.Session.GetString(CART_SESSION_KEY);
+            var httpContext = _httpContextAccessor.HttpContext;
+            var cartJson = httpContext.Session.GetString(CART_SESSION_KEY);
             return cartJson == null ? new Cart() : System.Text.Json.JsonSerializer.Deserialize<Cart>(cartJson, new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve
@@ -52,14 +58,66 @@ namespace EverythingSucks.Controllers
         }
 
 
-        private void SaveCartToSession(Cart cart)
+        public void SaveCartToSession(Cart cart)
         {
+            var httpContext = _httpContextAccessor.HttpContext;
             var cartJson = System.Text.Json.JsonSerializer.Serialize(cart, new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve
             });
-            HttpContext.Session.SetString(CART_SESSION_KEY, cartJson);
+            httpContext.Session.SetString(CART_SESSION_KEY, cartJson);
         }
+
+        public async Task SaveCartToDatabaseAsync(string userId)
+        {
+            var sessionCart = GetCartFromSession();
+            if (sessionCart != null)
+            {
+                var userCart = await _context.Carts
+                    .Include(c => c.CartItems)
+                    .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                if (userCart != null)
+                {
+                    foreach (var newItem in sessionCart.CartItems)
+                    {
+                        var existingItem = userCart.CartItems
+                            .FirstOrDefault(i => i.ProductColorId == newItem.ProductColorId
+                            && i.SizeId == newItem.SizeId);
+
+                        if (existingItem != null)
+                        {
+                            // Nếu sản phẩm đã tồn tại, cộng thêm số lượng
+                            existingItem.Quantity += newItem.Quantity;
+                            _context.CartItems.Update(existingItem);
+                        }
+                        else
+                        {
+                            // Nếu sản phẩm chưa tồn tại, thêm mới
+                            var newCartItem = new CartItem
+                            {
+                                ProductColorId = newItem.ProductColorId,
+                                Quantity = newItem.Quantity,
+                                SizeId = newItem.SizeId,
+                                CartId = userCart.Id
+                            };
+                            _context.CartItems.Add(newCartItem);
+                        }
+                    }
+
+                    // Save changes to the database
+                    await _context.SaveChangesAsync();
+                }
+
+                // Xóa giỏ hàng khỏi session
+                var httpContext = _httpContextAccessor.HttpContext;
+                if (httpContext != null)
+                {
+                    httpContext.Session.Remove(CART_SESSION_KEY);
+                }
+            }
+        }
+        #endregion
 
         public async Task<IActionResult> Index()
         {

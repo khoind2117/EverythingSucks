@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EverythingSucks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240806112340_InitialCreate")]
+    [Migration("20240807163851_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -42,6 +42,13 @@ namespace EverythingSucks.Migrations
                     b.HasIndex("CartStatusId");
 
                     b.ToTable("Cart", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3a88704d-1fb1-41e9-b24b-0bb1ee011326"),
+                            UserId = "32c944b9-669b-4bd7-ab4b-7a06829d9d84"
+                        });
                 });
 
             modelBuilder.Entity("EverythingSucks.Models.CartItem", b =>
@@ -90,12 +97,12 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("98200fc6-b563-48e9-af8c-c67b80e2367d"),
+                            Id = new Guid("03ff6de0-5b56-4983-bc77-d6ad9aa3f754"),
                             Name = "Có hàng"
                         },
                         new
                         {
-                            Id = new Guid("eef14b1c-2294-41bf-be59-fffb424c74eb"),
+                            Id = new Guid("2ad7231a-e37c-4c60-a6ff-11b4fac52394"),
                             Name = "Trống"
                         });
                 });
@@ -117,17 +124,17 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d3260ef1-c6cf-48e0-8509-0b2727c087da"),
+                            Id = new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"),
                             Name = "Áo"
                         },
                         new
                         {
-                            Id = new Guid("285369b6-5e13-4616-bb0d-56fb332983ad"),
+                            Id = new Guid("01af2e2f-f779-46ae-af72-64717834d068"),
                             Name = "Quần"
                         },
                         new
                         {
-                            Id = new Guid("9fab6c9b-3c48-48e1-8949-bd4292345a3a"),
+                            Id = new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"),
                             Name = "Phụ kiện"
                         });
                 });
@@ -153,73 +160,73 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9c4f690c-7a1d-4708-b5ed-406fd8ab2e9e"),
+                            Id = new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"),
                             ColorCode = "#FFFFFF",
                             Name = "White"
                         },
                         new
                         {
-                            Id = new Guid("46927bde-ec41-454a-9152-665d300763bd"),
+                            Id = new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"),
                             ColorCode = "#DEDEDE",
                             Name = "Grey"
                         },
                         new
                         {
-                            Id = new Guid("25448a6e-feb4-48d0-89d6-b502c5a178bb"),
+                            Id = new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"),
                             ColorCode = "#3D3D3D",
                             Name = "Black"
                         },
                         new
                         {
-                            Id = new Guid("e25a0527-09ca-4fa8-920f-94024310e219"),
+                            Id = new Guid("3df410ec-626c-4ffa-862b-4cc7046b944a"),
                             ColorCode = "#F5C0C9",
                             Name = "Pink"
                         },
                         new
                         {
-                            Id = new Guid("544b59b8-87a6-4012-9e98-de73e00e9392"),
+                            Id = new Guid("944f67e8-09d1-4e1a-ade1-e9956766e319"),
                             ColorCode = "#EB3417",
                             Name = "Red"
                         },
                         new
                         {
-                            Id = new Guid("5c74e337-4a2b-4cc3-adc3-5c81f7318b36"),
+                            Id = new Guid("b53ebd36-d127-4758-b3ea-00296ee34f22"),
                             ColorCode = "#F3A72C",
                             Name = "Orange"
                         },
                         new
                         {
-                            Id = new Guid("7c42837d-8ad5-474d-868d-6f2a78044988"),
+                            Id = new Guid("5c9896d1-4166-4b78-a624-d8dbd045b0e7"),
                             ColorCode = "#EFEBD4",
                             Name = "Beige"
                         },
                         new
                         {
-                            Id = new Guid("3f0ef44b-52a8-4a9a-9386-f965deb167e7"),
+                            Id = new Guid("b1d159f9-76f1-4dc9-9ff2-be47b7c45278"),
                             ColorCode = "#714E36",
                             Name = "Brown"
                         },
                         new
                         {
-                            Id = new Guid("e022901e-e46e-4878-8f2b-056ded26a836"),
+                            Id = new Guid("a4f85071-938b-42de-b93a-f5bb744e7932"),
                             ColorCode = "#FFFF3F",
                             Name = "Yellow"
                         },
                         new
                         {
-                            Id = new Guid("e141a55c-760a-4df9-be2c-1866f5b004b4"),
+                            Id = new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"),
                             ColorCode = "#387D1F",
                             Name = "Green"
                         },
                         new
                         {
-                            Id = new Guid("4e3980a0-0cb3-481b-96f2-aae4c510a02b"),
+                            Id = new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"),
                             ColorCode = "#0003F9",
                             Name = "Blue"
                         },
                         new
                         {
-                            Id = new Guid("977eab2d-607a-4997-9e5e-a10129a7eacd"),
+                            Id = new Guid("37f88607-bd03-4ce7-9e07-b2a056d6a5be"),
                             ColorCode = "#741A7C",
                             Name = "Purple"
                         });
@@ -353,27 +360,27 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1aed6d8a-1721-4e5b-8d09-053154c13650"),
+                            Id = new Guid("4dcd64cc-8379-46e0-a32d-fd0e74a895ce"),
                             Name = "Đang chờ xác nhận"
                         },
                         new
                         {
-                            Id = new Guid("c03f1386-51b6-44e5-b047-2588cb684e84"),
+                            Id = new Guid("60fde9c1-2f33-4271-a2ba-88206ea622aa"),
                             Name = "Xác nhận"
                         },
                         new
                         {
-                            Id = new Guid("95ddaff4-9c55-447e-abe8-e6ea199aae26"),
+                            Id = new Guid("df387df4-52f9-45ea-a8e2-26764bb09fbf"),
                             Name = "Chờ giao hàng"
                         },
                         new
                         {
-                            Id = new Guid("911272f3-18d8-4c17-ba66-20288c9fdf69"),
+                            Id = new Guid("4b70283d-5ce2-4c1f-b093-18e7122de806"),
                             Name = "Đã giao"
                         },
                         new
                         {
-                            Id = new Guid("51ebd24b-4d55-461f-8c92-b7fed9f5bcd7"),
+                            Id = new Guid("18238cc0-2df7-42ff-8e5f-3fb33505f08b"),
                             Name = "Đã hủy"
                         });
                 });
@@ -415,135 +422,135 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("929583cc-576b-4da9-b41a-01c7f1857c5d"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9983),
+                            Id = new Guid("76884c0d-4eee-4afd-a1e5-c6310dfcfb40"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4855),
                             Description = "Bộ sưu tập U từ thương hiệu Uniqlo là kết tinh sáng tạo của đội ngũ thiết kế quốc tế tận tâm và tài năng đến từ Trung tâm Nghiên cứu và Phát triển Paris, dưới sự dẫn dắt của Giám đốc Nghệ thuật Christophe Lemaire.",
                             IsDeleted = false,
                             Name = "AIRism Cotton Áo Thun Dáng Rộng Tay Lỡ",
                             Price = 391000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9992)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4867)
                         },
                         new
                         {
-                            Id = new Guid("2dfc153d-5447-4fc7-ad0e-2a199a56ab08"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9995),
+                            Id = new Guid("93d3bb8f-befc-4ffa-a324-80e2a15e45ea"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4870),
                             Description = "Vải 'DRY-EX' nhanh chóng hấp thụ và hút ẩm để giữ cho làn da của bạn cảm giác tươi mát.",
                             IsDeleted = false,
                             Name = "DRY-EX Áo Thun Cổ Tròn",
                             Price = 391000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9995)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4870)
                         },
                         new
                         {
-                            Id = new Guid("fa4e89b0-b89a-4f8c-a2a4-c1a521341ce4"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9997),
+                            Id = new Guid("12439ae3-a55e-4050-bf5d-efe7dbb4be6c"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4872),
                             Description = "Chất liệu 100% cotton bền chắc, cổ áo được làm bằng vải mềm, thiết kế giản dị lấy cảm hứng từ áo bóng bầu dục cổ điển.",
                             IsDeleted = false,
                             Name = "Áo Thun Vải Cotton Cổ Henley Ngắn Tay",
                             Price = 489000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9997)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4872)
                         },
                         new
                         {
-                            Id = new Guid("a697939c-867e-477a-bce1-692bbc60cfa8"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9999),
+                            Id = new Guid("bb59c0b0-ed31-42d9-a40c-0f95e08efb8f"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4874),
                             Description = "Chất liệu 100% cotton cực dày dặn, cảm giác sắc nét, mịn màng, được giặt trước một lần nước để có phong cách hoàn toàn giản dị.",
                             IsDeleted = false,
                             Name = "Áo Thun Dáng Rộng Kẻ Sọc Cổ Tròn Tay Lỡ",
                             Price = 391000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 792, DateTimeKind.Local).AddTicks(9999)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4874)
                         },
                         new
                         {
-                            Id = new Guid("66316ad8-ed0b-4109-b139-f3f1da4301e1"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(1),
+                            Id = new Guid("08039caf-5a2d-43ec-8ad1-d66388053434"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4877),
                             Description = "100% cotton SUPIMA® cao cấp, mịn màng, thiết kế cơ bản phù hợp tạo kiểu với nhiều phong cách khác nhau từ đơn giản đến layer, được thiết kế tỉ mỉ đến từng chi tiết, từ chiều rộng cổ áo đến đường may.",
                             IsDeleted = false,
                             Name = "Áo Thun Supima Cotton Cổ Tròn Ngắn Tay",
                             Price = 391000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(1)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4878)
                         },
                         new
                         {
-                            Id = new Guid("7e5c4190-b0b6-4264-b5c6-427c83ba4ff3"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(4),
+                            Id = new Guid("916fca40-92eb-4e8e-b377-f1170316b32e"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4880),
                             Description = "Cảm giác giản dị của cotton, lớp lót polyester Với công nghệ DRY khô nhanh, thiết kế cơ bản mà bạn có thể tự tạo phong cách riêng hoặc theo Kiểu layer.",
                             IsDeleted = false,
                             Name = "Áo Thun Dry Cổ Tròn Nhiều Màu",
                             Price = 146000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(5)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4880)
                         },
                         new
                         {
-                            Id = new Guid("2bfc2c03-5884-4e96-b09c-067941e18d81"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(38),
+                            Id = new Guid("daab0e88-09c2-47fe-8c2b-8ffcfe6b7563"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4882),
                             Description = "Chất liệu vải jersey 100% cotton dày dặn, mang lại cảm giác tươi mát, vải jersey khô được dệt nhỏ gọn có độ bền cao và có đặc tính sau mỗi lần giặt, buộc dây ở cổ áo giúp giữ nguyên kiểu dáng đường viền cổ áo.",
                             IsDeleted = false,
                             Name = "Áo Thun Cổ Tròn Ngắn Tay",
                             Price = 293000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(38)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4882)
                         },
                         new
                         {
-                            Id = new Guid("87df6479-5775-435b-864d-ad74e0e6d51a"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(40),
+                            Id = new Guid("33daddd3-18a8-4189-9bd6-1c8c630549ae"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4884),
                             Description = "Một phiên bản mới của chiếc áo thun cổ tròn vải waffle nay đã có mặt, được thiết kế với kiểu dáng đơn giản, không có túi ở phần trước ngực, cải tiến với đường may thẳng cùng kiểu dáng xẻ tà, dễ dàng mặc cho mọi dịp.",
                             IsDeleted = false,
                             Name = "Áo Thun Vải Waffle Dài Tay",
                             Price = 391000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(40)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4884)
                         },
                         new
                         {
-                            Id = new Guid("b743125d-d91d-4f0e-a10d-9603939f7dea"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(42),
+                            Id = new Guid("877d7d6e-e9b8-4eea-99fd-85c63ff0d2ca"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4886),
                             Description = "Vải 'AIRism' mịn màng trông như cotton, cổ tròn hẹp mang lại vẻ ngoài bóng bẩy, vai trễ và tay áo dài đến một nửa rộng rãi, chất liệu vải tạo dáng tôn dáng.",
                             IsDeleted = false,
                             Name = "AIRism Cotton Áo Thun Dáng Rộng",
                             Price = 391000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(42)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4886)
                         },
                         new
                         {
-                            Id = new Guid("ee3e8c93-3e09-4c3b-b992-3028446f4a96"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(44),
+                            Id = new Guid("45ac6e73-c401-4b7c-bf24-3a53388ee3f8"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4887),
                             Description = "Chất vải 'AIRism' mịn màng trông như cotton, Với công nghệ DRY khô nhanh, chất liệu vải sắc nét tạo nên kiểu dáng đẹp mắt.",
                             IsDeleted = false,
                             Name = "AIRism Cotton Áo Thun Không Tay",
                             Price = 293000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(45)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4888)
                         },
                         new
                         {
-                            Id = new Guid("02205dcc-2c22-44eb-8ec7-1576103f6d78"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(46),
+                            Id = new Guid("83005e52-71cd-422e-ab5b-5129b30d16cd"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4889),
                             Description = "Phần thân được làm từ chất liệu 100% cotton cực dày dặn, cảm giác khá sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.",
                             IsDeleted = false,
                             Name = "Áo Thun Dáng Rộng Tay Lỡ (Ringer)",
                             Price = 293000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(47)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4890)
                         },
                         new
                         {
-                            Id = new Guid("0136a45a-768f-4546-a483-60d44b38b648"),
-                            CreatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(48),
+                            Id = new Guid("ad86c66a-93e0-432a-9a18-12b1491af89b"),
+                            CreatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4891),
                             Description = "Chất liệu 100% cotton dày dặn hoàn hảo, cảm giác sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.",
                             IsDeleted = false,
                             Name = "Áo Thun Dáng Rộng Tay Lỡ (Raglan)",
                             Price = 293000m,
-                            ProductTypeId = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            UpdatedAt = new DateTime(2024, 8, 6, 18, 23, 39, 793, DateTimeKind.Local).AddTicks(49)
+                            ProductTypeId = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            UpdatedAt = new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4891)
                         });
                 });
 
@@ -570,147 +577,147 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e289fa09-3b4c-4191-9072-44821ba37049"),
-                            ColorId = new Guid("25448a6e-feb4-48d0-89d6-b502c5a178bb"),
-                            ProductId = new Guid("929583cc-576b-4da9-b41a-01c7f1857c5d")
+                            Id = new Guid("99b85730-83bd-4700-8b7b-0f7cb010cbf0"),
+                            ColorId = new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"),
+                            ProductId = new Guid("76884c0d-4eee-4afd-a1e5-c6310dfcfb40")
                         },
                         new
                         {
-                            Id = new Guid("d9cbb083-26b5-496e-98a6-fce3be357293"),
-                            ColorId = new Guid("9c4f690c-7a1d-4708-b5ed-406fd8ab2e9e"),
-                            ProductId = new Guid("929583cc-576b-4da9-b41a-01c7f1857c5d")
+                            Id = new Guid("813ed004-2277-4c73-8bd5-ea1e273cee62"),
+                            ColorId = new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"),
+                            ProductId = new Guid("76884c0d-4eee-4afd-a1e5-c6310dfcfb40")
                         },
                         new
                         {
-                            Id = new Guid("c617ba9d-6b83-4ef6-b8c6-ccca5688aa6d"),
-                            ColorId = new Guid("4e3980a0-0cb3-481b-96f2-aae4c510a02b"),
-                            ProductId = new Guid("2dfc153d-5447-4fc7-ad0e-2a199a56ab08")
+                            Id = new Guid("98b00074-701a-4e71-9a9f-f5350e9edaea"),
+                            ColorId = new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"),
+                            ProductId = new Guid("93d3bb8f-befc-4ffa-a324-80e2a15e45ea")
                         },
                         new
                         {
-                            Id = new Guid("72248adb-202b-4d42-970c-929012f09f92"),
-                            ColorId = new Guid("25448a6e-feb4-48d0-89d6-b502c5a178bb"),
-                            ProductId = new Guid("2dfc153d-5447-4fc7-ad0e-2a199a56ab08")
+                            Id = new Guid("ce36bfdc-94d3-4464-9235-a232311cccfc"),
+                            ColorId = new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"),
+                            ProductId = new Guid("93d3bb8f-befc-4ffa-a324-80e2a15e45ea")
                         },
                         new
                         {
-                            Id = new Guid("8d3cc25f-0c8e-4e37-9570-2e3deb215d45"),
-                            ColorId = new Guid("25448a6e-feb4-48d0-89d6-b502c5a178bb"),
-                            ProductId = new Guid("fa4e89b0-b89a-4f8c-a2a4-c1a521341ce4")
+                            Id = new Guid("d29b9213-3169-4b2d-8bbf-52834e4f3ca4"),
+                            ColorId = new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"),
+                            ProductId = new Guid("12439ae3-a55e-4050-bf5d-efe7dbb4be6c")
                         },
                         new
                         {
-                            Id = new Guid("826c33f3-4392-42a5-b98b-6f7d85bcbc49"),
-                            ColorId = new Guid("e141a55c-760a-4df9-be2c-1866f5b004b4"),
-                            ProductId = new Guid("fa4e89b0-b89a-4f8c-a2a4-c1a521341ce4")
+                            Id = new Guid("27f6cbcc-b625-4de7-8b5a-1016551ecdb5"),
+                            ColorId = new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"),
+                            ProductId = new Guid("12439ae3-a55e-4050-bf5d-efe7dbb4be6c")
                         },
                         new
                         {
-                            Id = new Guid("b12213db-f580-422a-b301-e35ad569d07f"),
-                            ColorId = new Guid("e25a0527-09ca-4fa8-920f-94024310e219"),
-                            ProductId = new Guid("a697939c-867e-477a-bce1-692bbc60cfa8")
+                            Id = new Guid("91427255-9f79-4eb9-b77b-eefdcebfff77"),
+                            ColorId = new Guid("3df410ec-626c-4ffa-862b-4cc7046b944a"),
+                            ProductId = new Guid("bb59c0b0-ed31-42d9-a40c-0f95e08efb8f")
                         },
                         new
                         {
-                            Id = new Guid("bb98d5f4-ce56-4abd-b6d6-a70dec58f6e0"),
-                            ColorId = new Guid("4e3980a0-0cb3-481b-96f2-aae4c510a02b"),
-                            ProductId = new Guid("a697939c-867e-477a-bce1-692bbc60cfa8")
+                            Id = new Guid("9fcd53b2-464d-4614-be17-c8191337f54f"),
+                            ColorId = new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"),
+                            ProductId = new Guid("bb59c0b0-ed31-42d9-a40c-0f95e08efb8f")
                         },
                         new
                         {
-                            Id = new Guid("e0001701-6039-4297-bfc1-a0df8564f126"),
-                            ColorId = new Guid("46927bde-ec41-454a-9152-665d300763bd"),
-                            ProductId = new Guid("66316ad8-ed0b-4109-b139-f3f1da4301e1")
+                            Id = new Guid("61203d6a-654f-4f84-a193-8ac16fc14d46"),
+                            ColorId = new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"),
+                            ProductId = new Guid("08039caf-5a2d-43ec-8ad1-d66388053434")
                         },
                         new
                         {
-                            Id = new Guid("5b142a1f-52e4-482b-b286-ace90b0e370e"),
-                            ColorId = new Guid("544b59b8-87a6-4012-9e98-de73e00e9392"),
-                            ProductId = new Guid("66316ad8-ed0b-4109-b139-f3f1da4301e1")
+                            Id = new Guid("3e50ab98-3dbf-4fcd-9963-c1fa59a8d782"),
+                            ColorId = new Guid("944f67e8-09d1-4e1a-ade1-e9956766e319"),
+                            ProductId = new Guid("08039caf-5a2d-43ec-8ad1-d66388053434")
                         },
                         new
                         {
-                            Id = new Guid("ab1782df-ea23-4f45-9d90-2b42c267a40d"),
-                            ColorId = new Guid("3f0ef44b-52a8-4a9a-9386-f965deb167e7"),
-                            ProductId = new Guid("7e5c4190-b0b6-4264-b5c6-427c83ba4ff3")
+                            Id = new Guid("155fafd4-541b-4716-ac34-609553e1e07a"),
+                            ColorId = new Guid("b1d159f9-76f1-4dc9-9ff2-be47b7c45278"),
+                            ProductId = new Guid("916fca40-92eb-4e8e-b377-f1170316b32e")
                         },
                         new
                         {
-                            Id = new Guid("bae4694d-1401-4ea4-a640-8004c5ffd7d5"),
-                            ColorId = new Guid("e141a55c-760a-4df9-be2c-1866f5b004b4"),
-                            ProductId = new Guid("7e5c4190-b0b6-4264-b5c6-427c83ba4ff3")
+                            Id = new Guid("8aa01376-6057-4ecb-ae2a-5be214ddcae6"),
+                            ColorId = new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"),
+                            ProductId = new Guid("916fca40-92eb-4e8e-b377-f1170316b32e")
                         },
                         new
                         {
-                            Id = new Guid("156faef1-45cb-40bb-87d1-f0fb4a714fd3"),
-                            ColorId = new Guid("46927bde-ec41-454a-9152-665d300763bd"),
-                            ProductId = new Guid("2bfc2c03-5884-4e96-b09c-067941e18d81")
+                            Id = new Guid("88cf17db-ff65-4ca1-9aff-edc7943abddf"),
+                            ColorId = new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"),
+                            ProductId = new Guid("daab0e88-09c2-47fe-8c2b-8ffcfe6b7563")
                         },
                         new
                         {
-                            Id = new Guid("42666ce5-a7cb-4cc4-b131-9e8d5d8d0108"),
-                            ColorId = new Guid("7c42837d-8ad5-474d-868d-6f2a78044988"),
-                            ProductId = new Guid("2bfc2c03-5884-4e96-b09c-067941e18d81")
+                            Id = new Guid("6ef5bc54-127b-4c64-9eeb-bda6e98efee0"),
+                            ColorId = new Guid("5c9896d1-4166-4b78-a624-d8dbd045b0e7"),
+                            ProductId = new Guid("daab0e88-09c2-47fe-8c2b-8ffcfe6b7563")
                         },
                         new
                         {
-                            Id = new Guid("9667cdca-9f10-4b4a-adf2-b9fa91341bf6"),
-                            ColorId = new Guid("4e3980a0-0cb3-481b-96f2-aae4c510a02b"),
-                            ProductId = new Guid("87df6479-5775-435b-864d-ad74e0e6d51a")
+                            Id = new Guid("c391e26b-aaee-4038-9aa4-358c27ffcd8a"),
+                            ColorId = new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"),
+                            ProductId = new Guid("33daddd3-18a8-4189-9bd6-1c8c630549ae")
                         },
                         new
                         {
-                            Id = new Guid("5467d69e-5137-4235-8c02-5909ed6ebdc3"),
-                            ColorId = new Guid("25448a6e-feb4-48d0-89d6-b502c5a178bb"),
-                            ProductId = new Guid("87df6479-5775-435b-864d-ad74e0e6d51a")
+                            Id = new Guid("5300edec-f24d-43c9-98ac-ece6f8162972"),
+                            ColorId = new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"),
+                            ProductId = new Guid("33daddd3-18a8-4189-9bd6-1c8c630549ae")
                         },
                         new
                         {
-                            Id = new Guid("c6d43721-cec3-4820-85ac-f6f8bd9e9fac"),
-                            ColorId = new Guid("3f0ef44b-52a8-4a9a-9386-f965deb167e7"),
-                            ProductId = new Guid("b743125d-d91d-4f0e-a10d-9603939f7dea")
+                            Id = new Guid("52afd94c-134f-40eb-b199-b8be04285dc1"),
+                            ColorId = new Guid("b1d159f9-76f1-4dc9-9ff2-be47b7c45278"),
+                            ProductId = new Guid("877d7d6e-e9b8-4eea-99fd-85c63ff0d2ca")
                         },
                         new
                         {
-                            Id = new Guid("74c30efb-2929-490c-adf6-db5ea0eb5724"),
-                            ColorId = new Guid("4e3980a0-0cb3-481b-96f2-aae4c510a02b"),
-                            ProductId = new Guid("b743125d-d91d-4f0e-a10d-9603939f7dea")
+                            Id = new Guid("1db07e2d-dc3a-4b77-8625-9701d71d6b22"),
+                            ColorId = new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"),
+                            ProductId = new Guid("877d7d6e-e9b8-4eea-99fd-85c63ff0d2ca")
                         },
                         new
                         {
-                            Id = new Guid("8b2ddc46-d8b4-4f25-a081-4807204740d0"),
-                            ColorId = new Guid("9c4f690c-7a1d-4708-b5ed-406fd8ab2e9e"),
-                            ProductId = new Guid("ee3e8c93-3e09-4c3b-b992-3028446f4a96")
+                            Id = new Guid("d0c3fa8a-8c14-4e81-ad69-5273d8dc57bb"),
+                            ColorId = new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"),
+                            ProductId = new Guid("45ac6e73-c401-4b7c-bf24-3a53388ee3f8")
                         },
                         new
                         {
-                            Id = new Guid("4e3f6713-8537-4901-9912-1b8e60370647"),
-                            ColorId = new Guid("46927bde-ec41-454a-9152-665d300763bd"),
-                            ProductId = new Guid("ee3e8c93-3e09-4c3b-b992-3028446f4a96")
+                            Id = new Guid("b116a223-432a-4aff-bd15-9390abb7bfbc"),
+                            ColorId = new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"),
+                            ProductId = new Guid("45ac6e73-c401-4b7c-bf24-3a53388ee3f8")
                         },
                         new
                         {
-                            Id = new Guid("08f4b2b8-3892-459d-8b62-fc78201df9c6"),
-                            ColorId = new Guid("9c4f690c-7a1d-4708-b5ed-406fd8ab2e9e"),
-                            ProductId = new Guid("02205dcc-2c22-44eb-8ec7-1576103f6d78")
+                            Id = new Guid("6b82f7f9-0614-4352-a900-41887b213bc3"),
+                            ColorId = new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"),
+                            ProductId = new Guid("83005e52-71cd-422e-ab5b-5129b30d16cd")
                         },
                         new
                         {
-                            Id = new Guid("74e406b8-92de-4ef5-9fce-c42806af61fe"),
-                            ColorId = new Guid("4e3980a0-0cb3-481b-96f2-aae4c510a02b"),
-                            ProductId = new Guid("02205dcc-2c22-44eb-8ec7-1576103f6d78")
+                            Id = new Guid("0d7bafff-9962-414e-85d8-9c80221d3e85"),
+                            ColorId = new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"),
+                            ProductId = new Guid("83005e52-71cd-422e-ab5b-5129b30d16cd")
                         },
                         new
                         {
-                            Id = new Guid("9f416d19-921e-4a5a-bbc3-c07a0fe622e8"),
-                            ColorId = new Guid("e141a55c-760a-4df9-be2c-1866f5b004b4"),
-                            ProductId = new Guid("0136a45a-768f-4546-a483-60d44b38b648")
+                            Id = new Guid("619021b8-532e-4a1b-87f7-38571fcd269a"),
+                            ColorId = new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"),
+                            ProductId = new Guid("ad86c66a-93e0-432a-9a18-12b1491af89b")
                         },
                         new
                         {
-                            Id = new Guid("236e1e24-61d6-497c-b8d3-9d345aff253a"),
-                            ColorId = new Guid("7c42837d-8ad5-474d-868d-6f2a78044988"),
-                            ProductId = new Guid("0136a45a-768f-4546-a483-60d44b38b648")
+                            Id = new Guid("ac4b09da-bf4c-42f4-824f-bc16e81aa413"),
+                            ColorId = new Guid("5c9896d1-4166-4b78-a624-d8dbd045b0e7"),
+                            ProductId = new Guid("ad86c66a-93e0-432a-9a18-12b1491af89b")
                         });
                 });
 
@@ -738,338 +745,338 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("68cb87f4-fd4f-47e1-8986-0c436190ba55"),
+                            Id = new Guid("1f2b380c-b7ca-4841-96d7-e73aef6786bd"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("e289fa09-3b4c-4191-9072-44821ba37049"),
+                            ProductColorId = new Guid("99b85730-83bd-4700-8b7b-0f7cb010cbf0"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_1_gkqv9b.jpg"
                         },
                         new
                         {
-                            Id = new Guid("09151426-a6e7-46ce-8f23-5edd6dd32a79"),
+                            Id = new Guid("42b4d277-f7c5-4152-a568-79ec56fed1af"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("e289fa09-3b4c-4191-9072-44821ba37049"),
+                            ProductColorId = new Guid("99b85730-83bd-4700-8b7b-0f7cb010cbf0"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_2_sx4vva.jpg"
                         },
                         new
                         {
-                            Id = new Guid("874a2f41-c8ee-470a-b443-dabd8358c429"),
+                            Id = new Guid("a574ed50-0219-4318-a235-15f1f5eabcbf"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("d9cbb083-26b5-496e-98a6-fce3be357293"),
+                            ProductColorId = new Guid("813ed004-2277-4c73-8bd5-ea1e273cee62"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438076/white_1_t5dag8.jpg"
                         },
                         new
                         {
-                            Id = new Guid("bfa5fb97-1048-4bab-bcc8-d25dfe0b2e7b"),
+                            Id = new Guid("09792728-30fc-43de-8589-87948bdf0dc1"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("d9cbb083-26b5-496e-98a6-fce3be357293"),
+                            ProductColorId = new Guid("813ed004-2277-4c73-8bd5-ea1e273cee62"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438077/white_2_oicoau.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a1ffaa6b-a72e-4a27-8b47-1fbfde0c3278"),
+                            Id = new Guid("49ee70b6-a427-40dd-bcaf-eee51ba5d4a3"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("c617ba9d-6b83-4ef6-b8c6-ccca5688aa6d"),
+                            ProductColorId = new Guid("98b00074-701a-4e71-9a9f-f5350e9edaea"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_1_eaakhx.jpg"
                         },
                         new
                         {
-                            Id = new Guid("9550b8ec-cc4f-40d9-953c-af1f831192ca"),
+                            Id = new Guid("04fee30f-f915-4556-9ec7-603fc9165ed3"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("c617ba9d-6b83-4ef6-b8c6-ccca5688aa6d"),
+                            ProductColorId = new Guid("98b00074-701a-4e71-9a9f-f5350e9edaea"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_2_pvuo6o.jpg"
                         },
                         new
                         {
-                            Id = new Guid("65600a82-78bb-4e51-9df8-4c93e0649ffb"),
+                            Id = new Guid("2b3d60e9-5c29-4e94-b0df-e403c58e78e5"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("72248adb-202b-4d42-970c-929012f09f92"),
+                            ProductColorId = new Guid("ce36bfdc-94d3-4464-9235-a232311cccfc"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_1_r9smbn.jpg"
                         },
                         new
                         {
-                            Id = new Guid("09a2c3f7-5cb7-4626-b32a-0e4a6d830249"),
+                            Id = new Guid("bc684a31-a317-407a-9234-df1ae3f1a0db"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("72248adb-202b-4d42-970c-929012f09f92"),
+                            ProductColorId = new Guid("ce36bfdc-94d3-4464-9235-a232311cccfc"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_2_rhdpsy.jpg"
                         },
                         new
                         {
-                            Id = new Guid("fa3f4693-1596-4b9c-80b6-1e532d9727e8"),
+                            Id = new Guid("ec0df6e8-33cd-4586-bf76-397acb8b7c17"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("8d3cc25f-0c8e-4e37-9570-2e3deb215d45"),
+                            ProductColorId = new Guid("d29b9213-3169-4b2d-8bbf-52834e4f3ca4"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439223/black_1_lbqxjg.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b60c2494-ff18-4717-99c0-7ca0a9a5cca2"),
+                            Id = new Guid("2929f829-a674-4e6b-a0ee-1ed7acdb24fd"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("8d3cc25f-0c8e-4e37-9570-2e3deb215d45"),
+                            ProductColorId = new Guid("d29b9213-3169-4b2d-8bbf-52834e4f3ca4"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/black_2_xkoq54.jpg"
                         },
                         new
                         {
-                            Id = new Guid("d575e420-d17e-4542-9a22-c58d2bd92534"),
+                            Id = new Guid("644fe614-8318-44b3-912f-17dcb2445bdb"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("826c33f3-4392-42a5-b98b-6f7d85bcbc49"),
+                            ProductColorId = new Guid("27f6cbcc-b625-4de7-8b5a-1016551ecdb5"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/olive_1_faf0az.jpg"
                         },
                         new
                         {
-                            Id = new Guid("231bbc81-b82f-42e8-a754-4f97aee13040"),
+                            Id = new Guid("e33ba492-8488-4426-9261-5ee01e8f875b"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("826c33f3-4392-42a5-b98b-6f7d85bcbc49"),
+                            ProductColorId = new Guid("27f6cbcc-b625-4de7-8b5a-1016551ecdb5"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439222/olive_2_ovtcev.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b01fbc5b-55b4-43d8-9ee9-56b079eb12e2"),
+                            Id = new Guid("3d7b1f3f-6c50-44df-9232-dee9d90663d8"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("b12213db-f580-422a-b301-e35ad569d07f"),
+                            ProductColorId = new Guid("91427255-9f79-4eb9-b77b-eefdcebfff77"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_1_v0tcxo.jpg"
                         },
                         new
                         {
-                            Id = new Guid("86e2ccb8-3f48-436f-8402-cefaa47e4151"),
+                            Id = new Guid("fdfb14bb-9825-46cb-a711-5a72f30394f4"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("b12213db-f580-422a-b301-e35ad569d07f"),
+                            ProductColorId = new Guid("91427255-9f79-4eb9-b77b-eefdcebfff77"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_2_ygzmiw.jpg"
                         },
                         new
                         {
-                            Id = new Guid("47e41546-a05b-4033-9de8-6b6993d12d45"),
+                            Id = new Guid("d12325cf-55ce-4421-8331-92b6be644860"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("bb98d5f4-ce56-4abd-b6d6-a70dec58f6e0"),
+                            ProductColorId = new Guid("9fcd53b2-464d-4614-be17-c8191337f54f"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439524/navy_1_kkhyqa.jpg"
                         },
                         new
                         {
-                            Id = new Guid("e28e8092-dbd4-4472-8bf9-14f5949bc97e"),
+                            Id = new Guid("6dc50e23-b0f3-4a11-a8cb-383cf0c2e278"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("bb98d5f4-ce56-4abd-b6d6-a70dec58f6e0"),
+                            ProductColorId = new Guid("9fcd53b2-464d-4614-be17-c8191337f54f"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/navy_2_kolxaz.jpg"
                         },
                         new
                         {
-                            Id = new Guid("81443ec6-6f4f-4c7c-bc19-b70819d37178"),
+                            Id = new Guid("d9efba2f-bad6-42ba-8720-ff4c7b8effc8"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("e0001701-6039-4297-bfc1-a0df8564f126"),
+                            ProductColorId = new Guid("61203d6a-654f-4f84-a193-8ac16fc14d46"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439897/gray_1_lzp7go.jpg"
                         },
                         new
                         {
-                            Id = new Guid("db6cbc35-75d5-4822-b9af-ce48a5a9a083"),
+                            Id = new Guid("cae8ba9f-2517-425d-92ec-f2acdd9e7297"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("e0001701-6039-4297-bfc1-a0df8564f126"),
+                            ProductColorId = new Guid("61203d6a-654f-4f84-a193-8ac16fc14d46"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/gray_2_bzzytk.jpg"
                         },
                         new
                         {
-                            Id = new Guid("c7043e48-4780-4c37-af7b-da39de025a6e"),
+                            Id = new Guid("1e58c4cc-a69a-4c8a-a7aa-0effc9db9ebd"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("5b142a1f-52e4-482b-b286-ace90b0e370e"),
+                            ProductColorId = new Guid("3e50ab98-3dbf-4fcd-9963-c1fa59a8d782"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_1_zht2re.jpg"
                         },
                         new
                         {
-                            Id = new Guid("46fd4b3d-6c69-4742-a535-b4dd52b00787"),
+                            Id = new Guid("91adb552-3850-4bab-94d1-fd193d48edc3"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("5b142a1f-52e4-482b-b286-ace90b0e370e"),
+                            ProductColorId = new Guid("3e50ab98-3dbf-4fcd-9963-c1fa59a8d782"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_2_oohqly.jpg"
                         },
                         new
                         {
-                            Id = new Guid("7217e0b6-8f27-404e-845e-0045171aa6a6"),
+                            Id = new Guid("38bdf142-0f63-4c9c-87e7-28c4881fb775"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("ab1782df-ea23-4f45-9d90-2b42c267a40d"),
+                            ProductColorId = new Guid("155fafd4-541b-4716-ac34-609553e1e07a"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_1_h2bauh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("849d761d-84f9-4f38-9a54-67576a42731d"),
+                            Id = new Guid("1eb36129-fada-498b-9c0a-14fa1864a24b"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("ab1782df-ea23-4f45-9d90-2b42c267a40d"),
+                            ProductColorId = new Guid("155fafd4-541b-4716-ac34-609553e1e07a"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_2_vj3zqp.jpg"
                         },
                         new
                         {
-                            Id = new Guid("2314c140-91c2-4bd2-bf6f-13e4eede93d6"),
+                            Id = new Guid("3a20cab8-866d-4538-86f1-84eb4e395ebd"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("bae4694d-1401-4ea4-a640-8004c5ffd7d5"),
+                            ProductColorId = new Guid("8aa01376-6057-4ecb-ae2a-5be214ddcae6"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/green_1_pwrndf.jpg"
                         },
                         new
                         {
-                            Id = new Guid("ca2c5712-c096-4e80-a426-57609ba18b3b"),
+                            Id = new Guid("8a660c39-a005-4fa5-8038-f4efbe816c5a"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("bae4694d-1401-4ea4-a640-8004c5ffd7d5"),
+                            ProductColorId = new Guid("8aa01376-6057-4ecb-ae2a-5be214ddcae6"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439960/green_2_kf2ll7.jpg"
                         },
                         new
                         {
-                            Id = new Guid("494d2191-6685-4ceb-81b6-bb2e4ccb9c98"),
+                            Id = new Guid("1af7ad50-76d2-4d18-b007-79316b4e1ba0"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("156faef1-45cb-40bb-87d1-f0fb4a714fd3"),
+                            ProductColorId = new Guid("88cf17db-ff65-4ca1-9aff-edc7943abddf"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/light-gray_1_uyfeh7.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b0306f1f-5993-46f1-8d4c-e4b75fcd7506"),
+                            Id = new Guid("1cf2f018-0a6f-4b3f-8abf-325261cb0413"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("156faef1-45cb-40bb-87d1-f0fb4a714fd3"),
+                            ProductColorId = new Guid("88cf17db-ff65-4ca1-9aff-edc7943abddf"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440135/light-gray_2_hpszuf.jpg"
                         },
                         new
                         {
-                            Id = new Guid("c1c16734-de6b-4d70-b687-d257636e31aa"),
+                            Id = new Guid("0ee22d01-e51a-4b1f-a39b-5cdfb83ef504"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("42666ce5-a7cb-4cc4-b131-9e8d5d8d0108"),
+                            ProductColorId = new Guid("6ef5bc54-127b-4c64-9eeb-bda6e98efee0"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_1_zmlakv.jpg"
                         },
                         new
                         {
-                            Id = new Guid("41241bbd-9f7d-4f5e-8b50-a9e567e0cc4a"),
+                            Id = new Guid("6d68fd7b-d97f-46c2-8919-3712cf9c68b0"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("42666ce5-a7cb-4cc4-b131-9e8d5d8d0108"),
+                            ProductColorId = new Guid("6ef5bc54-127b-4c64-9eeb-bda6e98efee0"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_2_dfpfn5.jpg"
                         },
                         new
                         {
-                            Id = new Guid("fda00dde-43cb-4ab7-ae84-e2e59eb40c31"),
+                            Id = new Guid("0502fca7-b25b-4844-a10d-df7d9a7d19f5"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("9667cdca-9f10-4b4a-adf2-b9fa91341bf6"),
+                            ProductColorId = new Guid("c391e26b-aaee-4038-9aa4-358c27ffcd8a"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440195/blue_1_hwruph.jpg"
                         },
                         new
                         {
-                            Id = new Guid("166ad3e4-2c12-420a-baad-861c0417fa15"),
+                            Id = new Guid("e35f770e-67d2-4cc2-964d-44b05a54194f"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("9667cdca-9f10-4b4a-adf2-b9fa91341bf6"),
+                            ProductColorId = new Guid("c391e26b-aaee-4038-9aa4-358c27ffcd8a"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440196/blue_2_ioyjmd.jpg"
                         },
                         new
                         {
-                            Id = new Guid("11e7d2ef-6c41-4560-b67b-bbf1089db4d1"),
+                            Id = new Guid("1a6a7a18-1489-4865-8354-539c983876d7"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("5467d69e-5137-4235-8c02-5909ed6ebdc3"),
+                            ProductColorId = new Guid("5300edec-f24d-43c9-98ac-ece6f8162972"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440193/black_1_mvzenu.jpg"
                         },
                         new
                         {
-                            Id = new Guid("cc3a9ca3-2b04-4a16-a6fa-4699379046f5"),
+                            Id = new Guid("d79051b7-f46f-4908-8c5d-7f916e18f0a5"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("5467d69e-5137-4235-8c02-5909ed6ebdc3"),
+                            ProductColorId = new Guid("5300edec-f24d-43c9-98ac-ece6f8162972"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440194/black_2_yptvzh.jpg"
                         },
                         new
                         {
-                            Id = new Guid("ff3c99d1-c5e7-4854-85fc-d5164bd839c5"),
+                            Id = new Guid("19c3276c-f8fe-4a58-9e2d-f482fa4f4d4b"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("c6d43721-cec3-4820-85ac-f6f8bd9e9fac"),
+                            ProductColorId = new Guid("52afd94c-134f-40eb-b199-b8be04285dc1"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/brown_1_gmlsf5.jpg"
                         },
                         new
                         {
-                            Id = new Guid("d55b86b8-3585-4019-8ffe-86d469377f0d"),
+                            Id = new Guid("911dce3e-dd79-4693-b22e-6fa98eac2ff0"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("c6d43721-cec3-4820-85ac-f6f8bd9e9fac"),
+                            ProductColorId = new Guid("52afd94c-134f-40eb-b199-b8be04285dc1"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440251/brown_2_zqkgfj.jpg"
                         },
                         new
                         {
-                            Id = new Guid("4cbabba3-38b7-4bac-ae60-30e97b7ae6c9"),
+                            Id = new Guid("6ed86342-6c6e-4ce9-93d6-4d25f22da2d2"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("74c30efb-2929-490c-adf6-db5ea0eb5724"),
+                            ProductColorId = new Guid("1db07e2d-dc3a-4b77-8625-9701d71d6b22"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440252/navy_1_aewdgs.jpg"
                         },
                         new
                         {
-                            Id = new Guid("aad3dcef-d62b-4459-87b1-e877a7038f3b"),
+                            Id = new Guid("05635881-8cab-4281-a848-66d76adb4cdc"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("74c30efb-2929-490c-adf6-db5ea0eb5724"),
+                            ProductColorId = new Guid("1db07e2d-dc3a-4b77-8625-9701d71d6b22"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/navy_2_sybyag.jpg"
                         },
                         new
                         {
-                            Id = new Guid("cb569db3-ea51-4f27-9e3b-89414cf3b7bf"),
+                            Id = new Guid("49ac97f5-295b-43dd-94e1-f735f0c658e8"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("8b2ddc46-d8b4-4f25-a081-4807204740d0"),
+                            ProductColorId = new Guid("d0c3fa8a-8c14-4e81-ad69-5273d8dc57bb"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440317/white_1_lppqmp.jpg"
                         },
                         new
                         {
-                            Id = new Guid("bc06c230-df3d-4d84-ab4a-889de917a202"),
+                            Id = new Guid("a3494c7c-57ef-4d1b-a13a-687379d8c3f4"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("8b2ddc46-d8b4-4f25-a081-4807204740d0"),
+                            ProductColorId = new Guid("d0c3fa8a-8c14-4e81-ad69-5273d8dc57bb"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440318/white_2_opuzjo.jpg"
                         },
                         new
                         {
-                            Id = new Guid("662d545a-336a-4917-ae56-b7f3ebf00823"),
+                            Id = new Guid("239aa394-f40e-45d0-bad3-bcc0526ff0de"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("4e3f6713-8537-4901-9912-1b8e60370647"),
+                            ProductColorId = new Guid("b116a223-432a-4aff-bd15-9390abb7bfbc"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440315/gray_1_eurozu.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a632467a-19cb-4200-940d-e3b0105ee55b"),
+                            Id = new Guid("fd3db68e-1372-4222-896f-fca78e5d4058"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("4e3f6713-8537-4901-9912-1b8e60370647"),
+                            ProductColorId = new Guid("b116a223-432a-4aff-bd15-9390abb7bfbc"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440316/gray_2_gif5gy.jpg"
                         },
                         new
                         {
-                            Id = new Guid("a2a5d019-2058-4159-b0db-6ff6fe46e4a5"),
+                            Id = new Guid("42aa4729-64c2-4511-b4e1-53edf8924983"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("08f4b2b8-3892-459d-8b62-fc78201df9c6"),
+                            ProductColorId = new Guid("6b82f7f9-0614-4352-a900-41887b213bc3"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440403/white_1_nd5suu.jpg"
                         },
                         new
                         {
-                            Id = new Guid("3fab3e80-ea3e-40eb-bbdc-a02bc182de6a"),
+                            Id = new Guid("10f2a7b1-d360-4762-bf6c-2fd68896b754"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("08f4b2b8-3892-459d-8b62-fc78201df9c6"),
+                            ProductColorId = new Guid("6b82f7f9-0614-4352-a900-41887b213bc3"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440406/white_2_mbd76x.jpg"
                         },
                         new
                         {
-                            Id = new Guid("3150494d-9dab-4def-af12-4f03fe1d10fa"),
+                            Id = new Guid("db9f6ead-3892-414c-8636-789f05515301"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("74e406b8-92de-4ef5-9fce-c42806af61fe"),
+                            ProductColorId = new Guid("0d7bafff-9962-414e-85d8-9c80221d3e85"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440401/navy_1_vrk8fm.jpg"
                         },
                         new
                         {
-                            Id = new Guid("f80497fa-1d5a-41c3-9e27-6abe34b4e16e"),
+                            Id = new Guid("670cca2e-7644-46d7-b70f-6df80a07b7cf"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("74e406b8-92de-4ef5-9fce-c42806af61fe"),
+                            ProductColorId = new Guid("0d7bafff-9962-414e-85d8-9c80221d3e85"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440402/navy_2_vgb74l.jpg"
                         },
                         new
                         {
-                            Id = new Guid("abbbcf69-d572-4d08-bbb7-24c469c0399b"),
+                            Id = new Guid("841e635d-cbb8-4a75-98e5-c6ac25b1959c"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("9f416d19-921e-4a5a-bbc3-c07a0fe622e8"),
+                            ProductColorId = new Guid("619021b8-532e-4a1b-87f7-38571fcd269a"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440458/olive_1_uixjsd.jpg"
                         },
                         new
                         {
-                            Id = new Guid("fb1844ce-beb1-475a-9f04-08161b9d9dc0"),
+                            Id = new Guid("0105a9c6-f7db-46ce-a643-1c5da8990a81"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("9f416d19-921e-4a5a-bbc3-c07a0fe622e8"),
+                            ProductColorId = new Guid("619021b8-532e-4a1b-87f7-38571fcd269a"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440460/olive_2_q9e65h.jpg"
                         },
                         new
                         {
-                            Id = new Guid("feec8d07-f126-4332-beaf-89b2019b8adb"),
+                            Id = new Guid("cc6baa04-80de-4544-8299-bdd86936b559"),
                             IsPrimary = true,
-                            ProductColorId = new Guid("236e1e24-61d6-497c-b8d3-9d345aff253a"),
+                            ProductColorId = new Guid("ac4b09da-bf4c-42f4-824f-bc16e81aa413"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_1_xaltqx.jpg"
                         },
                         new
                         {
-                            Id = new Guid("b2d57dd8-df91-4feb-b661-9820efcc13b8"),
+                            Id = new Guid("8d33de52-09d0-46d2-9ec1-1c465f3b674a"),
                             IsPrimary = false,
-                            ProductColorId = new Guid("236e1e24-61d6-497c-b8d3-9d345aff253a"),
+                            ProductColorId = new Guid("ac4b09da-bf4c-42f4-824f-bc16e81aa413"),
                             Url = "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_2_xf8iqr.jpg"
                         });
                 });
@@ -1096,56 +1103,56 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4b07d583-b0bc-421b-a317-f6b7afdd16ec"),
-                            CategoryId = new Guid("d3260ef1-c6cf-48e0-8509-0b2727c087da"),
+                            Id = new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"),
+                            CategoryId = new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"),
                             Name = "Áo thun"
                         },
                         new
                         {
-                            Id = new Guid("6580de69-ed75-4267-a9e7-d6a24a7f93f1"),
-                            CategoryId = new Guid("d3260ef1-c6cf-48e0-8509-0b2727c087da"),
+                            Id = new Guid("e64cd78d-a9f7-4acd-b8eb-e125b800989e"),
+                            CategoryId = new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"),
                             Name = "Áo polo"
                         },
                         new
                         {
-                            Id = new Guid("e19bd92c-eb3e-428b-a893-61b7b2eb75ab"),
-                            CategoryId = new Guid("d3260ef1-c6cf-48e0-8509-0b2727c087da"),
+                            Id = new Guid("063e74e1-9654-4fbb-adc9-69371e7b611d"),
+                            CategoryId = new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"),
                             Name = "Áo sơ mi"
                         },
                         new
                         {
-                            Id = new Guid("db2bcdfe-2f99-4a08-9d1c-d70a1e865e78"),
-                            CategoryId = new Guid("285369b6-5e13-4616-bb0d-56fb332983ad"),
+                            Id = new Guid("061a9d19-ed1b-42eb-aacb-7d8ca99466d7"),
+                            CategoryId = new Guid("01af2e2f-f779-46ae-af72-64717834d068"),
                             Name = "Quần Short"
                         },
                         new
                         {
-                            Id = new Guid("3fd2cd2b-4a5c-4c37-867d-563871dba2c7"),
-                            CategoryId = new Guid("285369b6-5e13-4616-bb0d-56fb332983ad"),
+                            Id = new Guid("9a8ff57c-59fc-4f23-838a-0c6a93e55c7a"),
+                            CategoryId = new Guid("01af2e2f-f779-46ae-af72-64717834d068"),
                             Name = "Quần Jeans"
                         },
                         new
                         {
-                            Id = new Guid("f9fa04eb-012c-4053-b56c-f6af4f73faa6"),
-                            CategoryId = new Guid("285369b6-5e13-4616-bb0d-56fb332983ad"),
+                            Id = new Guid("440f4086-1e5f-4285-84b9-5d1e6e53db82"),
+                            CategoryId = new Guid("01af2e2f-f779-46ae-af72-64717834d068"),
                             Name = "Quần Tây"
                         },
                         new
                         {
-                            Id = new Guid("64a31316-586a-4159-97c1-e08b26fe175c"),
-                            CategoryId = new Guid("9fab6c9b-3c48-48e1-8949-bd4292345a3a"),
+                            Id = new Guid("56a78937-cf4a-479c-b39e-3721696d6148"),
+                            CategoryId = new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"),
                             Name = "Mũ & Mũ lưỡi trai"
                         },
                         new
                         {
-                            Id = new Guid("f63a1f11-5309-4440-b4c4-34c5aa3741ae"),
-                            CategoryId = new Guid("9fab6c9b-3c48-48e1-8949-bd4292345a3a"),
+                            Id = new Guid("c162dcc8-8e6d-4cf4-b339-dbc33bcc8e0e"),
+                            CategoryId = new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"),
                             Name = "Kính mát"
                         },
                         new
                         {
-                            Id = new Guid("3d5317bb-edb9-4736-940c-636812baa056"),
-                            CategoryId = new Guid("9fab6c9b-3c48-48e1-8949-bd4292345a3a"),
+                            Id = new Guid("d21197a5-f6ba-40b7-980f-91a958844382"),
+                            CategoryId = new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"),
                             Name = "Túi"
                         });
                 });
@@ -1167,27 +1174,27 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("695e1398-1a3c-46e8-89ac-963795537954"),
+                            Id = new Guid("fcf87b14-38e8-4440-b788-2fafbcccd215"),
                             Name = "M"
                         },
                         new
                         {
-                            Id = new Guid("b9d27ee1-9ce5-4c5a-b375-5d3cfad5850d"),
+                            Id = new Guid("c150a438-6f06-4617-aa0d-d91b1d6fc78e"),
                             Name = "L"
                         },
                         new
                         {
-                            Id = new Guid("4d51a06f-7d4d-4bc1-bd98-cfedb606be87"),
+                            Id = new Guid("a063ae38-bb8b-4187-96fc-6e988d9a4e1c"),
                             Name = "XL"
                         },
                         new
                         {
-                            Id = new Guid("3bbaddb9-e9db-41a0-9aae-309e38c8d214"),
+                            Id = new Guid("13cf56e1-f54d-43ae-8a59-b41dfd710270"),
                             Name = "2XL"
                         },
                         new
                         {
-                            Id = new Guid("deee9f2f-3043-412c-b989-c5cdf5f02ef1"),
+                            Id = new Guid("69522bcb-5754-46b8-b7ff-2d9a5997b7c6"),
                             Name = "3XL"
                         });
                 });
@@ -1274,6 +1281,27 @@ namespace EverythingSucks.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "32c944b9-669b-4bd7-ab4b-7a06829d9d84",
+                            AccessFailedCount = 0,
+                            Address = "123 Admin St",
+                            ConcurrencyStamp = "1054e68f-0730-4300-a7f1-b5e29fafa0b2",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Admin",
+                            LastName = "EC",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC65jIFVdnsAwyW+rRk80hpu5z+aPLWSovJ8maFatXXf8XyndiM+cdUvEub/ao5PQg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3efcb03d-7624-47c6-8b51-c759db125256",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1305,15 +1333,15 @@ namespace EverythingSucks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5eb26716-96a4-4e9a-b650-7cb2e01970bc",
-                            ConcurrencyStamp = "7c75ea8d-e299-45a6-a09a-2bf5dbb0abb9",
+                            Id = "c733d5c0-70be-43cc-b029-0d0b3abd5fc5",
+                            ConcurrencyStamp = "78eec985-6927-4d18-9d66-f601e1c73d21",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5899a36f-fcda-4d08-b066-a04886342c5f",
-                            ConcurrencyStamp = "59677ee9-a88c-47be-98ec-9628baacd5eb",
+                            Id = "5aaeea95-2f4f-4173-9549-5e290b8ec87b",
+                            ConcurrencyStamp = "a3201d1b-56e4-4cc9-82a3-a6145418a7f2",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -1404,6 +1432,13 @@ namespace EverythingSucks.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "32c944b9-669b-4bd7-ab4b-7a06829d9d84",
+                            RoleId = "c733d5c0-70be-43cc-b029-0d0b3abd5fc5"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

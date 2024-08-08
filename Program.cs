@@ -1,4 +1,5 @@
-﻿using EverythingSucks.Data;
+﻿using EverythingSucks.Controllers;
+using EverythingSucks.Data;
 using EverythingSucks.Helpers;
 using EverythingSucks.Models;
 using EverythingSucks.Services;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using Twilio.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +21,10 @@ builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true; // Cấu hình tạo ra URL dạng chữ thường
 });
-builder.Services.AddScoped<PhotoService>();
 
 #region Cloudinary
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<PhotoService>();
 #endregion
 
 #region Paypal
@@ -32,12 +35,17 @@ builder.Services.AddSingleton(x => new PaypalClient(
 ));
 #endregion
 
+#region FloatRatesExchange
+builder.Services.AddScoped<IExchangeRateProvider, FloatRatesExchangeRateProvider>();
+#endregion
+
 #region VnPay
 builder.Services.AddSingleton<IVnPayService, VnPayService>();
 #endregion
 
-#region Fetching Exchange Rates from FloatRates
-builder.Services.AddScoped<IExchangeRateProvider, FloatRatesExchangeRateProvider>();
+#region Twillio
+builder.Services.AddHttpClient<ITwilioRestClient, TwilioClient>();
+var smsApiUrl = builder.Configuration["SmsApiUrl"];
 #endregion
 
 #region ApplicationDbContext
@@ -56,9 +64,6 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireUppercase = false; // Yêu cầu chữ hoa
     options.Password.RequireLowercase = false; // Yêu cầu chữ thường
     options.Password.RequireDigit = false; // Yêu cầu số
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
-    //options.Lockout.MaxFailedAccessAttempts = 5;
-    //options.SignIn.RequireConfirmedAccount = true; yêu cầu người dùng xác nhận tài khoản
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
@@ -76,6 +81,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
        .AddCookie();
 #endregion
 
+builder.Services.AddScoped<CartController>();
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -89,14 +97,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
-
-app.UseSession();
-
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
+
 app.UseDeveloperExceptionPage();
 
 app.MapControllerRoute(
@@ -105,7 +111,11 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
 
-
+app.MapGet("/robots.txt", async context =>
+{
+    var robotsTxtContent = $"User-agent: *\nDisallow: /admin";
+    await context.Response.WriteAsync(robotsTxtContent);
+});
 app.Run();

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Xác thực OTP thất bại";
+}
+
+<div class="container mt-5">
+    <div class="text-center failed-page">
+        <h1>Đăng ký không thành công</h1>
+        <p>Vui lòng kiểm tra lại và thử lại.</p>
+        <strong>Nếu bạn cần hỗ trợ, vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi.</strong>
+        <hr />
+        <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Quay lại đăng ký</a>
+    </div>
+</div>
+
+<style>
+    .failed-page {
+        min-height: 100%;
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .failed-page h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #EB3417;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .failed-page p.lead {
+            font-size: 1.75rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .failed-page p {
+            font-size: 1.5rem;
+            color: #495057;
+            margin-bottom: 2rem;
+        }
+</style>
