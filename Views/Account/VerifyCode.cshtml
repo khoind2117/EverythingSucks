@@ -1,0 +1,89 @@
+﻿@using EverythingSucks.ViewModels
+@model VerifyCodeViewModel
+
+@{
+    ViewData["Title"] = "Mã xác thực OTP";
+}
+
+<form asp-action="VerifyCode" method="post">
+    <h2>@ViewData["Title"]</h2>
+    <div class="form-group pt-3">
+        <label for="Code">Mã xác thực</label>
+        <input type="text" id="Code" name="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Xác thực</button>
+    <input type="hidden" asp-for="ReturnUrl" />
+</form>
+
+<style>
+    /* General styles for the form */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Style for labels */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style for input fields */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style for validation error messages */
+.text-danger {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Style for the submit button */
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Additional styles for better form appearance */
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+</style>
