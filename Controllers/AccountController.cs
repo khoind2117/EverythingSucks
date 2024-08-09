@@ -62,8 +62,9 @@ namespace EverythingSucks.Controllers
                     {
                         if (await _userManager.IsInRoleAsync(user, "Admin"))
                         {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
                             // Chuyển hướng đến trang quản trị
-                            return RedirectToAction("Index", "Admin");
+                            return RedirectToAction("Index", "Home", new { Area = "Admin" });
                         }
 
                         // Tạo mã xác thực cho đăng nhập
@@ -270,13 +271,13 @@ namespace EverythingSucks.Controllers
         {
             var cartStatus = _context.CartStatuses.AsNoTracking().FirstOrDefault(cs => cs.Name == statusName);
             return cartStatus?.Id;
-        }
+        }   
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
