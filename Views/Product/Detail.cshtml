@@ -2,9 +2,22 @@
 @model DetailProductViewModel
 
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "Chi tiết sản phẩm";
     Layout = "_LayoutCustomer";
     var firstColor = Model.ProductColors.FirstOrDefault();
+}
+
+<!-- Meta tags for SEO and Open Graph -->
+@section MetaTags {
+    <title>@Model.ProductName</title>
+    <meta name="description" content="@Model.ProductDescription" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="@Model.ProductName" />
+    <meta property="og:description" content="@Model.ProductDescription" />
+    <meta property="og:image" content="@firstColor?.ProductImages?.FirstOrDefault(img => img.IsPrimary)?.ImageUrl" />
+    <meta property="og:url" content="@Url.Action("DetailProduct", "Product", new { id = Model.ProductId }, Context.Request.Scheme)" />
+    <meta property="og:type" content="website" />
 }
 
 <!-- Shop Details Section Begin -->
@@ -131,6 +144,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="primary-btn">Thêm vào giỏ hàng</button>
+                                <hr />
+                                Chia sẻ Facebook: <div class="sharethis-inline-share-buttons"></div>
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#"><i class="fa fa-heart"></i>Thêm vào yêu thích</a>
@@ -158,18 +173,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="related-title">Related Product</h3>
+                <h3 class="related-title">Sản phẩm liên quan</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="~/img/product/product-1.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/img/product/product-1.jpg">
                         <span class="label">New</span>
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="/img/icon/heart.png" alt="heart-icon"></a></li>
+                            <li><a href="#"><img src="/img/icon/search.png" alt="search-icon"></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -199,11 +213,10 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="~/img/product/product-2.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/img/product/product-2.jpg">
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="/img/icon/heart.png" alt="heart-icon"></a></li>
+                            <li><a href="#"><img src="/img/icon/search.png" alt="search-icon"></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -233,12 +246,11 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="~/img/product/product-3.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/img/product/product-3.jpg">
                         <span class="label">Sale</span>
                         <ul class="product__hover">
-                            <li><a href="#"><img src="~/img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="~/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="~/img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="/img/icon/heart.png" alt="heart-icon"></a></li>
+                            <li><a href="#"><img src="/img/icon/search.png" alt="search-icon"></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -268,11 +280,10 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="~/img/product/product-4.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/img/product/product-4.jpg">
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="/img/icon/heart.png" alt="heart-icon"></a></li>
+                            <li><a href="#"><img src="/img/icon/search.png" alt="search-icon"></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
