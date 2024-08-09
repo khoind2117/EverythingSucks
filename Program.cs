@@ -111,7 +111,11 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
 
-
+app.MapGet("/robots.txt", async context =>
+{
+    var robotsTxtContent = $"User-agent: *\nDisallow: /admin";
+    await context.Response.WriteAsync(robotsTxtContent);
+});
 app.Run();
