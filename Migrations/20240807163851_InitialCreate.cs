@@ -114,7 +114,6 @@ namespace EverythingSucks.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductCount = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CartStatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -297,13 +296,18 @@ namespace EverythingSucks.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    OrderStatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    OrderStatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -381,8 +385,7 @@ namespace EverythingSucks.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     SizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ProductColorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -400,11 +403,6 @@ namespace EverythingSucks.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_CartItem_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_CartItem_Sizes_SizeId",
                         column: x => x.SizeId,
                         principalTable: "Sizes",
@@ -419,8 +417,7 @@ namespace EverythingSucks.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     SizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ProductColorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -437,11 +434,6 @@ namespace EverythingSucks.Migrations
                         principalTable: "ProdductColor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OrderItem_Sizes_SizeId",
                         column: x => x.SizeId,
@@ -474,17 +466,27 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b3980b2e-fc1d-41ed-997f-a6407920f048", "41f7081c-639d-4728-addc-d8d281432ea8", "User", "USER" },
-                    { "fe7283b4-661a-4230-8a12-eb06cc16ba3c", "f45bc4bc-f869-4706-85b6-bacf60a7e646", "Admin", "ADMIN" }
+                    { "5aaeea95-2f4f-4173-9549-5e290b8ec87b", "a3201d1b-56e4-4cc9-82a3-a6145418a7f2", "User", "USER" },
+                    { "c733d5c0-70be-43cc-b029-0d0b3abd5fc5", "78eec985-6927-4d18-9d66-f601e1c73d21", "Admin", "ADMIN" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "CartId", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "32c944b9-669b-4bd7-ab4b-7a06829d9d84", 0, "123 Admin St", null, "1054e68f-0730-4300-a7f1-b5e29fafa0b2", "admin@gmail.com", true, "Admin", "EC", false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEC65jIFVdnsAwyW+rRk80hpu5z+aPLWSovJ8maFatXXf8XyndiM+cdUvEub/ao5PQg==", null, false, "3efcb03d-7624-47c6-8b51-c759db125256", false, "admin@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "Cart",
+                columns: new[] { "Id", "CartStatusId", "UserId" },
+                values: new object[] { new Guid("3a88704d-1fb1-41e9-b24b-0bb1ee011326"), null, "32c944b9-669b-4bd7-ab4b-7a06829d9d84" });
 
             migrationBuilder.InsertData(
                 table: "CartStatus",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("b10a4294-645b-462d-bb4f-198b72cf9904"), "Có hàng" },
-                    { new Guid("cd666bd1-f7a9-4355-a6f4-b395f40de032"), "Trống" }
+                    { new Guid("03ff6de0-5b56-4983-bc77-d6ad9aa3f754"), "Có hàng" },
+                    { new Guid("2ad7231a-e37c-4c60-a6ff-11b4fac52394"), "Trống" }
                 });
 
             migrationBuilder.InsertData(
@@ -492,9 +494,9 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("4de85204-0560-405f-9a9b-a6f4d7ea1487"), "Áo" },
-                    { new Guid("f9ac455f-41da-4983-8891-aae2b7058424"), "Phụ kiện" },
-                    { new Guid("fc9ffec4-b595-4740-acd9-76cd598f56b9"), "Quần" }
+                    { new Guid("01af2e2f-f779-46ae-af72-64717834d068"), "Quần" },
+                    { new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"), "Phụ kiện" },
+                    { new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"), "Áo" }
                 });
 
             migrationBuilder.InsertData(
@@ -502,18 +504,18 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "ColorCode", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("00e23392-e844-4c50-b20b-252e65b05c54"), "#DEDEDE", "Grey" },
-                    { new Guid("0a3e66f0-0ac5-4075-9916-78217c4c4c93"), "#EB3417", "Red" },
-                    { new Guid("1cb1c8b3-e020-49d3-8251-dfd26eba8ef9"), "#714E36", "Brown" },
-                    { new Guid("28fa8ebf-6946-4b74-a552-77a4f6a956ea"), "#387D1F", "Green" },
-                    { new Guid("3535b3df-3d13-4c8b-af77-171cd5e342c5"), "#FFFF3F", "Yellow" },
-                    { new Guid("68c07f92-fa29-4296-8bb3-600a8e7750ae"), "#3D3D3D", "Black" },
-                    { new Guid("757b58f5-54a8-4fce-ad27-79b2cd5fbc84"), "#F5C0C9", "Pink" },
-                    { new Guid("cfd6a0e9-37ff-46c6-826c-43ef9d53e6cb"), "#0003F9", "Blue" },
-                    { new Guid("e6ec535c-29b5-4491-ba0f-ace916ce6f8d"), "#FFFFFF", "White" },
-                    { new Guid("eb0a1ce8-f538-475b-9dfc-b674a4182def"), "#EFEBD4", "Beige" },
-                    { new Guid("f69ce8c3-2546-4a35-bac0-ea9dfb8a7207"), "#F3A72C", "Orange" },
-                    { new Guid("fb9fa8b3-3d12-4524-b4d0-27a4425e2a82"), "#741A7C", "Purple" }
+                    { new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"), "#3D3D3D", "Black" },
+                    { new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"), "#FFFFFF", "White" },
+                    { new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"), "#DEDEDE", "Grey" },
+                    { new Guid("37f88607-bd03-4ce7-9e07-b2a056d6a5be"), "#741A7C", "Purple" },
+                    { new Guid("3df410ec-626c-4ffa-862b-4cc7046b944a"), "#F5C0C9", "Pink" },
+                    { new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"), "#387D1F", "Green" },
+                    { new Guid("5c9896d1-4166-4b78-a624-d8dbd045b0e7"), "#EFEBD4", "Beige" },
+                    { new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"), "#0003F9", "Blue" },
+                    { new Guid("944f67e8-09d1-4e1a-ade1-e9956766e319"), "#EB3417", "Red" },
+                    { new Guid("a4f85071-938b-42de-b93a-f5bb744e7932"), "#FFFF3F", "Yellow" },
+                    { new Guid("b1d159f9-76f1-4dc9-9ff2-be47b7c45278"), "#714E36", "Brown" },
+                    { new Guid("b53ebd36-d127-4758-b3ea-00296ee34f22"), "#F3A72C", "Orange" }
                 });
 
             migrationBuilder.InsertData(
@@ -521,11 +523,11 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("2f8cc928-03b4-4a30-81cb-3b2c9f821751"), "Xác nhận" },
-                    { new Guid("a5cf6b86-d897-4e40-a6bd-f778107ab374"), "Đã hủy" },
-                    { new Guid("b1ca1b6d-be04-4b89-84e3-5aae0ceec124"), "Đang chờ xác nhận" },
-                    { new Guid("b8431a34-b0b2-43e7-9ae5-447335e7ec19"), "Đã giao" },
-                    { new Guid("b96b185a-8f06-4674-bcd5-aed0ad300acd"), "Chờ giao hàng" }
+                    { new Guid("18238cc0-2df7-42ff-8e5f-3fb33505f08b"), "Đã hủy" },
+                    { new Guid("4b70283d-5ce2-4c1f-b093-18e7122de806"), "Đã giao" },
+                    { new Guid("4dcd64cc-8379-46e0-a32d-fd0e74a895ce"), "Đang chờ xác nhận" },
+                    { new Guid("60fde9c1-2f33-4271-a2ba-88206ea622aa"), "Xác nhận" },
+                    { new Guid("df387df4-52f9-45ea-a8e2-26764bb09fbf"), "Chờ giao hàng" }
                 });
 
             migrationBuilder.InsertData(
@@ -533,27 +535,32 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("32bc7f03-6493-411f-9ac1-7061a42f3c0f"), "3XL" },
-                    { new Guid("4f9c5a76-f7f8-4737-b2df-0c974561a0f7"), "2XL" },
-                    { new Guid("b3a63acf-eda9-48b3-814c-f24d72c27be8"), "XL" },
-                    { new Guid("b8ae4678-5dbd-4192-a151-81b3bd130243"), "L" },
-                    { new Guid("bc732479-4839-4d06-830c-7a74bb95f6db"), "M" }
+                    { new Guid("13cf56e1-f54d-43ae-8a59-b41dfd710270"), "2XL" },
+                    { new Guid("69522bcb-5754-46b8-b7ff-2d9a5997b7c6"), "3XL" },
+                    { new Guid("a063ae38-bb8b-4187-96fc-6e988d9a4e1c"), "XL" },
+                    { new Guid("c150a438-6f06-4617-aa0d-d91b1d6fc78e"), "L" },
+                    { new Guid("fcf87b14-38e8-4440-b788-2fafbcccd215"), "M" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "c733d5c0-70be-43cc-b029-0d0b3abd5fc5", "32c944b9-669b-4bd7-ab4b-7a06829d9d84" });
 
             migrationBuilder.InsertData(
                 table: "ProductType",
                 columns: new[] { "Id", "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("189a0409-4e45-4e86-9551-76c83483de86"), new Guid("4de85204-0560-405f-9a9b-a6f4d7ea1487"), "Áo sơ mi" },
-                    { new Guid("49881797-7198-4998-973f-d069659357cd"), new Guid("f9ac455f-41da-4983-8891-aae2b7058424"), "Kính mát" },
-                    { new Guid("5278fcb4-2857-4397-8e68-7a95731f29c1"), new Guid("4de85204-0560-405f-9a9b-a6f4d7ea1487"), "Áo polo" },
-                    { new Guid("72c922f9-7196-4ec1-b2df-feca550d985b"), new Guid("fc9ffec4-b595-4740-acd9-76cd598f56b9"), "Quần Jeans" },
-                    { new Guid("8d725127-621e-48bd-9f08-08278a163afe"), new Guid("fc9ffec4-b595-4740-acd9-76cd598f56b9"), "Quần Short" },
-                    { new Guid("bea03f3c-0eed-4665-bc50-ca73398848cd"), new Guid("fc9ffec4-b595-4740-acd9-76cd598f56b9"), "Quần Tây" },
-                    { new Guid("c82ee7c2-deb0-4c9a-8abe-f0d27e156d0a"), new Guid("f9ac455f-41da-4983-8891-aae2b7058424"), "Mũ & Mũ lưỡi trai" },
-                    { new Guid("ccde8b8c-2279-443e-9dc9-8447eb880ca5"), new Guid("f9ac455f-41da-4983-8891-aae2b7058424"), "Túi" },
-                    { new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new Guid("4de85204-0560-405f-9a9b-a6f4d7ea1487"), "Áo thun" }
+                    { new Guid("061a9d19-ed1b-42eb-aacb-7d8ca99466d7"), new Guid("01af2e2f-f779-46ae-af72-64717834d068"), "Quần Short" },
+                    { new Guid("063e74e1-9654-4fbb-adc9-69371e7b611d"), new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"), "Áo sơ mi" },
+                    { new Guid("440f4086-1e5f-4285-84b9-5d1e6e53db82"), new Guid("01af2e2f-f779-46ae-af72-64717834d068"), "Quần Tây" },
+                    { new Guid("56a78937-cf4a-479c-b39e-3721696d6148"), new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"), "Mũ & Mũ lưỡi trai" },
+                    { new Guid("9a8ff57c-59fc-4f23-838a-0c6a93e55c7a"), new Guid("01af2e2f-f779-46ae-af72-64717834d068"), "Quần Jeans" },
+                    { new Guid("c162dcc8-8e6d-4cf4-b339-dbc33bcc8e0e"), new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"), "Kính mát" },
+                    { new Guid("d21197a5-f6ba-40b7-980f-91a958844382"), new Guid("3bf2fb8d-f7b5-409a-9eb8-1ae92a2e644d"), "Túi" },
+                    { new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"), "Áo thun" },
+                    { new Guid("e64cd78d-a9f7-4acd-b8eb-e125b800989e"), new Guid("8488ca15-ef5c-4e33-bffe-a5d1cb5b3946"), "Áo polo" }
                 });
 
             migrationBuilder.InsertData(
@@ -561,18 +568,18 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "CreatedAt", "Description", "IsDeleted", "Name", "Price", "ProductTypeId", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("334f7595-c66a-4cfb-aa5f-5575a5ed44f3"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(821), "Chất liệu 100% cotton bền chắc, cổ áo được làm bằng vải mềm, thiết kế giản dị lấy cảm hứng từ áo bóng bầu dục cổ điển.", false, "Áo Thun Vải Cotton Cổ Henley Ngắn Tay", 489000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(821) },
-                    { new Guid("3e7fac1f-f0da-4fbb-9725-2b2a4b6a0715"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(840), "Phần thân được làm từ chất liệu 100% cotton cực dày dặn, cảm giác khá sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.", false, "Áo Thun Dáng Rộng Tay Lỡ (Ringer)", 293000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(840) },
-                    { new Guid("3ee84e29-6ca8-4686-9b26-946926f60002"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(825), "100% cotton SUPIMA® cao cấp, mịn màng, thiết kế cơ bản phù hợp tạo kiểu với nhiều phong cách khác nhau từ đơn giản đến layer, được thiết kế tỉ mỉ đến từng chi tiết, từ chiều rộng cổ áo đến đường may.", false, "Áo Thun Supima Cotton Cổ Tròn Ngắn Tay", 391000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(826) },
-                    { new Guid("558c3fce-6292-4bc3-999e-f81ca3d4916e"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(823), "Chất liệu 100% cotton cực dày dặn, cảm giác sắc nét, mịn màng, được giặt trước một lần nước để có phong cách hoàn toàn giản dị.", false, "Áo Thun Dáng Rộng Kẻ Sọc Cổ Tròn Tay Lỡ", 391000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(824) },
-                    { new Guid("7ba4e307-667c-4683-9fd8-58334be00eec"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(830), "Chất liệu vải jersey 100% cotton dày dặn, mang lại cảm giác tươi mát, vải jersey khô được dệt nhỏ gọn có độ bền cao và có đặc tính sau mỗi lần giặt, buộc dây ở cổ áo giúp giữ nguyên kiểu dáng đường viền cổ áo.", false, "Áo Thun Cổ Tròn Ngắn Tay", 293000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(830) },
-                    { new Guid("92e69b3d-36d4-49a7-93cc-ad3c397e2a70"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(827), "Cảm giác giản dị của cotton, lớp lót polyester Với công nghệ DRY khô nhanh, thiết kế cơ bản mà bạn có thể tự tạo phong cách riêng hoặc theo Kiểu layer.", false, "Áo Thun Dry Cổ Tròn Nhiều Màu", 146000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(828) },
-                    { new Guid("b68880b2-2ed9-4039-94a7-3cdcff86f5f4"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(837), "Chất vải 'AIRism' mịn màng trông như cotton, Với công nghệ DRY khô nhanh, chất liệu vải sắc nét tạo nên kiểu dáng đẹp mắt.", false, "AIRism Cotton Áo Thun Không Tay", 293000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(838) },
-                    { new Guid("c8d25d58-1140-4a6a-8f18-2f4faec2bdd0"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(805), "Bộ sưu tập U từ thương hiệu Uniqlo là kết tinh sáng tạo của đội ngũ thiết kế quốc tế tận tâm và tài năng đến từ Trung tâm Nghiên cứu và Phát triển Paris, dưới sự dẫn dắt của Giám đốc Nghệ thuật Christophe Lemaire.", false, "AIRism Cotton Áo Thun Dáng Rộng Tay Lỡ", 391000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(814) },
-                    { new Guid("dcd470e6-9e95-4296-9b5c-e949639e8aaf"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(834), "Vải 'AIRism' mịn màng trông như cotton, cổ tròn hẹp mang lại vẻ ngoài bóng bẩy, vai trễ và tay áo dài đến một nửa rộng rãi, chất liệu vải tạo dáng tôn dáng.", false, "AIRism Cotton Áo Thun Dáng Rộng", 391000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(834) },
-                    { new Guid("e347acab-4b00-4fb3-bb8f-e81c4629db3d"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(832), "Một phiên bản mới của chiếc áo thun cổ tròn vải waffle nay đã có mặt, được thiết kế với kiểu dáng đơn giản, không có túi ở phần trước ngực, cải tiến với đường may thẳng cùng kiểu dáng xẻ tà, dễ dàng mặc cho mọi dịp.", false, "Áo Thun Vải Waffle Dài Tay", 391000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(832) },
-                    { new Guid("e620841b-871e-49d6-b4dc-7890d00ae6b5"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(819), "Vải 'DRY-EX' nhanh chóng hấp thụ và hút ẩm để giữ cho làn da của bạn cảm giác tươi mát.", false, "DRY-EX Áo Thun Cổ Tròn", 391000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(819) },
-                    { new Guid("e7900470-56f9-423d-9ddb-bfc2d28973ac"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(842), "Chất liệu 100% cotton dày dặn hoàn hảo, cảm giác sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.", false, "Áo Thun Dáng Rộng Tay Lỡ (Raglan)", 293000m, new Guid("f35b93ca-b8d8-4a21-b1af-6ff7ac96f9a7"), new DateTime(2024, 8, 2, 17, 35, 14, 495, DateTimeKind.Local).AddTicks(842) }
+                    { new Guid("08039caf-5a2d-43ec-8ad1-d66388053434"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4877), "100% cotton SUPIMA® cao cấp, mịn màng, thiết kế cơ bản phù hợp tạo kiểu với nhiều phong cách khác nhau từ đơn giản đến layer, được thiết kế tỉ mỉ đến từng chi tiết, từ chiều rộng cổ áo đến đường may.", false, "Áo Thun Supima Cotton Cổ Tròn Ngắn Tay", 391000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4878) },
+                    { new Guid("12439ae3-a55e-4050-bf5d-efe7dbb4be6c"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4872), "Chất liệu 100% cotton bền chắc, cổ áo được làm bằng vải mềm, thiết kế giản dị lấy cảm hứng từ áo bóng bầu dục cổ điển.", false, "Áo Thun Vải Cotton Cổ Henley Ngắn Tay", 489000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4872) },
+                    { new Guid("33daddd3-18a8-4189-9bd6-1c8c630549ae"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4884), "Một phiên bản mới của chiếc áo thun cổ tròn vải waffle nay đã có mặt, được thiết kế với kiểu dáng đơn giản, không có túi ở phần trước ngực, cải tiến với đường may thẳng cùng kiểu dáng xẻ tà, dễ dàng mặc cho mọi dịp.", false, "Áo Thun Vải Waffle Dài Tay", 391000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4884) },
+                    { new Guid("45ac6e73-c401-4b7c-bf24-3a53388ee3f8"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4887), "Chất vải 'AIRism' mịn màng trông như cotton, Với công nghệ DRY khô nhanh, chất liệu vải sắc nét tạo nên kiểu dáng đẹp mắt.", false, "AIRism Cotton Áo Thun Không Tay", 293000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4888) },
+                    { new Guid("76884c0d-4eee-4afd-a1e5-c6310dfcfb40"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4855), "Bộ sưu tập U từ thương hiệu Uniqlo là kết tinh sáng tạo của đội ngũ thiết kế quốc tế tận tâm và tài năng đến từ Trung tâm Nghiên cứu và Phát triển Paris, dưới sự dẫn dắt của Giám đốc Nghệ thuật Christophe Lemaire.", false, "AIRism Cotton Áo Thun Dáng Rộng Tay Lỡ", 391000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4867) },
+                    { new Guid("83005e52-71cd-422e-ab5b-5129b30d16cd"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4889), "Phần thân được làm từ chất liệu 100% cotton cực dày dặn, cảm giác khá sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.", false, "Áo Thun Dáng Rộng Tay Lỡ (Ringer)", 293000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4890) },
+                    { new Guid("877d7d6e-e9b8-4eea-99fd-85c63ff0d2ca"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4886), "Vải 'AIRism' mịn màng trông như cotton, cổ tròn hẹp mang lại vẻ ngoài bóng bẩy, vai trễ và tay áo dài đến một nửa rộng rãi, chất liệu vải tạo dáng tôn dáng.", false, "AIRism Cotton Áo Thun Dáng Rộng", 391000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4886) },
+                    { new Guid("916fca40-92eb-4e8e-b377-f1170316b32e"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4880), "Cảm giác giản dị của cotton, lớp lót polyester Với công nghệ DRY khô nhanh, thiết kế cơ bản mà bạn có thể tự tạo phong cách riêng hoặc theo Kiểu layer.", false, "Áo Thun Dry Cổ Tròn Nhiều Màu", 146000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4880) },
+                    { new Guid("93d3bb8f-befc-4ffa-a324-80e2a15e45ea"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4870), "Vải 'DRY-EX' nhanh chóng hấp thụ và hút ẩm để giữ cho làn da của bạn cảm giác tươi mát.", false, "DRY-EX Áo Thun Cổ Tròn", 391000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4870) },
+                    { new Guid("ad86c66a-93e0-432a-9a18-12b1491af89b"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4891), "Chất liệu 100% cotton dày dặn hoàn hảo, cảm giác sắc nét, mịn màng, giữ nguyên hình dạng sau khi giặt.", false, "Áo Thun Dáng Rộng Tay Lỡ (Raglan)", 293000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4891) },
+                    { new Guid("bb59c0b0-ed31-42d9-a40c-0f95e08efb8f"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4874), "Chất liệu 100% cotton cực dày dặn, cảm giác sắc nét, mịn màng, được giặt trước một lần nước để có phong cách hoàn toàn giản dị.", false, "Áo Thun Dáng Rộng Kẻ Sọc Cổ Tròn Tay Lỡ", 391000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4874) },
+                    { new Guid("daab0e88-09c2-47fe-8c2b-8ffcfe6b7563"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4882), "Chất liệu vải jersey 100% cotton dày dặn, mang lại cảm giác tươi mát, vải jersey khô được dệt nhỏ gọn có độ bền cao và có đặc tính sau mỗi lần giặt, buộc dây ở cổ áo giúp giữ nguyên kiểu dáng đường viền cổ áo.", false, "Áo Thun Cổ Tròn Ngắn Tay", 293000m, new Guid("e15365db-2023-4745-9d7b-c91e40017a9a"), new DateTime(2024, 8, 7, 23, 38, 49, 765, DateTimeKind.Local).AddTicks(4882) }
                 });
 
             migrationBuilder.InsertData(
@@ -580,30 +587,30 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "ColorId", "ProductId" },
                 values: new object[,]
                 {
-                    { new Guid("04d12b74-a0e9-4251-8dbb-9f6d2cfa55ec"), new Guid("cfd6a0e9-37ff-46c6-826c-43ef9d53e6cb"), new Guid("558c3fce-6292-4bc3-999e-f81ca3d4916e") },
-                    { new Guid("093240e3-c0b4-462a-b3ab-a776b56defee"), new Guid("1cb1c8b3-e020-49d3-8251-dfd26eba8ef9"), new Guid("92e69b3d-36d4-49a7-93cc-ad3c397e2a70") },
-                    { new Guid("0a00fddd-b9ba-4ec4-a186-95d6cc537e58"), new Guid("cfd6a0e9-37ff-46c6-826c-43ef9d53e6cb"), new Guid("dcd470e6-9e95-4296-9b5c-e949639e8aaf") },
-                    { new Guid("18f29a07-6b4e-4fc5-aa5c-535d4ffcbcad"), new Guid("eb0a1ce8-f538-475b-9dfc-b674a4182def"), new Guid("7ba4e307-667c-4683-9fd8-58334be00eec") },
-                    { new Guid("1ec6f99f-58ee-45dc-88b8-2ae84d424c43"), new Guid("0a3e66f0-0ac5-4075-9916-78217c4c4c93"), new Guid("3ee84e29-6ca8-4686-9b26-946926f60002") },
-                    { new Guid("36947dbc-0517-4751-9841-601d9c79104d"), new Guid("28fa8ebf-6946-4b74-a552-77a4f6a956ea"), new Guid("92e69b3d-36d4-49a7-93cc-ad3c397e2a70") },
-                    { new Guid("45b187d9-2f06-434d-a932-85efd4d77b5f"), new Guid("1cb1c8b3-e020-49d3-8251-dfd26eba8ef9"), new Guid("dcd470e6-9e95-4296-9b5c-e949639e8aaf") },
-                    { new Guid("4971ab26-e279-48b6-bb5f-8f279a050bdb"), new Guid("e6ec535c-29b5-4491-ba0f-ace916ce6f8d"), new Guid("3e7fac1f-f0da-4fbb-9725-2b2a4b6a0715") },
-                    { new Guid("4e8127fe-87ab-4bde-ac56-ae7e966cf44f"), new Guid("e6ec535c-29b5-4491-ba0f-ace916ce6f8d"), new Guid("c8d25d58-1140-4a6a-8f18-2f4faec2bdd0") },
-                    { new Guid("62720260-acd0-4fed-8790-06702233f6cc"), new Guid("e6ec535c-29b5-4491-ba0f-ace916ce6f8d"), new Guid("b68880b2-2ed9-4039-94a7-3cdcff86f5f4") },
-                    { new Guid("7c65956f-f339-4e5b-b638-b2a36b2414d3"), new Guid("68c07f92-fa29-4296-8bb3-600a8e7750ae"), new Guid("e347acab-4b00-4fb3-bb8f-e81c4629db3d") },
-                    { new Guid("7d7baab9-ec37-4484-8ada-65ffd9575b17"), new Guid("68c07f92-fa29-4296-8bb3-600a8e7750ae"), new Guid("e620841b-871e-49d6-b4dc-7890d00ae6b5") },
-                    { new Guid("92a6068e-ced7-48a2-9d69-0dd977162b39"), new Guid("00e23392-e844-4c50-b20b-252e65b05c54"), new Guid("b68880b2-2ed9-4039-94a7-3cdcff86f5f4") },
-                    { new Guid("9a04284e-a517-4e6b-b9c0-0267b003c401"), new Guid("28fa8ebf-6946-4b74-a552-77a4f6a956ea"), new Guid("334f7595-c66a-4cfb-aa5f-5575a5ed44f3") },
-                    { new Guid("9cb06349-4e63-4ecd-aa28-696f9278ef6e"), new Guid("28fa8ebf-6946-4b74-a552-77a4f6a956ea"), new Guid("e7900470-56f9-423d-9ddb-bfc2d28973ac") },
-                    { new Guid("ac592a1a-7873-4cff-8cbe-ca31d28d1e56"), new Guid("68c07f92-fa29-4296-8bb3-600a8e7750ae"), new Guid("334f7595-c66a-4cfb-aa5f-5575a5ed44f3") },
-                    { new Guid("ae7605fe-cbaa-48ad-a46e-4d667aea3a65"), new Guid("eb0a1ce8-f538-475b-9dfc-b674a4182def"), new Guid("e7900470-56f9-423d-9ddb-bfc2d28973ac") },
-                    { new Guid("b4c4c78c-d475-4ec9-8154-77b140080c9e"), new Guid("68c07f92-fa29-4296-8bb3-600a8e7750ae"), new Guid("c8d25d58-1140-4a6a-8f18-2f4faec2bdd0") },
-                    { new Guid("bedf5b56-b580-4f91-9d52-3c50f6cb162e"), new Guid("00e23392-e844-4c50-b20b-252e65b05c54"), new Guid("3ee84e29-6ca8-4686-9b26-946926f60002") },
-                    { new Guid("cc710d02-65f7-4b27-a6f6-e538c5a603e4"), new Guid("00e23392-e844-4c50-b20b-252e65b05c54"), new Guid("7ba4e307-667c-4683-9fd8-58334be00eec") },
-                    { new Guid("ce8c600f-0e60-420d-8dd7-48c9a52b4a57"), new Guid("cfd6a0e9-37ff-46c6-826c-43ef9d53e6cb"), new Guid("3e7fac1f-f0da-4fbb-9725-2b2a4b6a0715") },
-                    { new Guid("e0ea5ba2-8c2c-492c-aacd-dc86f2b6baa3"), new Guid("757b58f5-54a8-4fce-ad27-79b2cd5fbc84"), new Guid("558c3fce-6292-4bc3-999e-f81ca3d4916e") },
-                    { new Guid("e4999fd3-c9f4-4b58-9c82-5c71d421910d"), new Guid("cfd6a0e9-37ff-46c6-826c-43ef9d53e6cb"), new Guid("e347acab-4b00-4fb3-bb8f-e81c4629db3d") },
-                    { new Guid("f8d1337c-df9c-471a-aff8-a84dfee9af37"), new Guid("cfd6a0e9-37ff-46c6-826c-43ef9d53e6cb"), new Guid("e620841b-871e-49d6-b4dc-7890d00ae6b5") }
+                    { new Guid("0d7bafff-9962-414e-85d8-9c80221d3e85"), new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"), new Guid("83005e52-71cd-422e-ab5b-5129b30d16cd") },
+                    { new Guid("155fafd4-541b-4716-ac34-609553e1e07a"), new Guid("b1d159f9-76f1-4dc9-9ff2-be47b7c45278"), new Guid("916fca40-92eb-4e8e-b377-f1170316b32e") },
+                    { new Guid("1db07e2d-dc3a-4b77-8625-9701d71d6b22"), new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"), new Guid("877d7d6e-e9b8-4eea-99fd-85c63ff0d2ca") },
+                    { new Guid("27f6cbcc-b625-4de7-8b5a-1016551ecdb5"), new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"), new Guid("12439ae3-a55e-4050-bf5d-efe7dbb4be6c") },
+                    { new Guid("3e50ab98-3dbf-4fcd-9963-c1fa59a8d782"), new Guid("944f67e8-09d1-4e1a-ade1-e9956766e319"), new Guid("08039caf-5a2d-43ec-8ad1-d66388053434") },
+                    { new Guid("52afd94c-134f-40eb-b199-b8be04285dc1"), new Guid("b1d159f9-76f1-4dc9-9ff2-be47b7c45278"), new Guid("877d7d6e-e9b8-4eea-99fd-85c63ff0d2ca") },
+                    { new Guid("5300edec-f24d-43c9-98ac-ece6f8162972"), new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"), new Guid("33daddd3-18a8-4189-9bd6-1c8c630549ae") },
+                    { new Guid("61203d6a-654f-4f84-a193-8ac16fc14d46"), new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"), new Guid("08039caf-5a2d-43ec-8ad1-d66388053434") },
+                    { new Guid("619021b8-532e-4a1b-87f7-38571fcd269a"), new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"), new Guid("ad86c66a-93e0-432a-9a18-12b1491af89b") },
+                    { new Guid("6b82f7f9-0614-4352-a900-41887b213bc3"), new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"), new Guid("83005e52-71cd-422e-ab5b-5129b30d16cd") },
+                    { new Guid("6ef5bc54-127b-4c64-9eeb-bda6e98efee0"), new Guid("5c9896d1-4166-4b78-a624-d8dbd045b0e7"), new Guid("daab0e88-09c2-47fe-8c2b-8ffcfe6b7563") },
+                    { new Guid("813ed004-2277-4c73-8bd5-ea1e273cee62"), new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"), new Guid("76884c0d-4eee-4afd-a1e5-c6310dfcfb40") },
+                    { new Guid("88cf17db-ff65-4ca1-9aff-edc7943abddf"), new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"), new Guid("daab0e88-09c2-47fe-8c2b-8ffcfe6b7563") },
+                    { new Guid("8aa01376-6057-4ecb-ae2a-5be214ddcae6"), new Guid("4819410f-6be8-4275-a6d7-b59afbd0cd50"), new Guid("916fca40-92eb-4e8e-b377-f1170316b32e") },
+                    { new Guid("91427255-9f79-4eb9-b77b-eefdcebfff77"), new Guid("3df410ec-626c-4ffa-862b-4cc7046b944a"), new Guid("bb59c0b0-ed31-42d9-a40c-0f95e08efb8f") },
+                    { new Guid("98b00074-701a-4e71-9a9f-f5350e9edaea"), new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"), new Guid("93d3bb8f-befc-4ffa-a324-80e2a15e45ea") },
+                    { new Guid("99b85730-83bd-4700-8b7b-0f7cb010cbf0"), new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"), new Guid("76884c0d-4eee-4afd-a1e5-c6310dfcfb40") },
+                    { new Guid("9fcd53b2-464d-4614-be17-c8191337f54f"), new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"), new Guid("bb59c0b0-ed31-42d9-a40c-0f95e08efb8f") },
+                    { new Guid("ac4b09da-bf4c-42f4-824f-bc16e81aa413"), new Guid("5c9896d1-4166-4b78-a624-d8dbd045b0e7"), new Guid("ad86c66a-93e0-432a-9a18-12b1491af89b") },
+                    { new Guid("b116a223-432a-4aff-bd15-9390abb7bfbc"), new Guid("250afb4b-b7a7-4506-9285-c1c53fa3ddab"), new Guid("45ac6e73-c401-4b7c-bf24-3a53388ee3f8") },
+                    { new Guid("c391e26b-aaee-4038-9aa4-358c27ffcd8a"), new Guid("78eff946-06d0-4a8e-bcbf-d710ddc44dad"), new Guid("33daddd3-18a8-4189-9bd6-1c8c630549ae") },
+                    { new Guid("ce36bfdc-94d3-4464-9235-a232311cccfc"), new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"), new Guid("93d3bb8f-befc-4ffa-a324-80e2a15e45ea") },
+                    { new Guid("d0c3fa8a-8c14-4e81-ad69-5273d8dc57bb"), new Guid("1e6bcca3-4c9a-4b98-99c1-58bceecfe0cc"), new Guid("45ac6e73-c401-4b7c-bf24-3a53388ee3f8") },
+                    { new Guid("d29b9213-3169-4b2d-8bbf-52834e4f3ca4"), new Guid("055c1aa9-77ab-485c-9560-fc4860049b28"), new Guid("12439ae3-a55e-4050-bf5d-efe7dbb4be6c") }
                 });
 
             migrationBuilder.InsertData(
@@ -611,54 +618,54 @@ namespace EverythingSucks.Migrations
                 columns: new[] { "Id", "IsPrimary", "ProductColorId", "Url" },
                 values: new object[,]
                 {
-                    { new Guid("007ec052-5824-48bf-95ce-3fff18bfe63f"), false, new Guid("e4999fd3-c9f4-4b58-9c82-5c71d421910d"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440196/blue_2_ioyjmd.jpg" },
-                    { new Guid("0425635a-99e7-4465-b7d4-777fa7998d08"), false, new Guid("62720260-acd0-4fed-8790-06702233f6cc"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440318/white_2_opuzjo.jpg" },
-                    { new Guid("0666852e-b824-4550-b716-226cdf46fb2a"), true, new Guid("b4c4c78c-d475-4ec9-8154-77b140080c9e"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_1_gkqv9b.jpg" },
-                    { new Guid("06ea1484-c162-4715-bfbf-af58c336b03f"), false, new Guid("ac592a1a-7873-4cff-8cbe-ca31d28d1e56"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/black_2_xkoq54.jpg" },
-                    { new Guid("071b5451-7017-4dda-9167-67b72d2431f4"), true, new Guid("e4999fd3-c9f4-4b58-9c82-5c71d421910d"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440195/blue_1_hwruph.jpg" },
-                    { new Guid("08a1ecd6-c35f-43ab-9e56-f033cf5b0a7d"), true, new Guid("ac592a1a-7873-4cff-8cbe-ca31d28d1e56"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439223/black_1_lbqxjg.jpg" },
-                    { new Guid("0e3b7490-ba97-47de-a544-452892d330f0"), true, new Guid("e0ea5ba2-8c2c-492c-aacd-dc86f2b6baa3"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_1_v0tcxo.jpg" },
-                    { new Guid("1a14825a-a674-4834-bb12-65a70b339003"), true, new Guid("1ec6f99f-58ee-45dc-88b8-2ae84d424c43"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_1_zht2re.jpg" },
-                    { new Guid("20084984-043e-451f-8709-4049a7eaeb8b"), false, new Guid("0a00fddd-b9ba-4ec4-a186-95d6cc537e58"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/navy_2_sybyag.jpg" },
-                    { new Guid("21b1ae7d-7eb5-42a2-acba-a5d13b72868e"), false, new Guid("e0ea5ba2-8c2c-492c-aacd-dc86f2b6baa3"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_2_ygzmiw.jpg" },
-                    { new Guid("28449abf-6edd-4fc8-8394-fd74d186e828"), true, new Guid("0a00fddd-b9ba-4ec4-a186-95d6cc537e58"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440252/navy_1_aewdgs.jpg" },
-                    { new Guid("2f675fa2-1da7-4e2b-9b0d-302001bffbd1"), false, new Guid("4971ab26-e279-48b6-bb5f-8f279a050bdb"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440406/white_2_mbd76x.jpg" },
-                    { new Guid("305aaaa7-a4f2-4e96-8ffd-94a551f2514d"), false, new Guid("7d7baab9-ec37-4484-8ada-65ffd9575b17"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_2_rhdpsy.jpg" },
-                    { new Guid("31cc6857-1915-410a-9e88-6761a4f66af1"), true, new Guid("18f29a07-6b4e-4fc5-aa5c-535d4ffcbcad"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_1_zmlakv.jpg" },
-                    { new Guid("341946ee-d0d4-4249-8209-6edbee2d1150"), false, new Guid("1ec6f99f-58ee-45dc-88b8-2ae84d424c43"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_2_oohqly.jpg" },
-                    { new Guid("35f732bf-6d75-4aba-aa25-750693420f92"), false, new Guid("92a6068e-ced7-48a2-9d69-0dd977162b39"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440316/gray_2_gif5gy.jpg" },
-                    { new Guid("38986c7c-4705-4d89-9802-441404a1b441"), true, new Guid("04d12b74-a0e9-4251-8dbb-9f6d2cfa55ec"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439524/navy_1_kkhyqa.jpg" },
-                    { new Guid("3ed27361-589f-4a73-a689-dc678c8acb8a"), false, new Guid("093240e3-c0b4-462a-b3ab-a776b56defee"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_2_vj3zqp.jpg" },
-                    { new Guid("3fd593df-4c1c-4943-a0cd-190f578f320e"), true, new Guid("7d7baab9-ec37-4484-8ada-65ffd9575b17"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_1_r9smbn.jpg" },
-                    { new Guid("51f1e78a-c51a-4357-97f4-2f274ebdafca"), false, new Guid("ce8c600f-0e60-420d-8dd7-48c9a52b4a57"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440402/navy_2_vgb74l.jpg" },
-                    { new Guid("68ed9dfc-dce3-4962-a8d4-f1450c306c22"), false, new Guid("36947dbc-0517-4751-9841-601d9c79104d"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439960/green_2_kf2ll7.jpg" },
-                    { new Guid("71ab1755-3c54-4c6c-a1fd-271682484c8a"), false, new Guid("18f29a07-6b4e-4fc5-aa5c-535d4ffcbcad"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_2_dfpfn5.jpg" },
-                    { new Guid("77336544-da04-4dcf-a26a-4b02c803d304"), false, new Guid("cc710d02-65f7-4b27-a6f6-e538c5a603e4"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440135/light-gray_2_hpszuf.jpg" },
-                    { new Guid("8730995d-5a67-47ae-bb46-650cef10213d"), true, new Guid("f8d1337c-df9c-471a-aff8-a84dfee9af37"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_1_eaakhx.jpg" },
-                    { new Guid("873ecbbf-54c2-4f8a-9e09-7cc9a1cc800c"), true, new Guid("ce8c600f-0e60-420d-8dd7-48c9a52b4a57"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440401/navy_1_vrk8fm.jpg" },
-                    { new Guid("96aa75d9-c888-49dc-903c-55af6b188ce8"), false, new Guid("9cb06349-4e63-4ecd-aa28-696f9278ef6e"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440460/olive_2_q9e65h.jpg" },
-                    { new Guid("9f32d698-ca02-4204-8ec0-18bcfb6b12f6"), false, new Guid("b4c4c78c-d475-4ec9-8154-77b140080c9e"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_2_sx4vva.jpg" },
-                    { new Guid("ae4b3729-6360-4049-bcb1-1270273c6736"), true, new Guid("4971ab26-e279-48b6-bb5f-8f279a050bdb"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440403/white_1_nd5suu.jpg" },
-                    { new Guid("b0b62756-d9d6-4245-958e-69c7910b4d7a"), true, new Guid("45b187d9-2f06-434d-a932-85efd4d77b5f"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/brown_1_gmlsf5.jpg" },
-                    { new Guid("b1151b1c-3c74-4594-a109-3c0e7c402cd1"), true, new Guid("7c65956f-f339-4e5b-b638-b2a36b2414d3"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440193/black_1_mvzenu.jpg" },
-                    { new Guid("ba140479-b68e-435b-a031-e5fce4e5ada5"), true, new Guid("92a6068e-ced7-48a2-9d69-0dd977162b39"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440315/gray_1_eurozu.jpg" },
-                    { new Guid("be6bbf10-65c6-49d2-81ca-5c83944aed58"), true, new Guid("ae7605fe-cbaa-48ad-a46e-4d667aea3a65"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_1_xaltqx.jpg" },
-                    { new Guid("c0f52c9b-075b-443c-98bb-223176ff9d18"), true, new Guid("9a04284e-a517-4e6b-b9c0-0267b003c401"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/olive_1_faf0az.jpg" },
-                    { new Guid("c1085d1d-7389-453f-a521-d20e439d9fa8"), false, new Guid("bedf5b56-b580-4f91-9d52-3c50f6cb162e"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/gray_2_bzzytk.jpg" },
-                    { new Guid("c5d29f9c-0981-466c-84df-8156d996b9c7"), false, new Guid("ae7605fe-cbaa-48ad-a46e-4d667aea3a65"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_2_xf8iqr.jpg" },
-                    { new Guid("c885f72a-0ea1-4c06-89a9-f675bab40c6f"), false, new Guid("4e8127fe-87ab-4bde-ac56-ae7e966cf44f"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438077/white_2_oicoau.jpg" },
-                    { new Guid("cdccbcd9-d578-47ac-9104-5fef26736015"), false, new Guid("04d12b74-a0e9-4251-8dbb-9f6d2cfa55ec"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/navy_2_kolxaz.jpg" },
-                    { new Guid("cea2af4a-d60a-4c84-adb3-f81aaea9aee4"), true, new Guid("9cb06349-4e63-4ecd-aa28-696f9278ef6e"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440458/olive_1_uixjsd.jpg" },
-                    { new Guid("d2fdb252-13ae-436a-be74-8b6cdebf4e97"), true, new Guid("4e8127fe-87ab-4bde-ac56-ae7e966cf44f"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438076/white_1_t5dag8.jpg" },
-                    { new Guid("d3635f3a-ab12-4c4c-834c-e083e5e40f4e"), true, new Guid("093240e3-c0b4-462a-b3ab-a776b56defee"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_1_h2bauh.jpg" },
-                    { new Guid("d3af0431-22b5-4ea1-925f-ba4d40959142"), false, new Guid("f8d1337c-df9c-471a-aff8-a84dfee9af37"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_2_pvuo6o.jpg" },
-                    { new Guid("e1da8949-7961-42fa-bf94-e0942521a539"), true, new Guid("cc710d02-65f7-4b27-a6f6-e538c5a603e4"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/light-gray_1_uyfeh7.jpg" },
-                    { new Guid("e768e1c6-d061-4c19-a4f0-4ecfa8de0054"), false, new Guid("45b187d9-2f06-434d-a932-85efd4d77b5f"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440251/brown_2_zqkgfj.jpg" },
-                    { new Guid("ee15e5d0-0048-47fb-91f0-335a4c5c79e5"), false, new Guid("7c65956f-f339-4e5b-b638-b2a36b2414d3"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440194/black_2_yptvzh.jpg" },
-                    { new Guid("f01d03c1-66ab-4acd-bac8-505e5b379013"), true, new Guid("bedf5b56-b580-4f91-9d52-3c50f6cb162e"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439897/gray_1_lzp7go.jpg" },
-                    { new Guid("f55f2d2c-37be-4a64-bd0d-cb6f7317fd4b"), false, new Guid("9a04284e-a517-4e6b-b9c0-0267b003c401"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439222/olive_2_ovtcev.jpg" },
-                    { new Guid("fcbdbdb7-9e54-4733-8985-69859300d867"), true, new Guid("62720260-acd0-4fed-8790-06702233f6cc"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440317/white_1_lppqmp.jpg" },
-                    { new Guid("ff389c2d-ad96-4938-9dfd-1ac0bfbf4d26"), true, new Guid("36947dbc-0517-4751-9841-601d9c79104d"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/green_1_pwrndf.jpg" }
+                    { new Guid("0105a9c6-f7db-46ce-a643-1c5da8990a81"), false, new Guid("619021b8-532e-4a1b-87f7-38571fcd269a"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440460/olive_2_q9e65h.jpg" },
+                    { new Guid("04fee30f-f915-4556-9ec7-603fc9165ed3"), false, new Guid("98b00074-701a-4e71-9a9f-f5350e9edaea"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_2_pvuo6o.jpg" },
+                    { new Guid("0502fca7-b25b-4844-a10d-df7d9a7d19f5"), true, new Guid("c391e26b-aaee-4038-9aa4-358c27ffcd8a"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440195/blue_1_hwruph.jpg" },
+                    { new Guid("05635881-8cab-4281-a848-66d76adb4cdc"), false, new Guid("1db07e2d-dc3a-4b77-8625-9701d71d6b22"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/navy_2_sybyag.jpg" },
+                    { new Guid("09792728-30fc-43de-8589-87948bdf0dc1"), false, new Guid("813ed004-2277-4c73-8bd5-ea1e273cee62"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438077/white_2_oicoau.jpg" },
+                    { new Guid("0ee22d01-e51a-4b1f-a39b-5cdfb83ef504"), true, new Guid("6ef5bc54-127b-4c64-9eeb-bda6e98efee0"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_1_zmlakv.jpg" },
+                    { new Guid("10f2a7b1-d360-4762-bf6c-2fd68896b754"), false, new Guid("6b82f7f9-0614-4352-a900-41887b213bc3"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440406/white_2_mbd76x.jpg" },
+                    { new Guid("19c3276c-f8fe-4a58-9e2d-f482fa4f4d4b"), true, new Guid("52afd94c-134f-40eb-b199-b8be04285dc1"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440253/brown_1_gmlsf5.jpg" },
+                    { new Guid("1a6a7a18-1489-4865-8354-539c983876d7"), true, new Guid("5300edec-f24d-43c9-98ac-ece6f8162972"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440193/black_1_mvzenu.jpg" },
+                    { new Guid("1af7ad50-76d2-4d18-b007-79316b4e1ba0"), true, new Guid("88cf17db-ff65-4ca1-9aff-edc7943abddf"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/light-gray_1_uyfeh7.jpg" },
+                    { new Guid("1cf2f018-0a6f-4b3f-8abf-325261cb0413"), false, new Guid("88cf17db-ff65-4ca1-9aff-edc7943abddf"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440135/light-gray_2_hpszuf.jpg" },
+                    { new Guid("1e58c4cc-a69a-4c8a-a7aa-0effc9db9ebd"), true, new Guid("3e50ab98-3dbf-4fcd-9963-c1fa59a8d782"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_1_zht2re.jpg" },
+                    { new Guid("1eb36129-fada-498b-9c0a-14fa1864a24b"), false, new Guid("155fafd4-541b-4716-ac34-609553e1e07a"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_2_vj3zqp.jpg" },
+                    { new Guid("1f2b380c-b7ca-4841-96d7-e73aef6786bd"), true, new Guid("99b85730-83bd-4700-8b7b-0f7cb010cbf0"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_1_gkqv9b.jpg" },
+                    { new Guid("239aa394-f40e-45d0-bad3-bcc0526ff0de"), true, new Guid("b116a223-432a-4aff-bd15-9390abb7bfbc"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440315/gray_1_eurozu.jpg" },
+                    { new Guid("2929f829-a674-4e6b-a0ee-1ed7acdb24fd"), false, new Guid("d29b9213-3169-4b2d-8bbf-52834e4f3ca4"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/black_2_xkoq54.jpg" },
+                    { new Guid("2b3d60e9-5c29-4e94-b0df-e403c58e78e5"), true, new Guid("ce36bfdc-94d3-4464-9235-a232311cccfc"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_1_r9smbn.jpg" },
+                    { new Guid("38bdf142-0f63-4c9c-87e7-28c4881fb775"), true, new Guid("155fafd4-541b-4716-ac34-609553e1e07a"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/brown_1_h2bauh.jpg" },
+                    { new Guid("3a20cab8-866d-4538-86f1-84eb4e395ebd"), true, new Guid("8aa01376-6057-4ecb-ae2a-5be214ddcae6"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439959/green_1_pwrndf.jpg" },
+                    { new Guid("3d7b1f3f-6c50-44df-9232-dee9d90663d8"), true, new Guid("91427255-9f79-4eb9-b77b-eefdcebfff77"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_1_v0tcxo.jpg" },
+                    { new Guid("42aa4729-64c2-4511-b4e1-53edf8924983"), true, new Guid("6b82f7f9-0614-4352-a900-41887b213bc3"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440403/white_1_nd5suu.jpg" },
+                    { new Guid("42b4d277-f7c5-4152-a568-79ec56fed1af"), false, new Guid("99b85730-83bd-4700-8b7b-0f7cb010cbf0"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438090/black_2_sx4vva.jpg" },
+                    { new Guid("49ac97f5-295b-43dd-94e1-f735f0c658e8"), true, new Guid("d0c3fa8a-8c14-4e81-ad69-5273d8dc57bb"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440317/white_1_lppqmp.jpg" },
+                    { new Guid("49ee70b6-a427-40dd-bcaf-eee51ba5d4a3"), true, new Guid("98b00074-701a-4e71-9a9f-f5350e9edaea"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438404/blue_1_eaakhx.jpg" },
+                    { new Guid("644fe614-8318-44b3-912f-17dcb2445bdb"), true, new Guid("27f6cbcc-b625-4de7-8b5a-1016551ecdb5"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439221/olive_1_faf0az.jpg" },
+                    { new Guid("670cca2e-7644-46d7-b70f-6df80a07b7cf"), false, new Guid("0d7bafff-9962-414e-85d8-9c80221d3e85"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440402/navy_2_vgb74l.jpg" },
+                    { new Guid("6d68fd7b-d97f-46c2-8919-3712cf9c68b0"), false, new Guid("6ef5bc54-127b-4c64-9eeb-bda6e98efee0"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440136/natural_2_dfpfn5.jpg" },
+                    { new Guid("6dc50e23-b0f3-4a11-a8cb-383cf0c2e278"), false, new Guid("9fcd53b2-464d-4614-be17-c8191337f54f"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/navy_2_kolxaz.jpg" },
+                    { new Guid("6ed86342-6c6e-4ce9-93d6-4d25f22da2d2"), true, new Guid("1db07e2d-dc3a-4b77-8625-9701d71d6b22"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440252/navy_1_aewdgs.jpg" },
+                    { new Guid("841e635d-cbb8-4a75-98e5-c6ac25b1959c"), true, new Guid("619021b8-532e-4a1b-87f7-38571fcd269a"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440458/olive_1_uixjsd.jpg" },
+                    { new Guid("8a660c39-a005-4fa5-8038-f4efbe816c5a"), false, new Guid("8aa01376-6057-4ecb-ae2a-5be214ddcae6"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439960/green_2_kf2ll7.jpg" },
+                    { new Guid("8d33de52-09d0-46d2-9ec1-1c465f3b674a"), false, new Guid("ac4b09da-bf4c-42f4-824f-bc16e81aa413"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_2_xf8iqr.jpg" },
+                    { new Guid("911dce3e-dd79-4693-b22e-6fa98eac2ff0"), false, new Guid("52afd94c-134f-40eb-b199-b8be04285dc1"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440251/brown_2_zqkgfj.jpg" },
+                    { new Guid("91adb552-3850-4bab-94d1-fd193d48edc3"), false, new Guid("3e50ab98-3dbf-4fcd-9963-c1fa59a8d782"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/wine_2_oohqly.jpg" },
+                    { new Guid("a3494c7c-57ef-4d1b-a13a-687379d8c3f4"), false, new Guid("d0c3fa8a-8c14-4e81-ad69-5273d8dc57bb"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440318/white_2_opuzjo.jpg" },
+                    { new Guid("a574ed50-0219-4318-a235-15f1f5eabcbf"), true, new Guid("813ed004-2277-4c73-8bd5-ea1e273cee62"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438076/white_1_t5dag8.jpg" },
+                    { new Guid("bc684a31-a317-407a-9234-df1ae3f1a0db"), false, new Guid("ce36bfdc-94d3-4464-9235-a232311cccfc"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722438394/black_2_rhdpsy.jpg" },
+                    { new Guid("cae8ba9f-2517-425d-92ec-f2acdd9e7297"), false, new Guid("61203d6a-654f-4f84-a193-8ac16fc14d46"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439896/gray_2_bzzytk.jpg" },
+                    { new Guid("cc6baa04-80de-4544-8299-bdd86936b559"), true, new Guid("ac4b09da-bf4c-42f4-824f-bc16e81aa413"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440456/beige_1_xaltqx.jpg" },
+                    { new Guid("d12325cf-55ce-4421-8331-92b6be644860"), true, new Guid("9fcd53b2-464d-4614-be17-c8191337f54f"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439524/navy_1_kkhyqa.jpg" },
+                    { new Guid("d79051b7-f46f-4908-8c5d-7f916e18f0a5"), false, new Guid("5300edec-f24d-43c9-98ac-ece6f8162972"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440194/black_2_yptvzh.jpg" },
+                    { new Guid("d9efba2f-bad6-42ba-8720-ff4c7b8effc8"), true, new Guid("61203d6a-654f-4f84-a193-8ac16fc14d46"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439897/gray_1_lzp7go.jpg" },
+                    { new Guid("db9f6ead-3892-414c-8636-789f05515301"), true, new Guid("0d7bafff-9962-414e-85d8-9c80221d3e85"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440401/navy_1_vrk8fm.jpg" },
+                    { new Guid("e33ba492-8488-4426-9261-5ee01e8f875b"), false, new Guid("27f6cbcc-b625-4de7-8b5a-1016551ecdb5"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439222/olive_2_ovtcev.jpg" },
+                    { new Guid("e35f770e-67d2-4cc2-964d-44b05a54194f"), false, new Guid("c391e26b-aaee-4038-9aa4-358c27ffcd8a"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440196/blue_2_ioyjmd.jpg" },
+                    { new Guid("ec0df6e8-33cd-4586-bf76-397acb8b7c17"), true, new Guid("d29b9213-3169-4b2d-8bbf-52834e4f3ca4"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439223/black_1_lbqxjg.jpg" },
+                    { new Guid("fd3db68e-1372-4222-896f-fca78e5d4058"), false, new Guid("b116a223-432a-4aff-bd15-9390abb7bfbc"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722440316/gray_2_gif5gy.jpg" },
+                    { new Guid("fdfb14bb-9825-46cb-a711-5a72f30394f4"), false, new Guid("91427255-9f79-4eb9-b77b-eefdcebfff77"), "https://res.cloudinary.com/djsdux2v9/image/upload/v1722439525/pink_2_ygzmiw.jpg" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -723,11 +730,6 @@ namespace EverythingSucks.Migrations
                 column: "ProductColorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItem_ProductId",
-                table: "CartItem",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CartItem_SizeId",
                 table: "CartItem",
                 column: "SizeId");
@@ -761,11 +763,6 @@ namespace EverythingSucks.Migrations
                 name: "IX_OrderItem_ProductColorId",
                 table: "OrderItem",
                 column: "ProductColorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_ProductId",
-                table: "OrderItem",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_SizeId",

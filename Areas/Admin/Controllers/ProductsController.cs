@@ -7,17 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EverythingSucks.Data;
 using EverythingSucks.Models;
+using EverythingSucks.Services;
+using EverythingSucks.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EverythingSucks.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly PhotoService _photoService;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context,
+            PhotoService photoService)
         {
             _context = context;
+            _photoService = photoService;
         }
 
         // GET: Admin/Products
@@ -46,45 +53,87 @@ namespace EverythingSucks.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Create
-        public IActionResult Create()
+        // GET: Products/Create
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id");
-            return View();
+            var viewModel = new CreateProductViewModel
+            {
+                AvailableCategories = await _context.Categories
+                                        .Include(c => c.ProductTypes)
+                                        .ToListAsync(),
+                AvailableColors = await _context.Colors.ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,CreatedAt,UpdatedAt,IsDeleted,ProductTypeId")] Product product)
+        public async Task<IActionResult> Create(CreateProductViewModel productVM)
         {
             if (ModelState.IsValid)
             {
-                product.Id = Guid.NewGuid();
-                _context.Add(product);
+                var product = new Product
+                {
+                    Name = productVM.Name,
+                    Description = productVM.Description,
+                    Price = productVM.Price,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsDeleted = false,
+                    ProductTypeId = productVM.ProductTypeId,
+                    ProductColors = await Task.WhenAll(productVM.ColorSelections.Select(async cs => new ProductColor
+                    {
+                        ColorId = cs.ColorId,
+                        ProductImages = new List<ProductImage>
+                        {
+                            new ProductImage
+                            {
+                                Url = (await _photoService.AddPhotoAsync(cs.PrimaryImage, 800, 800)).SecureUrl.ToString(),
+                                IsPrimary = true
+                            }
+                        }.Concat(await Task.WhenAll(cs.AdditionalImages.Select(async image => new ProductImage
+                        {
+                            Url = (await _photoService.AddPhotoAsync(image, 800, 800)).SecureUrl.ToString(),
+                            IsPrimary = false
+                        }))).ToList()
+                    }))
+                };
+
+                _context.Products.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", product.ProductTypeId);
-            return View(product);
+            else
+            {
+                productVM.AvailableCategories = await _context.Categories
+                                        .Include(c => c.ProductTypes)
+                                        .ToListAsync();
+                productVM.AvailableColors = await _context.Colors.ToListAsync();
+
+                // Trả về view với ModelState không hợp lệ và dữ liệu đã nhập
+                ModelState.AddModelError("", "Failed to create product");
+                return View(productVM);
+            }
         }
 
         // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || !_context.Products.Any())
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.Include(p => p.ProductType).FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", product.ProductTypeId);
+
+            // No need to set ViewData["ProductId"] here unless you specifically need it in your view
             return View(product);
         }
 
@@ -120,9 +169,10 @@ namespace EverythingSucks.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", product.ProductTypeId);
+            
             return View(product);
         }
+
 
         // GET: Admin/Products/Delete/5
         public async Task<IActionResult> Delete(Guid? id)

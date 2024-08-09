@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Xác thực OTP thành công";
+}
+
+<div class="container mt-5">
+    <div class="text-center success-page">
+        <h1>Đăng ký thành công</h1>
+        <strong>Vui lòng quay lại trang đăng nhập để tiếp tục</strong>
+        <hr />
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Quay lại đăng nhập</a>
+    </div>
+</div>
+
+<style>
+    .success-page {
+        min-height: 100%;
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .success-page h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #387D1F;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .success-page p.lead {
+            font-size: 1.75rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-page p {
+            font-size: 1.5rem;
+            color: #495057;
+            margin-bottom: 2rem;
+        }
+</style>

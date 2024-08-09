@@ -187,9 +187,6 @@ namespace EverythingSucks.Data
             {
                 entity.ToTable("Order").HasKey(o => o.Id);
 
-                entity.Property(o => o.TotalAmount)
-                    .HasColumnType("decimal(18,2)");
-
                 // Liên kết đến OrderStatus
                 entity.HasOne(o => o.OrderStatus)
                     .WithMany(os => os.Orders)
@@ -221,20 +218,64 @@ namespace EverythingSucks.Data
 
             #region Sample Data
             // Khởi tạo dữ liệu cho IdentityRole
+            var adminRoleId = Guid.NewGuid().ToString();
+            var userRoleId = Guid.NewGuid().ToString();
+
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
                 {
+                    Id = adminRoleId,
                     Name = "Admin",
                     NormalizedName = "ADMIN",
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 },
                 new IdentityRole
                 {
+                    Id = userRoleId,
                     Name = "User",
                     NormalizedName = "USER",
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 }
             );
+
+            // Khởi tạo dữ liệu cho Admin
+            var hasher = new PasswordHasher<User>();
+
+            var adminUserId = Guid.NewGuid().ToString();
+
+            var adminUser = new User
+            {
+                Id = adminUserId,
+                UserName = "admin@gmail.com",
+                FirstName = "Admin",
+                LastName = "EC",
+                Address = "123 Admin St",
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Admin@123"),
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            // Thêm người dùng quản trị viên vào bảng AspNetUsers
+            modelBuilder.Entity<User>().HasData(adminUser);
+
+            // Gán vai trò quản trị viên cho người dùng quản trị viên
+            var adminUserRole = new IdentityUserRole<string>
+            {
+                UserId = adminUserId,
+                RoleId = adminRoleId
+            };
+
+            // Thêm vai trò người dùng vào bảng AspNetUserRoles
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(adminUserRole);
+
+            var adminCart = Guid.NewGuid();
+            modelBuilder.Entity<Cart>().HasData(
+                new Cart { Id = adminCart, UserId = adminUserId , CartStatusId = null}    
+            );
+
 
             // Define static GUIDs for Categories
             var topsCategoryId = Guid.NewGuid();
