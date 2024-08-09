@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using Twilio.Clients;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +81,11 @@ builder.Services.AddSession(options =>
 });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
        .AddCookie();
+#endregion
+
+#region Azure Key Vault
+var keyVaultUri = builder.Configuration["KeyVault:VaultUri"];
+builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUri), new DefaultAzureCredential());
 #endregion
 
 builder.Services.AddScoped<CartController>();
