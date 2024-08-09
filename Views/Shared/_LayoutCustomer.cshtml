@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="google-site-verification" content="LaUSB5hNbSZggw_9XBc74VJVBopL8Q-6TMPHoo9isc4">
 
-    <title>Male-Fashion | Template</title>
+    <title>@ViewData["Title"]</title>
+    @RenderSection("MetaTags", required: false)
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -28,6 +29,10 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+
+    @* ShareThis *@
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=66b5e120d9fbc40019dcc7f3&product=inline-share-buttons&source=platform" async="async"></script>
 </head>
 <body>
     @await Html.PartialAsync("_Header")
