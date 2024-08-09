@@ -11,6 +11,7 @@ namespace EverythingSucks.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public bool IsDeleted { get; set; }
+        public string Slug { get; set; }
 
         public Guid? ProductTypeId { get; set; }
         public virtual ProductType? ProductType { get; set; }
