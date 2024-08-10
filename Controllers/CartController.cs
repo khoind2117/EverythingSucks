@@ -336,8 +336,9 @@ namespace EverythingSucks.Controllers
                         .ThenInclude(ci => ci.ProductColor)
                             .ThenInclude(pc => pc.Product)
                     .SingleOrDefaultAsync(c => c.UserId == userId);
-
-                var total = cart.CartItems.Sum(ci => ci.ProductColor.Product.Price * ci.Quantity);
+                decimal total = 0;
+                if(cart != null)
+                total = cart.CartItems.Sum(ci => ci.ProductColor.Product.Price * ci.Quantity);
                 return Json(new { total = total });
             }
             else
