@@ -15,9 +15,6 @@ using Azure.Security.KeyVault.Secrets;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Azure Key Vault
-//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("KeyVault:VaultUri"));
-//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-
 // Configure Key Vault
 var keyVaultUri = builder.Configuration["KeyVault:VaultUri"];
 var secretClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
