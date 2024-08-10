@@ -38,6 +38,7 @@ namespace EverythingSucks.Controllers
                 ProductId = p.Id,
                 ProductName = p.Name,
                 ProductPrice = p.Price,
+                Slug = p.Slug,
                 ProductColors = p.ProductColors.Select(pc => new ProductColorViewModel
                 {
                     ColorId = pc.ColorId,
@@ -69,6 +70,7 @@ namespace EverythingSucks.Controllers
                 ProductId = p.Id,
                 ProductName = p.Name,
                 ProductPrice = p.Price,
+                Slug = p.Slug,
                 ProductColors = p.ProductColors.Select(pc => new ProductColorViewModel
                 {
                     ColorId = pc.ColorId,
@@ -79,7 +81,7 @@ namespace EverythingSucks.Controllers
                         ImageUrl = pi.Url,
                         IsPrimary = pi.IsPrimary
                     }).ToList()
-                }).ToList()
+                }).ToList(),
             }).ToListAsync();
 
             return View(result);
@@ -91,13 +93,14 @@ namespace EverythingSucks.Controllers
             return sizes.OrderBy(size => sizeOrder.IndexOf(size.Name)).ToList();
         }
 
-        public async Task<IActionResult> Detail(Guid productId)
+        [Route("product/{slug}")]
+        public async Task<IActionResult> Detail(string slug)
         {
             var product = await _context.Products.Include(p => p.ProductColors)
                                                 .ThenInclude(pc => pc.Color)
                                             .Include(p => p.ProductColors)
                                                 .ThenInclude(pc => pc.ProductImages)
-                                            .SingleOrDefaultAsync(p => p.Id == productId);
+                                            .SingleOrDefaultAsync(p => p.Slug == slug);
             
             var sizes = await _context.Sizes.ToListAsync();
             var sortedSizes = GetSortedSizes(sizes);

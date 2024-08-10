@@ -1,4 +1,5 @@
-﻿using EverythingSucks.Models;
+﻿using EverythingSucks.Helpers;
+using EverythingSucks.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -386,6 +387,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "airism-cotton-ao-thun-dang-rong-tay-lo",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -397,6 +399,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "dry-ex-ao-thun-co-tron",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -408,6 +411,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-vai-cotton-co-henley-ngan-tay",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -419,6 +423,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-dang-rong-ke-soc-co-tron-tay-lo",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -430,6 +435,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-supima-cotton-co-tron-ngan-tay",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -441,6 +447,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-dry-co-tron-nhieu-mau",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -452,6 +459,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-co-tron-ngan-tay",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -463,6 +471,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-vai-waffle-dai-tay",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -474,6 +483,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "airism-cotton-ao-thun-dang-rong",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -485,6 +495,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "airism-cotton-ao-thun-khong-tay",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -496,6 +507,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-dang-rong-tay-lo-ringer",
                     ProductTypeId = aoThunId
                 },
                 new Product
@@ -507,6 +519,7 @@ namespace EverythingSucks.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     IsDeleted = false,
+                    Slug = "ao-thun-dang-rong-tay-lo-raglan",
                     ProductTypeId = aoThunId
                 }
             );

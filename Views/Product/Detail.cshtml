@@ -2,7 +2,7 @@
 @model DetailProductViewModel
 
 @{
-    ViewData["Title"] = "Chi tiết sản phẩm";
+    ViewData["Title"] = @Model.ProductName;
     Layout = "_LayoutCustomer";
     var firstColor = Model.ProductColors.FirstOrDefault();
 }
@@ -10,14 +10,16 @@
 <!-- Meta tags for SEO and Open Graph -->
 @section MetaTags {
     <title>@Model.ProductName</title>
-    <meta name="description" content="@Model.ProductDescription" />
+    <meta name="description" content="@Model.ProductDescription" /> 
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="@Model.ProductName" />
     <meta property="og:description" content="@Model.ProductDescription" />
     <meta property="og:image" content="@firstColor?.ProductImages?.FirstOrDefault(img => img.IsPrimary)?.ImageUrl" />
-    <meta property="og:url" content="@Url.Action("DetailProduct", "Product", new { id = Model.ProductId }, Context.Request.Scheme)" />
-    <meta property="og:type" content="website" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="800" />
+    <meta property="og:url" content="@Url.Action("Detail", "Product", new { id = Model.ProductId }, Context.Request.Scheme)" />
+    <meta property="og:type" content="product" />
 }
 
 <!-- Shop Details Section Begin -->
