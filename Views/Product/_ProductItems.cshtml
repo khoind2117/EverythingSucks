@@ -12,7 +12,7 @@
             <div class="shop__product__option__right">
                 <p>Sort by Price:</p>
                 <select>
-                    <option value="">Low To High</option>
+                    <option value="">Thấp tới cao</option>
                     <option value="">$0 - $55</option>
                     <option value="">$55 - $100</option>
                 </select>
@@ -30,7 +30,7 @@
                     <ul class="product__hover">
                         <li><a href="#"><img src="~/img/icon/heart.png" alt="heart-icon"></a></li>
                         <li>
-                            <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductId">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug">
                                 <img src="~/img/icon/search.png" alt="search-icon">
                             </a>
                         </li>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="product__item__text">
                     <h6 itemprop="name">@item.ProductName</h6>
-                    <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductId" class="add-cart">Xem chi tiết</a>
+                    <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug" class="add-cart">Xem chi tiết</a>
                     <div class="rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
