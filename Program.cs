@@ -15,36 +15,36 @@ using Azure.Security.KeyVault.Secrets;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Azure Key Vault
-//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("KeyVault:VaultUri"));
 //builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
-//// Configure Key Vault
-//var keyVaultUri = builder.Configuration["KeyVault:VaultUri"];
-//var secretClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+// Configure Key Vault
+var keyVaultUri = builder.Configuration["KeyVault:VaultUri"];
+var secretClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
-//// Retrieve all secrets from Key Vault
-//var secrets = new Dictionary<string, string>
-//{
-//    { "ConnectionStrings:DefaultConnection", "DefaultConnection" },
-//    { "CloudinarySettings:CloudName", "CloudName" },
-//    { "CloudinarySettings:ApiKey", "ApiKey" },
-//    { "CloudinarySettings:ApiSecret", "ApiSecret" },
-//    { "PaypalOptions:AppId", "AppId" },
-//    { "PaypalOptions:AppSecret", "AppSecret" },
-//    { "VnPay:TmnCode", "TmnCode" },
-//    { "VnPay:HashSecret", "HashSecret" },
-//    { "VnPay:BaseUrl", "BaseUrl" },
-//    { "VnPay:PaymentBackReturnUrl", "PaymentBackReturnUrl" },
-//    { "Twilio:AccountSID", "AccountSID" },
-//    { "Twilio:AuthToken", "AuthToken" }
-//};
+// Retrieve all secrets from Key Vault
+var secrets = new Dictionary<string, string>
+{
+    { "ConnectionStrings:DefaultConnection", "DefaultConnection" },
+    { "CloudinarySettings:CloudName", "CloudName" },
+    { "CloudinarySettings:ApiKey", "ApiKey" },
+    { "CloudinarySettings:ApiSecret", "ApiSecret" },
+    { "PaypalOptions:AppId", "AppId" },
+    { "PaypalOptions:AppSecret", "AppSecret" },
+    { "VnPay:TmnCode", "TmnCode" },
+    { "VnPay:HashSecret", "HashSecret" },
+    { "VnPay:BaseUrl", "BaseUrl" },
+    { "VnPay:PaymentBackReturnUrl", "PaymentBackReturnUrl" },
+    { "Twilio:AccountSID", "AccountSID" },
+    { "Twilio:AuthToken", "AuthToken" }
+};
 
-//foreach (var secret in secrets)
-//{
-//    var retrievedSecret = secretClient.GetSecret(secret.Value);
-//    builder.Configuration[secret.Key] = retrievedSecret.Value.Value;
-//    Console.WriteLine($"{secret.Key} retrieved: {retrievedSecret.Value.Value}");
-//}
+foreach (var secret in secrets)
+{
+    var retrievedSecret = secretClient.GetSecret(secret.Value);
+    builder.Configuration[secret.Key] = retrievedSecret.Value.Value;
+    Console.WriteLine($"{secret.Key} retrieved: {retrievedSecret.Value.Value}");
+}
 #endregion
 
 // Add services to the container.
