@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<button class="btn" onclick="exportSubscribers()">Export Subscribers</button>
+
+<script>
+    function exportSubscribers() {
+        window.location.href = '/Admin/Mailchimp/ExportSubscribers';
+    }
+</script>
