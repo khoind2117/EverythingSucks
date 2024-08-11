@@ -275,9 +275,9 @@ namespace EverythingSucks.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Logout()
-        {
+        {   
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account", null);
+            return Redirect("/vi/");
         }
     }
 }
