@@ -58,8 +58,10 @@
                         <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Product" ? "active" : "")">
                             <a asp-controller="Product" asp-action="Index">Shop</a>
                         </li>
-@*                         <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Blog" ? "active" : "")"><a href="./blog.html">Blog</a></li>
- *@                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Contact" ? "active" : "")">
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Blog" ? "active" : "")">
+                            <a asp-controller="Blog" asp-action="Index">Blog</a>
+                        </li>
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Contact" ? "active" : "")">
                             <a asp-controller="Contact" asp-action="Index">Contacts</a>
                         </li>
                     </ul>
@@ -72,7 +74,15 @@
                     </a>
 
                     <a href="#"><img src="~/img/icon/heart.png" alt="Heart"></a>
-                    <a asp-controller="Cart" asp-action="Index"><img src="~/img/icon/cart.png" alt="Cart"></a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Order" asp-action="Index">
+                            <img src="~/img/icon/orderIcon.png" alt="Order">
+                        </a>     
+                    }
+                    <a asp-controller="Cart" asp-action="Index">
+                        <img src="~/img/icon/cart.png" alt="Cart">
+                    </a>
                     <div class="price" id="cartTotal"></div>
                 </div>
 

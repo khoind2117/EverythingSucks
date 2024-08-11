@@ -9,6 +9,7 @@
 
 <!-- Meta tags for SEO and Open Graph -->
 @section MetaTags {
+    <link rel="canonical" href="@Url.Action("Detail", "Product", new { slug = Model.ProductSlug }, Context.Request.Scheme)" />
     <title>@Model.ProductName</title>
     <meta name="description" content="@Model.ProductDescription" /> 
 
@@ -16,9 +17,9 @@
     <meta property="og:title" content="@Model.ProductName" />
     <meta property="og:description" content="@Model.ProductDescription" />
     <meta property="og:image" content="@firstColor?.ProductImages?.FirstOrDefault(img => img.IsPrimary)?.ImageUrl" />
-    <meta property="og:image:width" content="600" />
-    <meta property="og:image:height" content="800" />
-    <meta property="og:url" content="@Url.Action("Detail", "Product", new { id = Model.ProductId }, Context.Request.Scheme)" />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <meta property="og:url" content="@Url.Action("Detail", "Product", new { slug =  Model.ProductSlug }, Context.Request.Scheme)" />
     <meta property="og:type" content="product" />
 }
 
@@ -378,4 +379,43 @@
                 .replace('asp-route-sizeId=', 'asp-route-sizeId=' + selectedSizeId));
         });
     });
+</script>
+
+@{
+    var context = "\"@context\": \"https://schema.org\"";
+    var type = "\"@type\": \"https://schema.org/Article\"";
+    var id = "\"@id\": \"https://schema.org/Article\"";
+    var type2 = "\"@type\": \"https://schema.org/WebPage\"";
+    var type3 = "\"@type\": \"https://schema.org/Person\"";
+    var type4 = "\"@type\": \"https://schema.org/Organization\"";
+    var type5 = "\"@type\": \"https://schema.org/ImageObject\"";
+}
+<script type="application/ld+json">
+    {
+        @Html.Raw(context),
+        @Html.Raw(type),
+        "mainEntityOfPage": {
+            @Html.Raw(type2),
+            @Html.Raw(id)
+        },
+        "headline": "@Model.ProductName.Replace("\"", "")",
+        "image": [
+            "@firstColor?.ProductImages?.FirstOrDefault(img => img.IsPrimary)?.ImageUrl"
+        ],
+        "datePublished": "@Model.ProductCreatedAt.ToString("o")",
+        "dateModified": "@Model.ProductUpdatedAt.ToString("o")",
+        "author": {
+            @Html.Raw(type3),
+            "name": "Nguyễn Đăng Khôi"
+        },
+        "publisher": {
+            @Html.Raw(type4),
+            "name": "EverythingSucks",
+            "logo": {
+                @Html.Raw(type5),
+                "url": "https://esecommerce-dqg7cfhnb4dxgxh0.eastus-01.azurewebsites.net/img/clients/client-2.png"
+            }
+        },
+        "description": "@Model.ProductDescription?.Replace("\"", "")"
+    }
 </script>
