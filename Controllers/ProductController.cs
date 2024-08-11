@@ -25,6 +25,7 @@ namespace EverythingSucks.Controllers
                                                 .ThenInclude(pc => pc.Color)
                                             .Include(p => p.ProductColors)
                                                 .ThenInclude(pc => pc.ProductImages)
+                                            .OrderBy(p => p.Price)
                                             .AsSplitQuery()
                                             .AsQueryable();
 
@@ -116,6 +117,9 @@ namespace EverythingSucks.Controllers
                 ProductName = product.Name,
                 ProductDescription = product.Description,
                 ProductPrice = product.Price,
+                ProductSlug = product.Slug,
+                ProductCreatedAt = product.CreatedAt,
+                ProductUpdatedAt = product.UpdatedAt,
                 ProductColors = product.ProductColors.Select(pc => new ProductColorViewModel
                 {
                     ColorId = pc.ColorId,
