@@ -1,8 +1,18 @@
-﻿<!-- header -->
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var firstName = user?.FirstName;
+}
+<!-- header -->
 <!-- ============================================================== -->
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">
-        <a class="navbar-brand" href="index.html">Concept</a>
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+            <img src="~/img/logo.png" alt="">
+            Admin
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -97,17 +107,15 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown nav-user">
-                    <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                    <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/img/logo.png" alt="" class="user-avatar-md rounded-circle"></a>
                     <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                         <div class="nav-user-info">
-                            <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
+                            <h5 class="mb-0 text-white nav-user-name">@firstName </h5>
                             <span class="status"></span><span class="ml-2">Available</span>
                         </div>
                         <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                        <button id="logoutButton" type="button" style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-right: 28px; display: inline-block;">
-                            Đăng xuất
-                        </button>
+                        <a id="logoutLink" class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Đăng xuất</a>
                     </div>
                 </li>
             </ul>
@@ -116,3 +124,14 @@
 </div>
 <!-- ============================================================== -->
 <!-- end navbar -->
+<form id="logoutForm" method="post" action="@Url.Action("Logout", "Account")" style="display:none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<!-- JavaScript for Handling Logout -->
+<script>
+    document.getElementById('logoutLink').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        document.getElementById('logoutForm').submit(); // Submit the form
+    });
+</script>
