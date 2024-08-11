@@ -24,9 +24,9 @@
                                 <span style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-right: 28px; display: inline-block;">
                                     Chào, @firstName
                                 </span>
-                                <a href="#" id="logoutLink" style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-right: 28px; display: inline-block;">
+                                <button id="logoutButton" style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-right: 28px; display: inline-block;">
                                     Đăng xuất
-                                </a>
+                                </button>
                             }
                             else
                             {
@@ -114,15 +114,3 @@
     </div>
 </header>
 <!-- Header Section End -->
-<!-- Hidden Form for Logout -->
-<form id="logoutForm" method="post" action="@Url.Action("Logout", "Account")" style="display:none;">
-    @Html.AntiForgeryToken()
-</form>
-
-<!-- JavaScript for Handling Logout -->
-<script>
-    document.getElementById('logoutLink').addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent the default anchor behavior
-        document.getElementById('logoutForm').submit(); // Submit the form
-    });
-</script>
