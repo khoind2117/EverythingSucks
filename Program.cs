@@ -36,7 +36,9 @@ var secrets = new Dictionary<string, string>
     { "VnPay:BaseUrl", "BaseUrl" },
     { "VnPay:PaymentBackReturnUrl", "PaymentBackReturnUrl" },
     { "Twilio:AccountSID", "AccountSID" },
-    { "Twilio:AuthToken", "AuthToken" }
+    { "Twilio:AuthToken", "AuthToken" },
+    { "MailChimp:MailchimpApiKey", "MailChimpApiKey" },
+    { "MailChimp:ListId", "MailChimpListId" }
 };
 
 foreach (var secret in secrets)
