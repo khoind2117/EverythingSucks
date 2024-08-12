@@ -17,6 +17,8 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using System.Net.Http.Headers;
 using System.Linq;
+using EverythingSucks.Helpers;
+using Microsoft.Extensions.Options;
 
 
 namespace EverythingSucks.Areas.Admin.Controllers
@@ -26,10 +28,13 @@ namespace EverythingSucks.Areas.Admin.Controllers
     public class MailchimpController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
 
-        public MailchimpController(ApplicationDbContext context)
+        public MailchimpController(ApplicationDbContext context,
+            IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         public async Task<IActionResult> Index()
@@ -39,8 +44,8 @@ namespace EverythingSucks.Areas.Admin.Controllers
 
         public async Task<List<Subscriber>> GetSubscribersFromMailchimpAsync()
         {
-            var apiKey = "ab522933259cd61787a4c8ea2b28104d-us22";
-            var listId = "d813a3d330";
+            var apiKey = _config["Mailchimp:MailchimpApiKey"];
+            var listId = _config["Mailchimp:ListId"];
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
