@@ -33,7 +33,7 @@
                                             <img src="@item.ProductColor.ProductImages.FirstOrDefault()?.Url" style="width:90px; height:90px" alt="@item.ProductColor.Product.Name">
                                         </div>
                                         <div class="product__cart__item__text mr-3">
-                                            <a asp-controller="Product" asp-action="Detail" asp-route-productId="@item.ProductColor.ProductId">
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.ProductColor.Product.Slug">
                                                 <h6>@item.ProductColor.Product.Name</h6>
                                             </a>
                                             <h5>@productPrice.ToString("C0", cultureInfo)</h5>

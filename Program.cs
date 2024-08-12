@@ -80,6 +80,10 @@ builder.Services.AddHttpClient<ITwilioRestClient, TwilioClient>();
 var smsApiUrl = builder.Configuration["SmsApiUrl"];
 #endregion
 
+#region Mailchimp
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("MailchimpSettings"));
+#endregion
+
 #region ApplicationDbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
